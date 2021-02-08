@@ -7,12 +7,12 @@ Your Project Logo/Icon:
 
 ![alt text](https://github.com/JamesFlippin/Final-Project-21SP_StudentTemplate/blob/main/OctoCat_SM.png "My Logo")
 
-# Project Name (Stylized)
-Very brief and to the point project description (one sentance preferred)
+# **Ian's Grocery Store**
+Application that the customer can use to order groceries, and the employees and managers can use to operate the store.
 
 ## Detailed Description
 
-Clear semi-detailed professional description of your project. (about a paragraph or slightly more)
+The application that the customer will use will display pages of products that they can cycle through. They can choose to get more information on the products, or add the product to their cart. There will also be a specials menu at the bottom of the screen what will take up less space, but work in a similar fashion. The employees and managers will each have their own applications as well that they must log into, but these applications will be used for them to perform their respective duties.
 
 ### Project Introduction
 
@@ -69,6 +69,7 @@ Include any essential instructions for:
 
 ### TODO
 - Next steps
+  - Create ERD
 - Features planned
 - Known bugs (shortlist)
 
@@ -76,10 +77,8 @@ Include any essential instructions for:
 
 Contact | Information
 --------|------
-Name | Your Name
-Email | Your Email Address
-Social Media Link | Your Social Media link(s) (if applicable)
-Google Group/mailing list | Your mail distribution list (if applicable)
+Name | Ian Fuller
+Email | icfuller@mymail.tstc.edu
 
 ### License
 Indicate your license/License model, etc.
