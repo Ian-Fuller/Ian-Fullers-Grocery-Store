@@ -81,20 +81,8 @@ Name | Ian Fuller
 Email | icfuller@mymail.tstc.edu
 
 ### License
-Indicate your license/License model, etc.
 
-(also, review the Instructions for adding a license file:
-
-https://docs.github.com/en/github/building-a-strong-community/adding-a-license-to-a-repository)
-
-The three major licenses used are (Choose one):  
-
-Apache License v2.0
-
-GNU General Public License v3.0
-
-MIT License
-
-[Choose the one you want to use, create your license file in your repo and include description and link to it here)
+### <a href="https://github.com/icfuller/SP21-FullerI/blob/master/LICENSE" target="_blank">License</a>
+icfuller/SP21-FullerI is licensed under the GNU General Public License v3.0
 
 Permissions of this strong copyleft license are conditioned on making available complete source code of licensed works and modifications, which include larger works using a licensed work, under the same license. Copyright and license notices must be preserved. Contributors provide an express grant of patent rights.
