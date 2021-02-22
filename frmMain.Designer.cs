@@ -37,7 +37,7 @@ namespace SP21_Final_Project
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Name = "frmMain";
-            this.Text = "Form1";
+            this.Text = "Ian\'s Grocery Store";
             this.Load += new System.EventHandler(this.frmMain_Load);
             this.ResumeLayout(false);
 
