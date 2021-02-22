@@ -1,10 +1,3 @@
-Review site this before modifing you Readme.md file:
-
-https://medium.com/swlh/how-to-make-the-perfect-readme-md-on-github-92ed5771c061
-
-
-Your Project Logo/Icon: 
-
 ![alt text](https://github.com/JamesFlippin/SP21-FullerI/blob/main/Images/GroceryStoreLogo64x64.png "My Logo")
 
 # **Ian's Grocery Store**
@@ -16,14 +9,12 @@ The application that the customer will use will display pages of products that t
 
 ### Project Introduction
 
-- Describe very briefly but clearly what the project does.
-- State if it is out-of-the-box user-friendly, so it’s clear to the user.
-- List its most useful/innovative/noteworthy features.
-- State its goals/what problem(s) it solves.
-- Note and briefly describe any key concepts (technical, philosophical, or both) important to the user’s understanding.
-- Link to any supplementary blog posts or project main pages.
-- Note its development status.
-- If possible, include screenshots and demo videos.
+- This project is an application that a customer can use to make purcheses from a grocery store, and that managers and employees can use to operate the store.
+- The progam will likely by out-of-the-box user-friendly.
+- Nothing new or innovative is planned for this project currently, but this may change.
+- This program solves the problem of the customer having to go out in person to buy groceries.
+- The project is in the very early stages of development. The project has been planned out, but an actual program has not been made.
+- Screenshots and demo videos may be added later.
 
 ### Development Environment
 
@@ -39,38 +30,40 @@ Report Methods | HTML Reports
 
 ### Core Technical Concepts/Inspiration
 
-- Why does this project exist?
-- Frame your project for the potential user. 
+- This project was created as a way to demonstrate software development skills
+<!-- ADD LATER - Frame your project for the potential user. 
 - Compare/contrast your project with other, similar projects so the user knows how it is different from those projects.
-- Highlight the technical concepts that your project demonstrates or supports. Keep it very brief.
+- Highlight the technical concepts that your project demonstrates or supports. Keep it very brief. --!>
 
-### Getting Started/Requirements/Prerequisites/Dependencies
+<!-- ADD LATER ### Getting Started/Requirements/Prerequisites/Dependencies
 Include any essential instructions for:
 - Getting your program
 - Installing your program
 - Configuring your program
-- Running your program
+- Running your program --!>
 
-### More Specific Topics
+<!-- ### More Specific Topics
 - Versioning: Services, APIs, Systems
 - Common Error Messages/related details
-- Testing, validation, etc.
+- Testing, validation, etc. --!>
 
 ### Videos
 - URL for your Video Resume
 - URL for your Product Overview Video
 - URL for any other specific videos for this product
 
-### Contributing
+<!-- ### Contributing
 - Contributor Guidelines
 - Code Requirements
 - Format for commit messages
-- Thank you (name contributors)
+- Thank you (name contributors) --!>
 
 ### TODO
 - Next steps
-  - Create ERD
+  - Begin prototyping program
 - Features planned
+  - The program will be able to read data from a database and display the products to the user
+  - Managers will be able to add/remove products
 - Known bugs (shortlist)
 
 ### Contact
