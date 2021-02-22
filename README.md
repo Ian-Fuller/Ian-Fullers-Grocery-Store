@@ -56,7 +56,7 @@ Include any essential instructions for:
 - URL for any other specific videos for this product
 
 ###### Add Later
-### Contributing --!>
+### Contributing
 - Contributor Guidelines
 - Code Requirements
 - Format for commit messages
