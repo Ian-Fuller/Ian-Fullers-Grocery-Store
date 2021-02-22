@@ -31,32 +31,32 @@ Report Methods | HTML Reports
 ### Core Technical Concepts/Inspiration
 
 - This project was created as a way to demonstrate software development skills
-<!-- ADD LATER - Frame your project for the potential user. 
-- Compare/contrast your project with other, similar projects so the user knows how it is different from those projects.
-- Highlight the technical concepts that your project demonstrates or supports. Keep it very brief. --!>
+<!-- - Frame your project for the potential user. --!>
+<!-- - Compare/contrast your project with other, similar projects so the user knows how it is different from those projects. --!>
+<!-- - Highlight the technical concepts that your project demonstrates or supports. Keep it very brief. --!>
 
-<!-- ADD LATER ### Getting Started/Requirements/Prerequisites/Dependencies
-Include any essential instructions for:
-- Getting your program
-- Installing your program
-- Configuring your program
-- Running your program --!>
+<!-- ### Getting Started/Requirements/Prerequisites/Dependencies --!>
+<!-- Include any essential instructions for: --!>
+<!-- - Getting your program --!>
+<!-- - Installing your program --!>
+<!-- - Configuring your program --!>
+<!-- - Running your program --!>
 
-<!-- ### More Specific Topics
-- Versioning: Services, APIs, Systems
-- Common Error Messages/related details
-- Testing, validation, etc. --!>
+<!-- ### More Specific Topics --!>
+<!-- - Versioning: Services, APIs, Systems --!>
+<!-- - Common Error Messages/related details --!>
+<!-- - Testing, validation, etc. --!>
 
 ### Videos
 - URL for your Video Resume
 - URL for your Product Overview Video
 - URL for any other specific videos for this product
 
-<!-- ### Contributing
-- Contributor Guidelines
-- Code Requirements
-- Format for commit messages
-- Thank you (name contributors) --!>
+<!-- ### Contributing --!>
+<!-- - Contributor Guidelines --!>
+<!-- - Code Requirements --!>
+<!-- - Format for commit messages --!>
+<!-- - Thank you (name contributors) --!>
 
 ### TODO
 - Next steps
