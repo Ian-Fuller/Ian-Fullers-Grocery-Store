@@ -1,5 +1,4 @@
-﻿
-namespace SP21_Final_Project
+﻿namespace SP21_Final_Project
 {
     partial class frmMain
     {
