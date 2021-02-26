@@ -18,8 +18,8 @@ namespace SP21_Final_Project
     class DB
     {
         //Connection string
-        private const string CONN_STRING = @"Server = [SERVER]; Database = [DATABASE]; User Id = [USER ID]; Password = [PASSWORD]";
-        private static SqlConnection _conn = new SqlConnection(CONN_STRING);
+        private const string strConnection = @"Server = cstnt.tstc.edu; Database = inew2332sp21; User Id = FullerIsp212332; Password = 1756605";
+        private static SqlConnection _cntDatabase = new SqlConnection(strConnection);
 
         //CLASS OBEJCTS
         //CLASS OBJECTS
@@ -29,7 +29,7 @@ namespace SP21_Final_Project
         {
             try
             {
-                _conn.Open();
+                _cntDatabase.Open();
                 MessageBox.Show("Connection successful.", "Database Connection", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch(Exception ex)
@@ -41,7 +41,7 @@ namespace SP21_Final_Project
         {
             try
             {
-                _conn.Close();
+                _cntDatabase.Close();
                 MessageBox.Show("Closed successfully.", "Database Connection", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
@@ -50,12 +50,33 @@ namespace SP21_Final_Project
             }
         }
 
+        public static void ShowSQLException(SqlException ex, string errorMessage)
+        {
+            StringBuilder errorMessages = new StringBuilder();
+            if (ex is SqlException)
+            {
+                for (int i = 0; i < ex.Errors.Count; i++)
+                {
+                    errorMessages.Append("Index #" + i + "\n" +
+                        "Message: " + ex.Errors[i].Message + "\n" +
+                        "LineNumber: " + ex.Errors[i].LineNumber + "\n" +
+                        "Source: " + ex.Errors[i].Source + "\n" +
+                        "Procedure: " + ex.Errors[i].Procedure + "\n");
+                }
+                MessageBox.Show(errorMessages.ToString(), errorMessage, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                MessageBox.Show(ex.Message, errorMessage, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         //Query template
-        public static void ProductsQuery(/*arguments*/)
+        public static void ProductsQuery(/*parameters*/)
         {
             string query = "";
 
-            SqlCommand cmd = new SqlCommand(query, _conn);
+            SqlCommand cmd = new SqlCommand(query, _cntDatabase);
             SqlDataAdapter da = new SqlDataAdapter();
             DataTable dt = new DataTable();
 
@@ -65,32 +86,16 @@ namespace SP21_Final_Project
             }
             catch (SqlException ex)
             {
-                StringBuilder errorMessages = new StringBuilder();
-                if (ex is SqlException)
-                {
-                    for (int i = 0; i < ex.Errors.Count; i++)
-                    {
-                        errorMessages.Append("Index #" + i + "\n" +
-                            "Message: " + ex.Errors[i].Message + "\n" +
-                            "LineNumber: " + ex.Errors[i].LineNumber + "\n" +
-                            "Source: " + ex.Errors[i].Source + "\n" +
-                            "Procedure: " + ex.Errors[i].Procedure + "\n");
-                    }
-                    MessageBox.Show(errorMessages.ToString(), "Error Update Products", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                else
-                {
-                    MessageBox.Show(ex.Message + "Error (PO7)", "Error Update Products", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                ShowSQLException(ex, "[ERROR MESSAGE]");
             }
         }
 
         //Nonquery template
-        public static void NonQuery(/*arguments*/)
+        public static void NonQuery(/*parameters*/)
         {
             string nonQuery = "";
 
-            SqlCommand cmd = new SqlCommand(nonQuery, _conn);
+            SqlCommand cmd = new SqlCommand(nonQuery, _cntDatabase);
             SqlDataAdapter da = new SqlDataAdapter();
             DataTable dt = new DataTable();
 
@@ -100,23 +105,7 @@ namespace SP21_Final_Project
             }
             catch (SqlException ex)
             {
-                StringBuilder errorMessages = new StringBuilder();
-                if (ex is SqlException)
-                {
-                    for (int i = 0; i < ex.Errors.Count; i++)
-                    {
-                        errorMessages.Append("Index #" + i + "\n" +
-                            "Message: " + ex.Errors[i].Message + "\n" +
-                            "LineNumber: " + ex.Errors[i].LineNumber + "\n" +
-                            "Source: " + ex.Errors[i].Source + "\n" +
-                            "Procedure: " + ex.Errors[i].Procedure + "\n");
-                    }
-                    MessageBox.Show(errorMessages.ToString(), "[ERROR MESSAGE]", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                else
-                {
-                    MessageBox.Show(ex.Message + "Error (PO7)", "[ERROR MESSAGE]", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                ShowSQLException(ex, "[ERROR MESSAGE]");
             }
         }
     }
