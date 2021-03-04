@@ -50,6 +50,7 @@ namespace SP21_Final_Project
             }
         }
 
+        //Easy way to show SQL exception
         public static void ShowSQLException(SqlException ex, string errorMessage)
         {
             StringBuilder errorMessages = new StringBuilder();
@@ -68,6 +69,56 @@ namespace SP21_Final_Project
             else
             {
                 MessageBox.Show(ex.Message, errorMessage, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        //Gets count of rows for filling product panels
+        public static int GetRowsCount()
+        {
+            try
+            {
+                string strQuery = "SELECT COUNT(*) FROM FullerIsp212332.Products";
+                SqlCommand cmd = new SqlCommand(strQuery, _cntDatabase);
+                return (int)cmd.ExecuteScalar();
+            }
+            catch (SqlException ex)
+            {
+                ShowSQLException(ex, "Could not get number of rows in Products table.");
+                return 0;
+            }
+        }
+
+        //Gets data from a row in the database, then fills a newly-created panel with that data
+        public static void FillPanel(int intCurrentRow, List<ProductPanel> lstPanels, int intLeft, int intTop)
+        {
+            string strProductName;
+            double dblPrice;
+            string strSize;
+            int intUnitsInStock;
+
+            try
+            {
+                string strNameQuery = "SELECT ProductName FROM FullerIsp212332.Products WHERE ProductID = " + intCurrentRow;
+                SqlCommand nameCommand = new SqlCommand(strNameQuery, _cntDatabase);
+                strProductName = (string)nameCommand.ExecuteScalar();
+
+                string strPriceQuery = "SELECT Price FROM FullerIsp212332.Products WHERE ProductID = " + intCurrentRow;
+                SqlCommand priceCommand = new SqlCommand(strPriceQuery, _cntDatabase);
+                dblPrice = Convert.ToDouble(priceCommand.ExecuteScalar());
+
+                string strSizeQuery = "SELECT Size FROM FullerIsp212332.Products WHERE ProductID = " + intCurrentRow;
+                SqlCommand sizeCommand = new SqlCommand(strSizeQuery, _cntDatabase);
+                strSize = (string)sizeCommand.ExecuteScalar();
+
+                string strUnitsQuery = "SELECT UnitsInStock FROM FullerIsp212332.Products WHERE ProductID = " + intCurrentRow;
+                SqlCommand unitsCommand = new SqlCommand(strUnitsQuery, _cntDatabase);
+                intUnitsInStock = (int)unitsCommand.ExecuteScalar();
+
+                lstPanels.Add(new ProductPanel(intCurrentRow, strProductName, dblPrice, strSize, intUnitsInStock, intLeft, intTop));
+            }
+            catch (SqlException ex)
+            {
+                ShowSQLException(ex, "Failed to fill a product panel.");
             }
         }
 

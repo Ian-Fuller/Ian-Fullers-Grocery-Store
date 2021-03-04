@@ -10,51 +10,80 @@ namespace SP21_Final_Project
 {
     public class ProductPanel
     {
-        public Label lblProductName;
+        //Product Data
+        int intProductID;
+        string strProductName;
+        double dblPrice;
+        string strSize;
+        int intUnitsInStock;
+        //byte[] bytarrImageBytes;
+
+        //Panel Opbject
+        Panel pnlParentPanel;
+        Label lblProductName;
         PictureBox pbxProductImage;
         Button btnMoreInfo;
         Button btnAdd;
 
-        public ProductPanel(Form frmMain, int panelLeft, int panelTop, string productName)
+        public ProductPanel(int intProductID, string strProductName, double dblPrice, string strSize, int intUnitsInStock, int panelLeft, int panelTop)
         {
+            //Data
+            this.intProductID = intProductID;
+            this.strProductName = strProductName;
+            this.dblPrice = dblPrice;
+            this.strSize = strSize;
+            this.intUnitsInStock = intUnitsInStock;
+
+            //Parent Panel
+            pnlParentPanel = new Panel();
+            pnlParentPanel.Width = 100;
+            pnlParentPanel.Height = 160;
+            pnlParentPanel.Left = panelLeft;
+            pnlParentPanel.Top = panelTop;
+
             //Label
             lblProductName = new Label();
-            lblProductName.Text = productName;
-            lblProductName.Left = panelLeft;
-            lblProductName.Top = panelTop;
+            lblProductName.Text = strProductName + " $" + dblPrice;
             lblProductName.Width = 100;
             lblProductName.Height = 20;
             lblProductName.BackColor = Color.White;
             lblProductName.BorderStyle = BorderStyle.FixedSingle;
-            frmMain.Controls.Add(lblProductName);
+            pnlParentPanel.Controls.Add(lblProductName);
 
             //Image
             Bitmap tempBitmap = new Bitmap("PLACEHOLDER_IMAGE.png");
             pbxProductImage = new PictureBox();
             pbxProductImage.Image = (Image)tempBitmap;
-            pbxProductImage.Left = panelLeft;
-            pbxProductImage.Top = panelTop + 20;
             pbxProductImage.Width = 100;
             pbxProductImage.Height = 100;
-            frmMain.Controls.Add(pbxProductImage);
+            pbxProductImage.Top = 20;
+            pnlParentPanel.Controls.Add(pbxProductImage);
 
             //More info button
             btnMoreInfo = new Button();
             btnMoreInfo.Text = "More Info";
-            btnMoreInfo.Left = panelLeft;
-            btnMoreInfo.Top = panelTop + 120;
             btnMoreInfo.Width = 100;
             btnMoreInfo.Height = 20;
-            frmMain.Controls.Add(btnMoreInfo);
+            btnMoreInfo.Top = 120;
+            pnlParentPanel.Controls.Add(btnMoreInfo);
 
             //Add to Cart button
             btnAdd = new Button();
             btnAdd.Text = "Add to Cart";
-            btnAdd.Left = panelLeft;
-            btnAdd.Top = panelTop + 140;
             btnAdd.Width = 100;
             btnAdd.Height = 20;
-            frmMain.Controls.Add(btnAdd);
+            btnAdd.Top = 140;
+            pnlParentPanel.Controls.Add(btnAdd);
+        }
+
+        public void ShowPanel(Form frmMain)
+        {
+            frmMain.Controls.Add(pnlParentPanel);
+        }
+
+        public void HidePanel(Form frmMain)
+        {
+            frmMain.Controls.Remove(pnlParentPanel);
         }
     }
 }

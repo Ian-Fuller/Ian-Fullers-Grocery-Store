@@ -25,14 +25,18 @@ namespace SP21_Final_Project
         {
             DB.OpenDatabase();
 
-            //Instantiates 6 test panels - will be removed later
-            ProductPanel panel1 = new ProductPanel(this, 20, 20, "Apples");
-            ProductPanel panel2 = new ProductPanel(this, 140, 20, "Apples");
-            ProductPanel panel3 = new ProductPanel(this, 260, 20, "Apples");
+            List<ProductPanel> lstPanels = new List<ProductPanel>();
+            int intRowsCount = DB.GetRowsCount();
+            
+            for(int i = 0; i < intRowsCount; i++)
+            {
+                DB.FillPanel(i + 1, lstPanels, i * 120 + 20, 20);
+            }
 
-            ProductPanel panel4 = new ProductPanel(this, 20, 200, "Apples");
-            ProductPanel panel5 = new ProductPanel(this, 140, 200, "Apples");
-            ProductPanel panel6 = new ProductPanel(this, 260, 200, "Apples");
+            for(int i = 0; i < lstPanels.Count; i++)
+            {
+                lstPanels[i].ShowPanel(this);
+            }
         }
 
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
