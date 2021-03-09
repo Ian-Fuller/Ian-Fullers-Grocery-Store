@@ -12,6 +12,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
 using System.Drawing;
+using System.IO;
 
 namespace SP21_Final_Project
 {
@@ -95,6 +96,7 @@ namespace SP21_Final_Project
             double dblPrice;
             string strSize;
             int intUnitsInStock;
+            byte[] arrImageBytes;
 
             try
             {
@@ -114,11 +116,41 @@ namespace SP21_Final_Project
                 SqlCommand unitsCommand = new SqlCommand(strUnitsQuery, _cntDatabase);
                 intUnitsInStock = (int)unitsCommand.ExecuteScalar();
 
-                lstPanels.Add(new ProductPanel(intCurrentRow, strProductName, dblPrice, strSize, intUnitsInStock, intLeft, intTop));
+                string strImageQuery = "SELECT ProductImage FROM FullerIsp212332.Products WHERE ProductID = " + intCurrentRow;
+                SqlCommand imageCommand = new SqlCommand(strImageQuery, _cntDatabase);
+                arrImageBytes = (byte[])imageCommand.ExecuteScalar();
+
+                lstPanels.Add(new ProductPanel(intCurrentRow, strProductName, dblPrice, strSize, intUnitsInStock, arrImageBytes, intLeft, intTop));
             }
             catch (SqlException ex)
             {
                 ShowSQLException(ex, "Failed to fill a product panel.");
+            }
+        }
+
+        public static void InsertImage(string productName)
+        {
+            OpenFileDialog openFile = new OpenFileDialog();
+            openFile.ValidateNames = true;
+            openFile.AddExtension = false;
+            openFile.Filter = "Image File|*.png|Image File|*.jpg";
+            openFile.Title = "File to Upload";
+
+            if(openFile.ShowDialog() == DialogResult.OK)
+            {
+                byte[] image = File.ReadAllBytes(openFile.FileName);
+                try
+                {
+                    string query = $"UPDATE FullerIsp212332.Products SET ProductImage = @Image WHERE ProductName = '" + productName + "'";
+                    SqlCommand cmd = new SqlCommand(query, _cntDatabase);
+                    SqlParameter param = cmd.Parameters.AddWithValue("@Image", image);
+                    param.DbType = System.Data.DbType.Binary;
+                    cmd.ExecuteNonQuery();
+                }
+                catch (SqlException ex)
+                {
+                    MessageBox.Show(ex.Message, "Error During Upload", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 

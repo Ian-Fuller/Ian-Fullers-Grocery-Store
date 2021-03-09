@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
+using System.IO;
 
 namespace SP21_Final_Project
 {
@@ -25,7 +26,7 @@ namespace SP21_Final_Project
         Button btnMoreInfo;
         Button btnAdd;
 
-        public ProductPanel(int intProductID, string strProductName, double dblPrice, string strSize, int intUnitsInStock, int panelLeft, int panelTop)
+        public ProductPanel(int intProductID, string strProductName, double dblPrice, string strSize, int intUnitsInStock, byte[] arrImageBytes, int panelLeft, int panelTop)
         {
             //Data
             this.intProductID = intProductID;
@@ -51,13 +52,21 @@ namespace SP21_Final_Project
             pnlParentPanel.Controls.Add(lblProductName);
 
             //Image
-            Bitmap tempBitmap = new Bitmap("PLACEHOLDER_IMAGE.png");
-            pbxProductImage = new PictureBox();
-            pbxProductImage.Image = (Image)tempBitmap;
-            pbxProductImage.Width = 100;
-            pbxProductImage.Height = 100;
-            pbxProductImage.Top = 20;
-            pnlParentPanel.Controls.Add(pbxProductImage);
+            try
+            {
+                pbxProductImage = new PictureBox();
+                MemoryStream ms = new MemoryStream(arrImageBytes);
+                Image imgProductImage = Image.FromStream(ms);
+                pbxProductImage.Image = imgProductImage;
+                pbxProductImage.Width = 100;
+                pbxProductImage.Height = 100;
+                pbxProductImage.Top = 20;
+                pnlParentPanel.Controls.Add(pbxProductImage);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
 
             //More info button
             btnMoreInfo = new Button();
