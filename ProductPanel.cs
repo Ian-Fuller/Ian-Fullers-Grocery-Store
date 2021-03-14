@@ -17,7 +17,6 @@ namespace SP21_Final_Project
         double dblPrice;
         string strSize;
         int intUnitsInStock;
-        //byte[] bytarrImageBytes;
 
         //Panel Opbject
         Panel pnlParentPanel;
@@ -26,7 +25,11 @@ namespace SP21_Final_Project
         Button btnMoreInfo;
         Button btnAdd;
 
-        public ProductPanel(int intProductID, string strProductName, double dblPrice, string strSize, int intUnitsInStock, byte[] arrImageBytes, int panelLeft, int panelTop)
+        public ProductPanel()
+        {
+
+        }
+        public ProductPanel(int intProductID, string strProductName, double dblPrice, string strSize, int intUnitsInStock, byte[] arrImageBytes, int intLeft, int intTop)
         {
             //Data
             this.intProductID = intProductID;
@@ -38,15 +41,15 @@ namespace SP21_Final_Project
             //Parent Panel
             pnlParentPanel = new Panel();
             pnlParentPanel.Width = 100;
-            pnlParentPanel.Height = 160;
-            pnlParentPanel.Left = panelLeft;
-            pnlParentPanel.Top = panelTop;
+            pnlParentPanel.Height = 185;
+            pnlParentPanel.Left = intLeft;
+            pnlParentPanel.Top = intTop;
 
             //Label
             lblProductName = new Label();
-            lblProductName.Text = strProductName + " $" + dblPrice;
+            lblProductName.Text = strProductName + "\n$" + dblPrice;
             lblProductName.Width = 100;
-            lblProductName.Height = 20;
+            lblProductName.Height = 45;
             lblProductName.BackColor = Color.White;
             lblProductName.BorderStyle = BorderStyle.FixedSingle;
             pnlParentPanel.Controls.Add(lblProductName);
@@ -60,7 +63,7 @@ namespace SP21_Final_Project
                 pbxProductImage.Image = imgProductImage;
                 pbxProductImage.Width = 100;
                 pbxProductImage.Height = 100;
-                pbxProductImage.Top = 20;
+                pbxProductImage.Top = 45;
                 pnlParentPanel.Controls.Add(pbxProductImage);
             }
             catch(Exception ex)
@@ -73,7 +76,7 @@ namespace SP21_Final_Project
             btnMoreInfo.Text = "More Info";
             btnMoreInfo.Width = 100;
             btnMoreInfo.Height = 20;
-            btnMoreInfo.Top = 120;
+            btnMoreInfo.Top = 145;
             pnlParentPanel.Controls.Add(btnMoreInfo);
 
             //Add to Cart button
@@ -81,8 +84,14 @@ namespace SP21_Final_Project
             btnAdd.Text = "Add to Cart";
             btnAdd.Width = 100;
             btnAdd.Height = 20;
-            btnAdd.Top = 140;
+            btnAdd.Top = 165;
             pnlParentPanel.Controls.Add(btnAdd);
+        }
+
+        public void SetPosition(int intLeft, int intTop)
+        {
+            pnlParentPanel.Left = intLeft;
+            pnlParentPanel.Top = intTop;
         }
 
         public void ShowPanel(Form frmMain)
