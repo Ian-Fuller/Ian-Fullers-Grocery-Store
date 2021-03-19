@@ -22,16 +22,18 @@ namespace SP21_Final_Project
         List<ProductPanel[]> lstPanelGroups = new List<ProductPanel[]>();
         int[,] arrPanelPositions = new int[8, 2]
         {
-            { 40, 20 },
-            { 160, 20 },
-            { 280, 20 },
-            { 400, 20 },
-            { 40, 225 },
-            { 160, 225 },
-            { 280, 225 },
-            { 400, 225 }
+            { 40, 44 },
+            { 160, 44 },
+            { 280, 44 },
+            { 400, 44 },
+            { 40, 249 },
+            { 160, 249 },
+            { 280, 249 },
+            { 400, 249 }
         };
         int intGroupIndex = 0;
+
+        List<ProductPanel> lstSpecials = new List<ProductPanel>();
 
         public frmMain()
         {
@@ -44,7 +46,7 @@ namespace SP21_Final_Project
             {
                 DB.OpenDatabase();
 
-                int intRowsCount = DB.GetRowsCount();
+                int intRowsCount = DB.GetRowsCount("Products");
 
                 //Creates panels
                 for (int i = 0; i < intRowsCount; i++)
@@ -77,6 +79,15 @@ namespace SP21_Final_Project
                 for (int i = 0; i < lstPanelGroups[intGroupIndex].Length; i++)
                 {
                     lstPanelGroups[intGroupIndex][i].ShowPanel(this);
+                }
+
+                //---------------------------------------------------------------------------------------------------------------------------------
+
+                int intSpecialsCount = DB.GetRowsCount("Specials");
+
+                for(int i = 0; i < intSpecialsCount; i++)
+                {
+                    DB.FillPanel(i + 1, lstSpecials, 0, 0);
                 }
             }
             catch(Exception ex)
@@ -128,6 +139,17 @@ namespace SP21_Final_Project
             {
                 lstPanelGroups[intGroupIndex][i].ShowPanel(this);
             }
+        }
+
+        private void mnuExit_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void mnuLogin_Click(object sender, EventArgs e)
+        {
+            frmLogin login = new frmLogin();
+            login.ShowDialog();
         }
     }
 }

@@ -74,11 +74,11 @@ namespace SP21_Final_Project
         }
 
         //Gets count of rows for filling product panels
-        public static int GetRowsCount()
+        public static int GetRowsCount(String strTable)
         {
             try
             {
-                string strQuery = "SELECT COUNT(*) FROM FullerIsp212332.Products";
+                string strQuery = "SELECT COUNT(*) FROM FullerIsp212332." + strTable;
                 SqlCommand cmd = new SqlCommand(strQuery, _cntDatabase);
                 return (int)cmd.ExecuteScalar();
             }
@@ -120,7 +120,61 @@ namespace SP21_Final_Project
                 SqlCommand imageCommand = new SqlCommand(strImageQuery, _cntDatabase);
                 arrImageBytes = (byte[])imageCommand.ExecuteScalar();
 
-                lstPanels.Add(new ProductPanel(intCurrentRow, strProductName, dblPrice, strSize, intUnitsInStock, arrImageBytes, intLeft, intTop));
+                lstPanels.Add(new ProductPanel(intCurrentRow, strProductName, dblPrice, strSize, intUnitsInStock, arrImageBytes, intLeft, intTop, 0, ""));
+            }
+            catch (SqlException ex)
+            {
+                ShowSQLException(ex, "Failed to fill a product panel.");
+            }
+        }
+
+        public static void FillSpecialPanel(int intCurrentRow, List<ProductPanel> lstPanels, int intLeft, int intTop)
+        {
+            int intID;
+
+            string strProductName;
+            double dblPrice;
+            string strSize;
+            int intUnitsInStock;
+            byte[] arrImageBytes;
+            double dblDiscount;
+            string strExtraDetails;
+
+            try
+            {
+                string strIDQuery = "SELECT ProductID FROM FullerIsp212332.Specials WHERE SpecialID = " + intCurrentRow;
+                SqlCommand IDCommand = new SqlCommand(strIDQuery, _cntDatabase);
+                intID = (int)IDCommand.ExecuteScalar();
+
+                string strNameQuery = "SELECT ProductName FROM FullerIsp212332.Products WHERE ProductID = " + intID;
+                SqlCommand nameCommand = new SqlCommand(strNameQuery, _cntDatabase);
+                strProductName = (string)nameCommand.ExecuteScalar();
+
+                string strPriceQuery = "SELECT Price FROM FullerIsp212332.Products WHERE ProductID = " + intID;
+                SqlCommand priceCommand = new SqlCommand(strPriceQuery, _cntDatabase);
+                dblPrice = Convert.ToDouble(priceCommand.ExecuteScalar());
+
+                string strSizeQuery = "SELECT Size FROM FullerIsp212332.Products WHERE ProductID = " + intID;
+                SqlCommand sizeCommand = new SqlCommand(strSizeQuery, _cntDatabase);
+                strSize = (string)sizeCommand.ExecuteScalar();
+
+                string strUnitsQuery = "SELECT UnitsInStock FROM FullerIsp212332.Products WHERE ProductID = " + intID;
+                SqlCommand unitsCommand = new SqlCommand(strUnitsQuery, _cntDatabase);
+                intUnitsInStock = (int)unitsCommand.ExecuteScalar();
+
+                string strImageQuery = "SELECT ProductImage FROM FullerIsp212332.Products WHERE ProductID = " + intID;
+                SqlCommand imageCommand = new SqlCommand(strImageQuery, _cntDatabase);
+                arrImageBytes = (byte[])imageCommand.ExecuteScalar();
+
+                string strDiscountQuery = "SELECT PriceDiscounted FROM FullerIsp212332.Specials WHERE ProductID = " + intCurrentRow;
+                SqlCommand discountCommand = new SqlCommand(strDiscountQuery, _cntDatabase);
+                dblDiscount = (double)discountCommand.ExecuteScalar();
+
+                string strDetailsQuery = "SELECT ExtraDetails FROM FullerIsp212332.Specials WHERE ProductID = " + intCurrentRow;
+                SqlCommand detailsCommand = new SqlCommand(strDetailsQuery, _cntDatabase);
+                strExtraDetails = (string)detailsCommand.ExecuteScalar();
+
+                lstPanels.Add(new ProductPanel(intCurrentRow, strProductName, dblPrice, strSize, intUnitsInStock, arrImageBytes, intLeft, intTop, dblDiscount, strExtraDetails));
             }
             catch (SqlException ex)
             {

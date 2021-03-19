@@ -18,6 +18,10 @@ namespace SP21_Final_Project
         string strSize;
         int intUnitsInStock;
 
+        //Extra data for specials
+        double dblDiscount;
+        string strExtraDetails;
+
         //Panel Opbject
         Panel pnlParentPanel;
         Label lblProductName;
@@ -29,7 +33,7 @@ namespace SP21_Final_Project
         {
 
         }
-        public ProductPanel(int intProductID, string strProductName, double dblPrice, string strSize, int intUnitsInStock, byte[] arrImageBytes, int intLeft, int intTop)
+        public ProductPanel(int intProductID, string strProductName, double dblPrice, string strSize, int intUnitsInStock, byte[] arrImageBytes, int intLeft, int intTop, double dblDiscount, string strExtraDetails)
         {
             //Data
             this.intProductID = intProductID;
@@ -37,6 +41,8 @@ namespace SP21_Final_Project
             this.dblPrice = dblPrice;
             this.strSize = strSize;
             this.intUnitsInStock = intUnitsInStock;
+            this.dblDiscount = dblDiscount;
+            this.strExtraDetails = strExtraDetails;
 
             //Parent Panel
             pnlParentPanel = new Panel();
