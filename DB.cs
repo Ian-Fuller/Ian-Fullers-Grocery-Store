@@ -208,6 +208,25 @@ namespace SP21_Final_Project
             }
         }
 
+        public static string Login(string strUsername, string strPassword)
+        {
+            string strEmployeeQuery = "SELECT Password FROM FullerIsp212332.Employees WHERE Username = '" + strUsername + "'";
+            SqlCommand employeeCommand = new SqlCommand(strEmployeeQuery, _cntDatabase);
+            if((string)employeeCommand.ExecuteScalar() == strPassword)
+            {
+                return "Employee";
+            }
+
+            string strManagerQuery = "SELECT Password FROM FullerIsp212332.Managers WHERE Username = '" + strUsername + "'";
+            SqlCommand managerCommand = new SqlCommand(strManagerQuery, _cntDatabase);
+            if((string)managerCommand.ExecuteScalar() == strPassword)
+            {
+                return "Manager";
+            }
+
+            return "";
+        }
+
         //Query template
         public static void ProductsQuery(/*parameters*/)
         {

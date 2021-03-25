@@ -8,3 +8,4 @@ C:\Users\ianfu\Desktop\SP21-FullerI\SP21-FullerI\obj\Debug\SP21-Final Project.cs
 C:\Users\ianfu\Desktop\SP21-FullerI\SP21-FullerI\obj\Debug\SP21-Final Project.exe
 C:\Users\ianfu\Desktop\SP21-FullerI\SP21-FullerI\obj\Debug\SP21-Final Project.pdb
 C:\Users\ianfu\Desktop\SP21-FullerI\SP21-FullerI\obj\Debug\SP21_Final_Project.frmMain.resources
+C:\Users\ianfu\Desktop\SP21-FullerI\SP21-FullerI\obj\Debug\SP21_Final_Project.frmLogin.resources
