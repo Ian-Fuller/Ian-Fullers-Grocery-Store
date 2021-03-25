@@ -64,11 +64,14 @@ Include any essential instructions for:
 
 ### TODO
 - Next steps
-  - Begin prototyping program
+  - Work on frmMain some more
 - Features planned
-  - The program will be able to read data from a database and display the products to the user
-  - Managers will be able to add/remove products
+  - More Info button for the product panels will have its functionality added
+  - Customers will be able to see the items in their cart
 - Known bugs (shortlist)
+  - The program does not currently calculate the number of groups for each of the product pages accurately
+  - Some of the specials panels have their information swapped with other specials
+  - The login form is poorly-designed
 
 ### Contact
 
