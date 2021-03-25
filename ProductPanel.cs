@@ -18,12 +18,8 @@ namespace SP21_Final_Project
         string strSize;
         int intUnitsInStock;
 
-        //Extra data for specials
-        double dblDiscount;
-        string strExtraDetails;
-
-        //Panel Opbject
-        Panel pnlParentPanel;
+        //Panel Object
+        public Panel pnlParentPanel;
         Label lblProductName;
         PictureBox pbxProductImage;
         Button btnMoreInfo;
@@ -33,7 +29,7 @@ namespace SP21_Final_Project
         {
 
         }
-        public ProductPanel(int intProductID, string strProductName, double dblPrice, string strSize, int intUnitsInStock, byte[] arrImageBytes, int intLeft, int intTop, double dblDiscount, string strExtraDetails)
+        public ProductPanel(int intProductID, string strProductName, double dblPrice, string strSize, int intUnitsInStock, byte[] arrImageBytes, int intLeft, int intTop)
         {
             //Data
             this.intProductID = intProductID;
@@ -41,8 +37,6 @@ namespace SP21_Final_Project
             this.dblPrice = dblPrice;
             this.strSize = strSize;
             this.intUnitsInStock = intUnitsInStock;
-            this.dblDiscount = dblDiscount;
-            this.strExtraDetails = strExtraDetails;
 
             //Parent Panel
             pnlParentPanel = new Panel();
@@ -79,7 +73,7 @@ namespace SP21_Final_Project
 
             //More info button
             btnMoreInfo = new Button();
-            btnMoreInfo.Text = "More Info";
+            btnMoreInfo.Text = "&More Info";
             btnMoreInfo.Width = 100;
             btnMoreInfo.Height = 20;
             btnMoreInfo.Top = 145;
@@ -87,7 +81,7 @@ namespace SP21_Final_Project
 
             //Add to Cart button
             btnAdd = new Button();
-            btnAdd.Text = "Add to Cart";
+            btnAdd.Text = "&Add to Cart";
             btnAdd.Width = 100;
             btnAdd.Height = 20;
             btnAdd.Top = 165;

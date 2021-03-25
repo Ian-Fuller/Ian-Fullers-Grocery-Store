@@ -31,12 +31,13 @@
             this.btnPrevPage = new System.Windows.Forms.Button();
             this.btnNextPage = new System.Windows.Forms.Button();
             this.pnlSpecials = new System.Windows.Forms.Panel();
+            this.btnDown = new System.Windows.Forms.Button();
+            this.btnUp = new System.Windows.Forms.Button();
             this.lblSpecials = new System.Windows.Forms.Label();
             this.mnuMenuBar = new System.Windows.Forms.MenuStrip();
             this.mnuFile = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuExit = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuLogin = new System.Windows.Forms.ToolStripMenuItem();
-            this.button1 = new System.Windows.Forms.Button();
             this.pnlSpecials.SuspendLayout();
             this.mnuMenuBar.SuspendLayout();
             this.SuspendLayout();
@@ -64,12 +65,35 @@
             // pnlSpecials
             // 
             this.pnlSpecials.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pnlSpecials.Controls.Add(this.button1);
+            this.pnlSpecials.Controls.Add(this.btnDown);
+            this.pnlSpecials.Controls.Add(this.btnUp);
             this.pnlSpecials.Controls.Add(this.lblSpecials);
             this.pnlSpecials.Location = new System.Drawing.Point(540, -1);
             this.pnlSpecials.Name = "pnlSpecials";
             this.pnlSpecials.Size = new System.Drawing.Size(245, 463);
             this.pnlSpecials.TabIndex = 2;
+            // 
+            // btnDown
+            // 
+            this.btnDown.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDown.Location = new System.Drawing.Point(3, 248);
+            this.btnDown.Name = "btnDown";
+            this.btnDown.Size = new System.Drawing.Size(20, 185);
+            this.btnDown.TabIndex = 5;
+            this.btnDown.Text = "\\/";
+            this.btnDown.UseVisualStyleBackColor = true;
+            this.btnDown.Click += new System.EventHandler(this.btnDown_Click);
+            // 
+            // btnUp
+            // 
+            this.btnUp.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnUp.Location = new System.Drawing.Point(3, 43);
+            this.btnUp.Name = "btnUp";
+            this.btnUp.Size = new System.Drawing.Size(20, 185);
+            this.btnUp.TabIndex = 4;
+            this.btnUp.Text = "/\\";
+            this.btnUp.UseVisualStyleBackColor = true;
+            this.btnUp.Click += new System.EventHandler(this.btnUp_Click);
             // 
             // lblSpecials
             // 
@@ -113,15 +137,6 @@
             this.mnuLogin.Text = "&Login as staff";
             this.mnuLogin.Click += new System.EventHandler(this.mnuLogin_Click);
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(72, 10);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(100, 20);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "/\\";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -157,7 +172,8 @@
         private System.Windows.Forms.ToolStripMenuItem mnuFile;
         private System.Windows.Forms.ToolStripMenuItem mnuExit;
         private System.Windows.Forms.ToolStripMenuItem mnuLogin;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnUp;
+        private System.Windows.Forms.Button btnDown;
     }
 }
 

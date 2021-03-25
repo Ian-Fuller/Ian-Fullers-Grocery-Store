@@ -120,7 +120,7 @@ namespace SP21_Final_Project
                 SqlCommand imageCommand = new SqlCommand(strImageQuery, _cntDatabase);
                 arrImageBytes = (byte[])imageCommand.ExecuteScalar();
 
-                lstPanels.Add(new ProductPanel(intCurrentRow, strProductName, dblPrice, strSize, intUnitsInStock, arrImageBytes, intLeft, intTop, 0, ""));
+                lstPanels.Add(new ProductPanel(intCurrentRow, strProductName, dblPrice, strSize, intUnitsInStock, arrImageBytes, intLeft, intTop));
             }
             catch (SqlException ex)
             {
@@ -128,7 +128,7 @@ namespace SP21_Final_Project
             }
         }
 
-        public static void FillSpecialPanel(int intCurrentRow, List<ProductPanel> lstPanels, int intLeft, int intTop)
+        public static void FillSpecialPanel(int intCurrentRow, List<SpecialPanel> lstPanels, int intLeft, int intTop)
         {
             int intID;
 
@@ -137,7 +137,7 @@ namespace SP21_Final_Project
             string strSize;
             int intUnitsInStock;
             byte[] arrImageBytes;
-            double dblDiscount;
+            int intDiscount;
             string strExtraDetails;
 
             try
@@ -166,15 +166,15 @@ namespace SP21_Final_Project
                 SqlCommand imageCommand = new SqlCommand(strImageQuery, _cntDatabase);
                 arrImageBytes = (byte[])imageCommand.ExecuteScalar();
 
-                string strDiscountQuery = "SELECT PriceDiscounted FROM FullerIsp212332.Specials WHERE ProductID = " + intCurrentRow;
+                string strDiscountQuery = "SELECT PriceDiscounted FROM FullerIsp212332.Specials WHERE SpecialID = " + intCurrentRow;
                 SqlCommand discountCommand = new SqlCommand(strDiscountQuery, _cntDatabase);
-                dblDiscount = (double)discountCommand.ExecuteScalar();
+                intDiscount = (int)discountCommand.ExecuteScalar();
 
-                string strDetailsQuery = "SELECT ExtraDetails FROM FullerIsp212332.Specials WHERE ProductID = " + intCurrentRow;
+                string strDetailsQuery = "SELECT ExtraDetails FROM FullerIsp212332.Specials WHERE SpecialID = " + intCurrentRow;
                 SqlCommand detailsCommand = new SqlCommand(strDetailsQuery, _cntDatabase);
                 strExtraDetails = (string)detailsCommand.ExecuteScalar();
 
-                lstPanels.Add(new ProductPanel(intCurrentRow, strProductName, dblPrice, strSize, intUnitsInStock, arrImageBytes, intLeft, intTop, dblDiscount, strExtraDetails));
+                lstPanels.Add(new SpecialPanel(intCurrentRow, strProductName, dblPrice, strSize, intUnitsInStock, arrImageBytes, intLeft, intTop, intDiscount, strExtraDetails));
             }
             catch (SqlException ex)
             {
