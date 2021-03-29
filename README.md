@@ -64,14 +64,12 @@ Include any essential instructions for:
 
 ### TODO
 - Next steps
-  - Work on frmMain some more
+  - Work on shopping cart form
 - Features planned
-  - More Info button for the product panels will have its functionality added
-  - Customers will be able to see the items in their cart
+  - Customers will be able to see the items in their cart, and purchase those items, which will create an invoice
+  - frmEmployees is still missing most of its features
+  - frmManagers is still missing most of its features
 - Known bugs (shortlist)
-  - The program does not currently calculate the number of groups for each of the product pages accurately
-  - Some of the specials panels have their information swapped with other specials
-  - The login form is poorly-designed
 
 ### Contact
 
