@@ -12,17 +12,17 @@ namespace SP21_Final_Project
     public class ProductPanel
     {
         //Product Data
-        int intProductID;
-        string strProductName;
-        double dblPrice;
-        string strSize;
-        int intUnitsInStock;
+        public int intProductID;
+        public string strProductName;
+        public double dblPrice;
+        public string strSize;
+        public int intUnitsInStock;
 
         //Panel Object
         public Panel pnlParentPanel;
         Label lblProductName;
-        PictureBox pbxProductImage;
-        Button btnMoreInfo;
+        public PictureBox pbxProductImage;
+        public Button btnMoreInfo;
         Button btnAdd;
 
         public ProductPanel()
@@ -77,6 +77,7 @@ namespace SP21_Final_Project
             btnMoreInfo.Width = 100;
             btnMoreInfo.Height = 20;
             btnMoreInfo.Top = 145;
+            btnMoreInfo.Click += new EventHandler(btnMoreInfo_Click);
             pnlParentPanel.Controls.Add(btnMoreInfo);
 
             //Add to Cart button
@@ -93,15 +94,24 @@ namespace SP21_Final_Project
             pnlParentPanel.Left = intLeft;
             pnlParentPanel.Top = intTop;
         }
-
-        public void ShowPanel(Form frmMain)
+        public void ShowPanel(Form frmParentForm)
         {
-            frmMain.Controls.Add(pnlParentPanel);
+            frmParentForm.Controls.Add(pnlParentPanel);
+        }
+        public void HidePanel(Form frmParentForm)
+        {
+            frmParentForm.Controls.Remove(pnlParentPanel);
         }
 
-        public void HidePanel(Form frmMain)
+        public void btnMoreInfo_Click(object sender, EventArgs e)
         {
-            frmMain.Controls.Remove(pnlParentPanel);
+            frmMoreInfo moreInfo = new frmMoreInfo(pbxProductImage.Image,
+                                                   "ID: " + intProductID + "\n" +
+                                                   "Name: " + strProductName + "\n" +
+                                                   "Price per unit: $" + dblPrice + "\n" +
+                                                   "Unit size: " + strSize + "\n" +
+                                                   "Units in stock: " + intUnitsInStock);
+            moreInfo.ShowDialog();
         }
     }
 }

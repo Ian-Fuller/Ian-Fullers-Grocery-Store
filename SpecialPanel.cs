@@ -46,16 +46,30 @@ namespace SP21_Final_Project
             lblExtraDetails.Top = 45;
             pnlParentPanel.Controls.Add(lblExtraDetails);
 
+            btnMoreInfo.Click -= new EventHandler(btnMoreInfo_Click);
+            btnMoreInfo.Click += new EventHandler(btnMoreInfo_ClickSpecial);
         }
 
-        public void ShowPanel(Panel pnlSpecials)
+        public void ShowPanel(Panel pnlParent)
         {
-            pnlSpecials.Controls.Add(pnlParentPanel);
+            pnlParent.Controls.Add(pnlParentPanel);
         }
 
-        public void HidePanel(Panel pnlSpecials)
+        public void HidePanel(Panel pnlParent)
         {
-            pnlSpecials.Controls.Remove(pnlParentPanel);
+            pnlParent.Controls.Remove(pnlParentPanel);
+        }
+
+        void btnMoreInfo_ClickSpecial(object sender, EventArgs e)
+        {
+            frmMoreInfo moreInfo = new frmMoreInfo(pbxProductImage.Image,
+                                                   "ID: " + intProductID + "\n" +
+                                                   "Name: " + strProductName + "\n" +
+                                                   "Price per unit: $" + dblPrice + " -" + intDiscount + "% ($" + Math.Round(dblPrice * (1f - (double)intDiscount / 100f), 2) + ")\n" +
+                                                   "Unit size: " + strSize + "\n" +
+                                                   "Units in stock: " + intUnitsInStock + "\n" +
+                                                   "Extra details: " + strExtraDetails);
+            moreInfo.ShowDialog();
         }
     }
 }

@@ -35,5 +35,10 @@ namespace SP21_Final_Project
                 MessageBox.Show("Username or password is incorrect.", "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void mnuClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

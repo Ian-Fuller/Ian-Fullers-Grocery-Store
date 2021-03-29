@@ -63,7 +63,7 @@ namespace SP21_Final_Project
                     DB.FillPanel(i + 1, lstPanels, 0, 0);
                 }
 
-                int intGroupCount = intRowsCount / intGroupSize + 1;
+                int intGroupCount = (int)Math.Ceiling((double)intRowsCount / (double)intGroupSize);
                 int intPanelIndex = 0;
                 for(int i = 0; i < intGroupCount; i++)
                 {
@@ -99,7 +99,7 @@ namespace SP21_Final_Project
                     DB.FillSpecialPanel(i + 1, lstSpecials, 0, 0);
                 }
 
-                int intSGroupCount = intSpecialsCount / intSGroupSize;
+                int intSGroupCount = (int)Math.Ceiling((double)intSpecialsCount / (double)intSGroupSize);
                 int intSpecialIndex = 0;
                 for(int i = 0; i < intSGroupCount; i++)
                 {
