@@ -58,71 +58,71 @@ namespace SP21_Final_Project
                 int intRowsCount = DB.GetRowsCount("Products");
 
                 //Creates panels
-                for (int i = 0; i < intRowsCount; i++)
+                for (int intCurrentRow = 0; intCurrentRow < intRowsCount; intCurrentRow++)
                 {
-                    DB.FillPanel(i + 1, lstPanels, 0, 0);
+                    DB.FillPanel(intCurrentRow + 1, lstPanels, 0, 0);
                 }
 
                 int intGroupCount = (int)Math.Ceiling((double)intRowsCount / (double)intGroupSize);
                 int intPanelIndex = 0;
-                for(int i = 0; i < intGroupCount; i++)
+                for(int intCurrentGroup = 0; intCurrentGroup < intGroupCount; intCurrentGroup++)
                 {
                     lstPanelGroups.Add(new ProductPanel[intGroupSize]);
-                    for(int j = 0; j < intGroupSize; j++)
+                    for(int intIndexInGroup = 0; intIndexInGroup < intGroupSize; intIndexInGroup++)
                     {
                         if(intPanelIndex < lstPanels.Count)
                         {
-                            lstPanelGroups[i][j] = lstPanels[intPanelIndex];
-                            lstPanelGroups[i][j].SetPosition(arrPanelPositions[j, 0], arrPanelPositions[j, 1]);
+                            lstPanelGroups[intCurrentGroup][intIndexInGroup] = lstPanels[intPanelIndex];
+                            lstPanelGroups[intCurrentGroup][intIndexInGroup].SetPosition(arrPanelPositions[intIndexInGroup, 0], arrPanelPositions[intIndexInGroup, 1]);
                             intPanelIndex++;
                         }
                         else
                         {
-                            lstPanelGroups[i][j] = new ProductPanel();
+                            lstPanelGroups[intCurrentGroup][intIndexInGroup] = new ProductPanel();
                             intPanelIndex++;
                         }
                     }
                 }
 
                 //Shows panels
-                for (int i = 0; i < lstPanelGroups[intGroupIndex].Length; i++)
+                for (int intIndexInGroup = 0; intIndexInGroup < lstPanelGroups[intGroupIndex].Length; intIndexInGroup++)
                 {
-                    lstPanelGroups[intGroupIndex][i].ShowPanel(this);
+                    lstPanelGroups[intGroupIndex][intIndexInGroup].ShowPanel(this);
                 }
 
                 //SPECIALS---------------------------------------------------------------------------------------------------------------------------------
 
                 int intSpecialsCount = DB.GetRowsCount("Specials");
 
-                for(int i = 0; i < intSpecialsCount; i++)
+                for(int intCurrentRow = 0; intCurrentRow < intSpecialsCount; intCurrentRow++)
                 {
-                    DB.FillSpecialPanel(i + 1, lstSpecials, 0, 0);
+                    DB.FillSpecialPanel(intCurrentRow + 1, lstSpecials, 0, 0);
                 }
 
                 int intSGroupCount = (int)Math.Ceiling((double)intSpecialsCount / (double)intSGroupSize);
                 int intSpecialIndex = 0;
-                for(int i = 0; i < intSGroupCount; i++)
+                for(int intCurrentGroup = 0; intCurrentGroup < intSGroupCount; intCurrentGroup++)
                 {
                     lstSpecialGroups.Add(new SpecialPanel[intSGroupSize]);
-                    for(int j = 0; j < intSGroupSize; j++)
+                    for(int intIndexInGroup = 0; intIndexInGroup < intSGroupSize; intIndexInGroup++)
                     {
                         if(intSpecialIndex < lstSpecials.Count)
                         {
-                            lstSpecialGroups[i][j] = lstSpecials[intSpecialIndex];
-                            lstSpecialGroups[i][j].SetPosition(arrSpecialPositions[j, 0], arrSpecialPositions[j, 1]);
+                            lstSpecialGroups[intCurrentGroup][intIndexInGroup] = lstSpecials[intSpecialIndex];
+                            lstSpecialGroups[intCurrentGroup][intIndexInGroup].SetPosition(arrSpecialPositions[intIndexInGroup, 0], arrSpecialPositions[intIndexInGroup, 1]);
                             intSpecialIndex++;
                         }
                         else
                         {
-                            lstSpecialGroups[i][j] = new SpecialPanel();
+                            lstSpecialGroups[intCurrentGroup][intIndexInGroup] = new SpecialPanel();
                             intSpecialIndex++;
                         }
                     }
                 }
 
-                for(int i = 0; i < lstSpecialGroups[intGroupIndex].Length; i++)
+                for(int intIndexInGroup = 0; intIndexInGroup < lstSpecialGroups[intGroupIndex].Length; intIndexInGroup++)
                 {
-                    lstSpecialGroups[intSGroupIndex][i].ShowPanel(this.pnlSpecials);
+                    lstSpecialGroups[intSGroupIndex][intIndexInGroup].ShowPanel(this.pnlSpecials);
                 }
             }
             catch(Exception ex)
@@ -139,9 +139,9 @@ namespace SP21_Final_Project
         private void btnPrevPage_Click(object sender, EventArgs e)
         {
             //Hides current panels
-            for (int i = 0; i < lstPanelGroups[intGroupIndex].Length; i++)
+            for (int intIndexInGroup = 0; intIndexInGroup < lstPanelGroups[intGroupIndex].Length; intIndexInGroup++)
             {
-                lstPanelGroups[intGroupIndex][i].HidePanel(this);
+                lstPanelGroups[intGroupIndex][intIndexInGroup].HidePanel(this);
             }
 
             //Shows previous page of panels
@@ -150,18 +150,18 @@ namespace SP21_Final_Project
             {
                 intGroupIndex = lstPanelGroups.Count - 1;
             }
-            for (int i = 0; i < lstPanelGroups[intGroupIndex].Length; i++)
+            for (int intIndexInGroup = 0; intIndexInGroup < lstPanelGroups[intGroupIndex].Length; intIndexInGroup++)
             {
-                lstPanelGroups[intGroupIndex][i].ShowPanel(this);
+                lstPanelGroups[intGroupIndex][intIndexInGroup].ShowPanel(this);
             }
         }
 
         private void btnNextPage_Click(object sender, EventArgs e)
         {
             //Hides current panels
-            for (int i = 0; i < lstPanelGroups[intGroupIndex].Length; i++)
+            for (int intIndexInGroup = 0; intIndexInGroup < lstPanelGroups[intGroupIndex].Length; intIndexInGroup++)
             {
-                lstPanelGroups[intGroupIndex][i].HidePanel(this);
+                lstPanelGroups[intGroupIndex][intIndexInGroup].HidePanel(this);
             }
 
             //Shows previous page of panels
@@ -170,9 +170,9 @@ namespace SP21_Final_Project
             {
                 intGroupIndex = 0;
             }
-            for (int i = 0; i < lstPanelGroups[intGroupIndex].Length; i++)
+            for (int intIndexInGroup = 0; intIndexInGroup < lstPanelGroups[intGroupIndex].Length; intIndexInGroup++)
             {
-                lstPanelGroups[intGroupIndex][i].ShowPanel(this);
+                lstPanelGroups[intGroupIndex][intIndexInGroup].ShowPanel(this);
             }
         }
 
@@ -189,9 +189,9 @@ namespace SP21_Final_Project
 
         private void btnUp_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < lstSpecialGroups[intSGroupIndex].Length; i++)
+            for (int intIndexInGroup = 0; intIndexInGroup < lstSpecialGroups[intSGroupIndex].Length; intIndexInGroup++)
             {
-                lstSpecialGroups[intSGroupIndex][i].HidePanel(this.pnlSpecials);
+                lstSpecialGroups[intSGroupIndex][intIndexInGroup].HidePanel(this.pnlSpecials);
             }
 
             intSGroupIndex--;
@@ -199,18 +199,18 @@ namespace SP21_Final_Project
             {
                 intSGroupIndex = lstSpecialGroups.Count - 1;
             }
-            for (int i = 0; i < lstSpecialGroups[intSGroupIndex].Length; i++)
+            for (int intIndexInGroup = 0; intIndexInGroup < lstSpecialGroups[intSGroupIndex].Length; intIndexInGroup++)
             {
-                lstSpecialGroups[intSGroupIndex][i].ShowPanel(this.pnlSpecials);
+                lstSpecialGroups[intSGroupIndex][intIndexInGroup].ShowPanel(this.pnlSpecials);
             }
         }
 
         private void btnDown_Click(object sender, EventArgs e)
         {
             //Hides current panels
-            for (int i = 0; i < lstSpecialGroups[intSGroupIndex].Length; i++)
+            for (int intIndexInGroup = 0; intIndexInGroup < lstSpecialGroups[intSGroupIndex].Length; intIndexInGroup++)
             {
-                lstSpecialGroups[intSGroupIndex][i].HidePanel(this.pnlSpecials);
+                lstSpecialGroups[intSGroupIndex][intIndexInGroup].HidePanel(this.pnlSpecials);
             }
 
             //Shows previous page of panels
@@ -219,10 +219,16 @@ namespace SP21_Final_Project
             {
                 intSGroupIndex = 0;
             }
-            for (int i = 0; i < lstSpecialGroups[intSGroupIndex].Length; i++)
+            for (int intIndexInGroup = 0; intIndexInGroup < lstSpecialGroups[intSGroupIndex].Length; intIndexInGroup++)
             {
-                lstSpecialGroups[intSGroupIndex][i].ShowPanel(this.pnlSpecials);
+                lstSpecialGroups[intSGroupIndex][intIndexInGroup].ShowPanel(this.pnlSpecials);
             }
+        }
+
+        private void shoppingCartToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmShoppingCart cart = new frmShoppingCart();
+            cart.ShowDialog();
         }
     }
 }

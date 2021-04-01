@@ -70,6 +70,7 @@ namespace SP21_Final_Project
             this.Controls.Add(this.pbxProductImage);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "frmMoreInfo";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "More Info";
             ((System.ComponentModel.ISupportInitialize)(this.pbxProductImage)).EndInit();
             this.ResumeLayout(false);

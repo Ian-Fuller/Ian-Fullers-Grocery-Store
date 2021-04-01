@@ -24,6 +24,8 @@ namespace SP21_Final_Project
         }
         public SpecialPanel(int intProductID, string strProductName, double dblPrice, string strSize, int intUnitsInStock, byte[] arrImageBytes, int intLeft, int intTop, int intDiscount, string strExtraDetails) : base(intProductID, strProductName, dblPrice, strSize, intUnitsInStock, arrImageBytes, intLeft, intTop)
         {
+            strType = "Special";
+
             this.intDiscount = intDiscount;
             this.strExtraDetails = strExtraDetails;
 
@@ -70,6 +72,11 @@ namespace SP21_Final_Project
                                                    "Units in stock: " + intUnitsInStock + "\n" +
                                                    "Extra details: " + strExtraDetails);
             moreInfo.ShowDialog();
+        }
+
+        public override int GetDiscount()
+        {
+            return intDiscount;
         }
     }
 }

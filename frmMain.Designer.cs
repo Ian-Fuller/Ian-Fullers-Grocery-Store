@@ -38,6 +38,7 @@
             this.mnuFile = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuExit = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuLogin = new System.Windows.Forms.ToolStripMenuItem();
+            this.shoppingCartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pnlSpecials.SuspendLayout();
             this.mnuMenuBar.SuspendLayout();
             this.SuspendLayout();
@@ -108,7 +109,8 @@
             // 
             this.mnuMenuBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mnuFile,
-            this.mnuLogin});
+            this.mnuLogin,
+            this.shoppingCartToolStripMenuItem});
             this.mnuMenuBar.Location = new System.Drawing.Point(0, 0);
             this.mnuMenuBar.Name = "mnuMenuBar";
             this.mnuMenuBar.Size = new System.Drawing.Size(784, 24);
@@ -136,6 +138,13 @@
             this.mnuLogin.Size = new System.Drawing.Size(89, 20);
             this.mnuLogin.Text = "&Login as staff";
             this.mnuLogin.Click += new System.EventHandler(this.mnuLogin_Click);
+            // 
+            // shoppingCartToolStripMenuItem
+            // 
+            this.shoppingCartToolStripMenuItem.Name = "shoppingCartToolStripMenuItem";
+            this.shoppingCartToolStripMenuItem.Size = new System.Drawing.Size(95, 20);
+            this.shoppingCartToolStripMenuItem.Text = "&Shopping Cart";
+            this.shoppingCartToolStripMenuItem.Click += new System.EventHandler(this.shoppingCartToolStripMenuItem_Click);
             // 
             // frmMain
             // 
@@ -174,6 +183,7 @@
         private System.Windows.Forms.ToolStripMenuItem mnuLogin;
         private System.Windows.Forms.Button btnUp;
         private System.Windows.Forms.Button btnDown;
+        private System.Windows.Forms.ToolStripMenuItem shoppingCartToolStripMenuItem;
     }
 }
 

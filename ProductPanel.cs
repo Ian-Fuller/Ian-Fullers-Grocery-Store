@@ -19,6 +19,7 @@ namespace SP21_Final_Project
         public int intUnitsInStock;
 
         //Panel Object
+        public string strType;
         public Panel pnlParentPanel;
         Label lblProductName;
         public PictureBox pbxProductImage;
@@ -31,6 +32,8 @@ namespace SP21_Final_Project
         }
         public ProductPanel(int intProductID, string strProductName, double dblPrice, string strSize, int intUnitsInStock, byte[] arrImageBytes, int intLeft, int intTop)
         {
+            strType = "Regular";
+
             //Data
             this.intProductID = intProductID;
             this.strProductName = strProductName;
@@ -86,6 +89,7 @@ namespace SP21_Final_Project
             btnAdd.Width = 100;
             btnAdd.Height = 20;
             btnAdd.Top = 165;
+            btnAdd.Click += new EventHandler(btnAdd_Click);
             pnlParentPanel.Controls.Add(btnAdd);
         }
 
@@ -112,6 +116,30 @@ namespace SP21_Final_Project
                                                    "Unit size: " + strSize + "\n" +
                                                    "Units in stock: " + intUnitsInStock);
             moreInfo.ShowDialog();
+        }
+        public void btnAdd_Click(object sender, EventArgs e)
+        {
+            bool inCart = false;
+
+            for(int intCurrentItem = 0; intCurrentItem < frmShoppingCart.lstCart.Count; intCurrentItem++)
+            {
+                if(this.strProductName == frmShoppingCart.lstCart[intCurrentItem].strProductName && this.GetDiscount() == frmShoppingCart.lstCart[intCurrentItem].GetDiscount())
+                {
+                    frmShoppingCart.lstQuantities[intCurrentItem]++;
+                    inCart = true;
+                }
+            }
+
+            if(!inCart)
+            {
+                frmShoppingCart.lstCart.Add(this);
+                frmShoppingCart.lstQuantities.Add(1);
+            }
+        }
+
+        public virtual int GetDiscount()
+        {
+            return 0;
         }
     }
 }

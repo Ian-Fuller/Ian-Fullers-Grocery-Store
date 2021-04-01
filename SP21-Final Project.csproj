@@ -77,18 +77,33 @@
     <Compile Include="frmMoreInfo.Designer.cs">
       <DependentUpon>frmMoreInfo.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmShoppingCart.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmShoppingCart.Designer.cs">
+      <DependentUpon>frmShoppingCart.cs</DependentUpon>
+    </Compile>
     <Compile Include="ProductPanel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SpecialPanel.cs" />
+    <EmbeddedResource Include="frmEmployees.resx">
+      <DependentUpon>frmEmployees.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmLogin.resx">
       <DependentUpon>frmLogin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmManagers.resx">
+      <DependentUpon>frmManagers.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmMoreInfo.resx">
       <DependentUpon>frmMoreInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmShoppingCart.resx">
+      <DependentUpon>frmShoppingCart.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

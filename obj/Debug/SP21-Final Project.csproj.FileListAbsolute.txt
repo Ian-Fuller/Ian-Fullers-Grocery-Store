@@ -10,3 +10,6 @@ C:\Users\ianfu\Desktop\SP21-FullerI\SP21-FullerI\obj\Debug\SP21-Final Project.pd
 C:\Users\ianfu\Desktop\SP21-FullerI\SP21-FullerI\obj\Debug\SP21_Final_Project.frmMain.resources
 C:\Users\ianfu\Desktop\SP21-FullerI\SP21-FullerI\obj\Debug\SP21_Final_Project.frmLogin.resources
 C:\Users\ianfu\Desktop\SP21-FullerI\SP21-FullerI\obj\Debug\SP21_Final_Project.frmMoreInfo.resources
+C:\Users\ianfu\Desktop\SP21-FullerI\SP21-FullerI\obj\Debug\SP21_Final_Project.frmShoppingCart.resources
+C:\Users\ianfu\Desktop\SP21-FullerI\SP21-FullerI\obj\Debug\SP21_Final_Project.frmEmployees.resources
+C:\Users\ianfu\Desktop\SP21-FullerI\SP21-FullerI\obj\Debug\SP21_Final_Project.frmManagers.resources

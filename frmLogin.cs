@@ -19,20 +19,27 @@ namespace SP21_Final_Project
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            string strUserType = DB.Login(tbxUsername.Text, tbxPassword.Text);
-            if (strUserType == "Employee")
+            if (tbxUsername.Text.Length <= 30 && tbxPassword.Text.Length <= 30)
             {
-                frmEmployees employees = new frmEmployees();
-                employees.ShowDialog();
-            }
-            else if(strUserType == "Manager")
-            {
-                frmManagers managers = new frmManagers();
-                managers.ShowDialog();
+                string strUserType = DB.Login(tbxUsername.Text, tbxPassword.Text);
+                if (strUserType == "Employee")
+                {
+                    frmEmployees employees = new frmEmployees();
+                    employees.ShowDialog();
+                }
+                else if (strUserType == "Manager")
+                {
+                    frmManagers managers = new frmManagers();
+                    managers.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("Username or password is incorrect.", "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             else
             {
-                MessageBox.Show("Username or password is incorrect.", "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Username and password can only be 30 characters long.", "Login Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

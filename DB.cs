@@ -57,13 +57,13 @@ namespace SP21_Final_Project
             StringBuilder errorMessages = new StringBuilder();
             if (ex is SqlException)
             {
-                for (int i = 0; i < ex.Errors.Count; i++)
+                for (int intCurrentError = 0; intCurrentError < ex.Errors.Count; intCurrentError++)
                 {
-                    errorMessages.Append("Index #" + i + "\n" +
-                        "Message: " + ex.Errors[i].Message + "\n" +
-                        "LineNumber: " + ex.Errors[i].LineNumber + "\n" +
-                        "Source: " + ex.Errors[i].Source + "\n" +
-                        "Procedure: " + ex.Errors[i].Procedure + "\n");
+                    errorMessages.Append("Index #" + intCurrentError + "\n" +
+                        "Message: " + ex.Errors[intCurrentError].Message + "\n" +
+                        "LineNumber: " + ex.Errors[intCurrentError].LineNumber + "\n" +
+                        "Source: " + ex.Errors[intCurrentError].Source + "\n" +
+                        "Procedure: " + ex.Errors[intCurrentError].Procedure + "\n");
                 }
                 MessageBox.Show(errorMessages.ToString(), errorMessage, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -84,7 +84,7 @@ namespace SP21_Final_Project
             }
             catch (SqlException ex)
             {
-                ShowSQLException(ex, "Could not get number of rows in Products table.");
+                ShowSQLException(ex, "Could not get number of rows in requested table.");
                 return 0;
             }
         }
@@ -227,42 +227,51 @@ namespace SP21_Final_Project
             return "";
         }
 
-        //Query template
-        public static void ProductsQuery(/*parameters*/)
+        public static void CreateInvoice(string strCity, string strAddress, List<ProductPanel> lstProducts, List<int> lstQuantities)
         {
-            string query = "";
-
-            SqlCommand cmd = new SqlCommand(query, _cntDatabase);
-            SqlDataAdapter da = new SqlDataAdapter();
-            DataTable dt = new DataTable();
-
             try
             {
+                int intNewID;
 
+                if (GetRowsCount("Customers") == 0)
+                {
+                    intNewID = 1;
+                }
+                else
+                {
+                    string strGetHighestID = "SELECT MAX(CustomerID) FROM FullerIsp212332.Customers";
+                    SqlCommand idCommand = new SqlCommand(strGetHighestID, _cntDatabase);
+                    intNewID = (int)idCommand.ExecuteScalar() + 1;
+                }
+
+                string strInsert = "INSERT INTO FullerIsp212332.Customers(CustomerID, City, Address) VALUES(" + intNewID + ", '" + strCity + "', '" + strAddress + "')";
+                SqlCommand insertCommand = new SqlCommand(strInsert, _cntDatabase);
+                insertCommand.ExecuteNonQuery();
+
+                for (int intCurrentProduct = 0; intCurrentProduct < lstProducts.Count; intCurrentProduct++)
+                {
+                    string strOrderDate = "'" + DateTime.Now.Year.ToString() + "-" + FormatDayOrMonth(DateTime.Now.Month.ToString()) + "-" + FormatDayOrMonth(DateTime.Now.Day.ToString()) + "'";
+                    DateTime thirtyDaysFromNow = DateTime.Now.AddDays(30);
+                    string strDueDate = "'" + thirtyDaysFromNow.Year.ToString() + "-" + FormatDayOrMonth(thirtyDaysFromNow.Month.ToString()) + "-" + FormatDayOrMonth(thirtyDaysFromNow.Day.ToString()) + "'";
+                    string strNewInvoice = "INSERT INTO FullerIsp212332.Invoices(CustomerID, ProductID, Discount, Quantity, TotalPrice, OrderDate, DueDate, Paid) VALUES(" + intNewID + ", " + lstProducts[intCurrentProduct].intProductID + ", " + lstProducts[intCurrentProduct].GetDiscount() + ", " + lstQuantities[intCurrentProduct] + ", " + (Math.Round(lstProducts[intCurrentProduct].dblPrice * (1f - (double)lstProducts[intCurrentProduct].GetDiscount() / 100f), 2)) * lstQuantities[intCurrentProduct] + ", " + strOrderDate + ", " + strDueDate + ", 'No')";
+                    SqlCommand invoiceCommand = new SqlCommand(strNewInvoice, _cntDatabase);
+                    invoiceCommand.ExecuteNonQuery();
+                }
             }
-            catch (SqlException ex)
+            catch(Exception ex)
             {
-                ShowSQLException(ex, "[ERROR MESSAGE]");
+                MessageBox.Show(ex.Message, "Error Making Purchase", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        //Nonquery template
-        public static void NonQuery(/*parameters*/)
+        public static string FormatDayOrMonth(string strDayMonth)
         {
-            string nonQuery = "";
-
-            SqlCommand cmd = new SqlCommand(nonQuery, _cntDatabase);
-            SqlDataAdapter da = new SqlDataAdapter();
-            DataTable dt = new DataTable();
-
-            try
+            if(strDayMonth.Length == 1)
             {
+                strDayMonth = "0" + strDayMonth;
+            }
 
-            }
-            catch (SqlException ex)
-            {
-                ShowSQLException(ex, "[ERROR MESSAGE]");
-            }
+            return strDayMonth;
         }
     }
 }
