@@ -39,7 +39,7 @@ namespace SP21_Final_Project
             css.Append("</style>");
 
             html.Append("<html>");
-            html.Append($"<head>{css}<title>{"Favorites List"}</title></head>");
+            html.Append($"<head>{css}<title>Employee Schedule</title></head>");
             html.Append("<body>");
             html.Append("<h1>" + frmLogin.strCurrentUser + "'s Schedule</h1>");
 
