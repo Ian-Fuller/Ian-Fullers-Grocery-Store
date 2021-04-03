@@ -90,19 +90,24 @@ namespace SP21_Final_Project
         }
 
         //Gets data from a row in the database, then fills a newly-created panel with that data
-        public static void FillPanel(int intCurrentRow, List<ProductPanel> lstPanels, int intLeft, int intTop)
+        public static int FillPanel(int intCurrentRow, List<ProductPanel> lstPanels, int intLeft, int intTop)
         {
             string strProductName;
             double dblPrice;
             string strSize;
-            int intUnitsInStock;
-            byte[] arrImageBytes;
+            int intUnitsInStock = 0;
+            byte[] arrImageBytes = null;
 
             try
             {
                 string strNameQuery = "SELECT ProductName FROM FullerIsp212332.Products WHERE ProductID = " + intCurrentRow;
                 SqlCommand nameCommand = new SqlCommand(strNameQuery, _cntDatabase);
                 strProductName = (string)nameCommand.ExecuteScalar();
+
+                if(strProductName == null)
+                {
+                    return 1;
+                }
 
                 string strPriceQuery = "SELECT Price FROM FullerIsp212332.Products WHERE ProductID = " + intCurrentRow;
                 SqlCommand priceCommand = new SqlCommand(strPriceQuery, _cntDatabase);
@@ -126,9 +131,11 @@ namespace SP21_Final_Project
             {
                 ShowSQLException(ex, "Failed to fill a product panel.");
             }
+
+            return 0;
         }
 
-        public static void FillSpecialPanel(int intCurrentRow, List<SpecialPanel> lstPanels, int intLeft, int intTop)
+        public static int FillSpecialPanel(int intCurrentRow, List<SpecialPanel> lstPanels, int intLeft, int intTop)
         {
             int intID;
 
@@ -144,7 +151,14 @@ namespace SP21_Final_Project
             {
                 string strIDQuery = "SELECT ProductID FROM FullerIsp212332.Specials WHERE SpecialID = " + intCurrentRow;
                 SqlCommand IDCommand = new SqlCommand(strIDQuery, _cntDatabase);
-                intID = (int)IDCommand.ExecuteScalar();
+                if(IDCommand.ExecuteScalar() == null)
+                {
+                    return 1;
+                }
+                else
+                {
+                    intID = (int)IDCommand.ExecuteScalar();
+                }
 
                 string strNameQuery = "SELECT ProductName FROM FullerIsp212332.Products WHERE ProductID = " + intID;
                 SqlCommand nameCommand = new SqlCommand(strNameQuery, _cntDatabase);
@@ -180,6 +194,8 @@ namespace SP21_Final_Project
             {
                 ShowSQLException(ex, "Failed to fill a product panel.");
             }
+
+            return 0;
         }
 
         public static void InsertImage(string productName)
@@ -264,6 +280,7 @@ namespace SP21_Final_Project
             }
         }
 
+        //Formats 1 digit day/month to a 2 digit day/month
         public static string FormatDayOrMonth(string strDayMonth)
         {
             if(strDayMonth.Length == 1)
@@ -272,6 +289,253 @@ namespace SP21_Final_Project
             }
 
             return strDayMonth;
+        }
+
+        public static void AddNewProduct(string strName, double dblPrice, string strSize, int intStock, byte[] arrBytes)
+        {
+            try
+            {
+                string strInsertQuery = $"INSERT INTO FullerIsp212332.Products(ProductName, Price, Size, UnitsInStock, ProductImage) VALUES('" + strName + "', " + dblPrice + ", '" + strSize + "', " + intStock + ", @Image)";
+                SqlCommand cmdInsertCommand = new SqlCommand(strInsertQuery, _cntDatabase);
+                SqlParameter param = cmdInsertCommand.Parameters.AddWithValue("@Image", arrBytes);
+                param.DbType = System.Data.DbType.Binary;
+                cmdInsertCommand.ExecuteNonQuery();
+
+                MessageBox.Show("Product successfully added to database.", "Product Added", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (SqlException ex)
+            {
+                ShowSQLException(ex, "Failed to add product");
+            }
+        }
+
+        public static void RemoveProduct(string strProductName)
+        {
+            try
+            {
+                string strGetProductID = "SELECT ProductID FROM FullerIsp212332.Products WHERE ProductName = '" + strProductName + "'";
+                SqlCommand cmdGetProductID = new SqlCommand(strGetProductID, _cntDatabase);
+                int intProductID = (int)cmdGetProductID.ExecuteScalar();
+
+                string strRemoveSpecials = "DELETE FROM FullerIsp212332.Specials WHERE ProductID = " + intProductID;
+                SqlCommand cmdRemoveSpecials = new SqlCommand(strRemoveSpecials, _cntDatabase);
+                cmdRemoveSpecials.ExecuteNonQuery();
+
+                string strRemoveProduct = "DELETE FROM FullerIsp212332.Products WHERE ProductID = " + intProductID;
+                SqlCommand cmdRemoveProduct = new SqlCommand(strRemoveProduct, _cntDatabase);
+                cmdRemoveProduct.ExecuteNonQuery();
+
+                MessageBox.Show("Product successfully removed from database.", "Product Removed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (SqlException ex)
+            {
+                ShowSQLException(ex, "Failed to remove product");
+            }
+        }
+
+        public static void UpdateProduct(string strColumnName, string strNewValue, string strProductName)
+        {
+            try
+            {
+                if(strColumnName == "ProductName")
+                {
+                    if (strNewValue.Length <= 50)
+                    {
+                        string strUpdateQuery = "UPDATE FullerIsp212332.Products SET " + strColumnName + " = " + strNewValue + " WHERE ProductName = '" + strProductName + "'";
+                        SqlCommand cmdUpdateQuery = new SqlCommand(strUpdateQuery, _cntDatabase);
+                        cmdUpdateQuery.ExecuteNonQuery();
+                        MessageBox.Show("Product successfully updated.", "Product Updated", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Product name can only be 50 characters long.", "Error Updating Product", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                else if(strColumnName == "Price")
+                {
+                    if (Double.TryParse(strNewValue, out double dblPrice))
+                    {
+                        string strUpdateQuery = "UPDATE FullerIsp212332.Products SET " + strColumnName + " = " + dblPrice + " WHERE ProductName = '" + strProductName + "'";
+                        SqlCommand cmdUpdateQuery = new SqlCommand(strUpdateQuery, _cntDatabase);
+                        cmdUpdateQuery.ExecuteNonQuery();
+                        MessageBox.Show("Product successfully updated.", "Product Updated", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Product price must be a decimal value.", "Error Updating Product", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                else if(strColumnName == "Size")
+                {
+                    if (strNewValue.Length <= 20)
+                    {
+                        string strUpdateQuery = "UPDATE FullerIsp212332.Products SET " + strColumnName + " = " + strNewValue + " WHERE ProductName = '" + strProductName + "'";
+                        SqlCommand cmdUpdateQuery = new SqlCommand(strUpdateQuery, _cntDatabase);
+                        cmdUpdateQuery.ExecuteNonQuery();
+                        MessageBox.Show("Product successfully updated.", "Product Updated", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Product size can only be 20 characters long.", "Error Updating Product", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                else if(strColumnName == "UnitsInStock")
+                {
+                    if (Int32.TryParse(strNewValue, out int intStock))
+                    {
+                        string strUpdateQuery = "UPDATE FullerIsp212332.Products SET " + strColumnName + " = " + intStock + " WHERE ProductName = '" + strProductName + "'";
+                        SqlCommand cmdUpdateQuery = new SqlCommand(strUpdateQuery, _cntDatabase);
+                        cmdUpdateQuery.ExecuteNonQuery();
+                        MessageBox.Show("Product successfully updated.", "Product Updated", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Product units in stock must be an integer value.", "Error Updating Product", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                else if(strColumnName == "ProductImage")
+                {
+                    byte[] arrBytes = File.ReadAllBytes(strNewValue);
+                    string strUpdateQuery = "UPDATE FullerIsp212332.Products SET " + strColumnName + " = @Image WHERE ProductName = '" + strProductName + "'";
+                    SqlCommand cmdUpdateQuery = new SqlCommand(strUpdateQuery, _cntDatabase);
+                    SqlParameter param = cmdUpdateQuery.Parameters.AddWithValue("@Image", arrBytes);
+                    param.DbType = System.Data.DbType.Binary;
+                    cmdUpdateQuery.ExecuteNonQuery();
+                    MessageBox.Show("Product successfully updated.", "Product Updated", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (SqlException ex)
+            {
+                ShowSQLException(ex, "Failed to update product");
+            }
+        }
+
+        public static void AddSpecial(string strProductName, int intDiscount, string strExtraDetails)
+        {
+            string strGetProductID = "SELECT ProductID FROM FullerIsp212332.Products WHERE ProductName = '" + strProductName + "'";
+            SqlCommand cmdGetProductID = new SqlCommand(strGetProductID, _cntDatabase);
+            int intProductID = (int)cmdGetProductID.ExecuteScalar();
+
+            string strInsertCommand = "INSERT INTO FullerIsp212332.Specials VALUES(" + intProductID + ", " + intDiscount + ", '" + strExtraDetails + "')";
+            SqlCommand cmdInsertCommand = new SqlCommand(strInsertCommand, _cntDatabase);
+            cmdInsertCommand.ExecuteNonQuery();
+
+            MessageBox.Show("Special successfully added.", "Special Added", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        public static void RemoveSpecial(string strName, int intDiscount)
+        {
+            try
+            {
+                string strGetOldProductID = "SELECT ProductID FROM FullerIsp212332.Products WHERE ProductName = '" + strName + "'";
+                SqlCommand cmdGetOldProductID = new SqlCommand(strGetOldProductID, _cntDatabase);
+                int intOldProductID = (int)cmdGetOldProductID.ExecuteScalar();
+
+                string strDeleteQuery = "DELETE FROM FullerIsp212332.Specials WHERE ProductID = " + intOldProductID + " AND PriceDiscounted = " + intDiscount;
+                SqlCommand cmdDeleteQuery = new SqlCommand(strDeleteQuery, _cntDatabase);
+                cmdDeleteQuery.ExecuteNonQuery();
+
+                MessageBox.Show("Special successfully removed from database.", "Special Removed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (SqlException ex)
+            {
+                ShowSQLException(ex, "Failed to remove special");
+            }
+        }
+
+        public static void UpdateSpecial(string strName, int intDiscount, string strColumnName, string strNewValue)
+        {
+            try
+            {
+                if (strColumnName == "Product")
+                {
+                    string strGetOldProductID = "SELECT ProductID FROM FullerIsp212332.Products WHERE ProductName = '" + strName + "'";
+                    SqlCommand cmdGetOldProductID = new SqlCommand(strGetOldProductID, _cntDatabase);
+                    int intOldProductID = (int)cmdGetOldProductID.ExecuteScalar();
+
+                    string strGetNewProductID = "SELECT ProductID FROM FullerIsp212332.Products WHERE ProductName = '" + strNewValue + "'";
+                    SqlCommand cmdGetNewProductID = new SqlCommand(strGetNewProductID, _cntDatabase);
+                    int intNewProductID = (int)cmdGetNewProductID.ExecuteScalar();
+
+                    string strUpdateQuery = "UPDATE FullerIsp212332.Specials SET ProductID = " + intNewProductID + " WHERE ProductID = " + intOldProductID + " AND PriceDiscounted = " + intDiscount;
+                    SqlCommand cmdUpdateQuery = new SqlCommand(strUpdateQuery, _cntDatabase);
+                    cmdUpdateQuery.ExecuteNonQuery();
+
+                    MessageBox.Show("Special successfully updated.", "Special Updated", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else if (strColumnName == "PriceDiscounted")
+                {
+                    if (Int32.TryParse(strNewValue, out int intNewDiscount))
+                    {
+                        string strGetOldProductID = "SELECT ProductID FROM FullerIsp212332.Products WHERE ProductName = '" + strName + "'";
+                        SqlCommand cmdGetOldProductID = new SqlCommand(strGetOldProductID, _cntDatabase);
+                        int intOldProductID = (int)cmdGetOldProductID.ExecuteScalar();
+
+                        string strUpdateQuery = "UPDATE FullerIsp212332.Specials SET " + strColumnName + " = " + intNewDiscount + " WHERE ProductID = " + intOldProductID + " AND PriceDiscounted = " + intDiscount;
+                        SqlCommand cmdUpdateQuery = new SqlCommand(strUpdateQuery, _cntDatabase);
+                        cmdUpdateQuery.ExecuteNonQuery();
+
+                        MessageBox.Show("Special successfully updated.", "Special Updated", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Input discount as integer format.", "Error Updating Product", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                else if (strColumnName == "ExtraDetails")
+                {
+                    if (strNewValue.Length <= 50)
+                    {
+                        string strGetOldProductID = "SELECT ProductID FROM FullerIsp212332.Products WHERE ProductName = '" + strName + "'";
+                        SqlCommand cmdGetOldProductID = new SqlCommand(strGetOldProductID, _cntDatabase);
+                        int intOldProductID = (int)cmdGetOldProductID.ExecuteScalar();
+
+                        string strUpdateQuery = "UPDATE FullerIsp212332.Specials SET " + strColumnName + " = '" + strNewValue + "' WHERE ProductID = " + intOldProductID + " AND PriceDiscounted = " + intDiscount;
+                        SqlCommand cmdUpdateQuery = new SqlCommand(strUpdateQuery, _cntDatabase);
+                        cmdUpdateQuery.ExecuteNonQuery();
+
+                        MessageBox.Show("Special successfully updated.", "Special Updated", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Extra details can only be 50 characters long.", "Error Updating Product", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                ShowSQLException(ex, "Failed to update special");
+            }
+        }
+
+        public static string GetSchedule(string strUsername, DataGridView dgvSchedule)
+        {
+            try
+            {
+                string strGetID = "SELECT EmployeeID FROM FullerIsp212332.Employees WHERE Username ='" + strUsername + "'";
+                SqlCommand cmdGetID = new SqlCommand(strGetID, _cntDatabase);
+                int intEmployeeID = (int)cmdGetID.ExecuteScalar();
+
+                string strGetSchedule = "SELECT Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday FROM FullerIsp212332.Schedules WHERE EmployeeID = " + intEmployeeID;
+                SqlCommand cmdGetSchedule = new SqlCommand(strGetSchedule, _cntDatabase);
+                SqlDataAdapter sdaGetSchedule = new SqlDataAdapter();
+                DataTable dtbGetSchedule = new DataTable();
+
+                sdaGetSchedule.SelectCommand = cmdGetSchedule;
+                sdaGetSchedule.Fill(dtbGetSchedule);
+                dgvSchedule.DataSource = dtbGetSchedule;
+
+                string strToday = DateTime.Now.DayOfWeek.ToString();
+                string strGetToday = "SELECT " + strToday + " FROM FullerIsp212332.Schedules WHERE EmployeeID = " + intEmployeeID;
+                SqlCommand cmdGetToday = new SqlCommand(strGetToday, _cntDatabase);
+                return (string)cmdGetToday.ExecuteScalar();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Cannot get schedule", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            return "Nothing";
         }
     }
 }

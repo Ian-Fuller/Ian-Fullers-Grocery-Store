@@ -29,20 +29,110 @@ namespace SP21_Final_Project
         /// </summary>
         private void InitializeComponent()
         {
+            this.mnuBar = new System.Windows.Forms.MenuStrip();
+            this.mnuFile = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuClose = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnManageProducts = new System.Windows.Forms.Button();
+            this.btnManageSpecials = new System.Windows.Forms.Button();
+            this.btnEmployeeScheduling = new System.Windows.Forms.Button();
+            this.btnPrintReports = new System.Windows.Forms.Button();
+            this.mnuBar.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // mnuBar
+            // 
+            this.mnuBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuFile});
+            this.mnuBar.Location = new System.Drawing.Point(0, 0);
+            this.mnuBar.Name = "mnuBar";
+            this.mnuBar.Size = new System.Drawing.Size(219, 24);
+            this.mnuBar.TabIndex = 0;
+            this.mnuBar.Text = "menuStrip1";
+            // 
+            // mnuFile
+            // 
+            this.mnuFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuClose});
+            this.mnuFile.Name = "mnuFile";
+            this.mnuFile.Size = new System.Drawing.Size(37, 20);
+            this.mnuFile.Text = "&File";
+            // 
+            // mnuClose
+            // 
+            this.mnuClose.Name = "mnuClose";
+            this.mnuClose.Size = new System.Drawing.Size(103, 22);
+            this.mnuClose.Text = "&Close";
+            this.mnuClose.Click += new System.EventHandler(this.mnuClose_Click);
+            // 
+            // btnManageProducts
+            // 
+            this.btnManageProducts.Location = new System.Drawing.Point(12, 27);
+            this.btnManageProducts.Name = "btnManageProducts";
+            this.btnManageProducts.Size = new System.Drawing.Size(195, 23);
+            this.btnManageProducts.TabIndex = 7;
+            this.btnManageProducts.Text = "&Product Management";
+            this.btnManageProducts.UseVisualStyleBackColor = true;
+            this.btnManageProducts.Click += new System.EventHandler(this.btnManageProducts_Click);
+            // 
+            // btnManageSpecials
+            // 
+            this.btnManageSpecials.Location = new System.Drawing.Point(12, 56);
+            this.btnManageSpecials.Name = "btnManageSpecials";
+            this.btnManageSpecials.Size = new System.Drawing.Size(195, 23);
+            this.btnManageSpecials.TabIndex = 8;
+            this.btnManageSpecials.Text = "&Specials Management";
+            this.btnManageSpecials.UseVisualStyleBackColor = true;
+            this.btnManageSpecials.Click += new System.EventHandler(this.btnManageSpecials_Click);
+            // 
+            // btnEmployeeScheduling
+            // 
+            this.btnEmployeeScheduling.Location = new System.Drawing.Point(12, 85);
+            this.btnEmployeeScheduling.Name = "btnEmployeeScheduling";
+            this.btnEmployeeScheduling.Size = new System.Drawing.Size(195, 23);
+            this.btnEmployeeScheduling.TabIndex = 9;
+            this.btnEmployeeScheduling.Text = "&Employee Scheduling";
+            this.btnEmployeeScheduling.UseVisualStyleBackColor = true;
+            this.btnEmployeeScheduling.Click += new System.EventHandler(this.btnEmployeeScheduling_Click);
+            // 
+            // btnPrintReports
+            // 
+            this.btnPrintReports.Location = new System.Drawing.Point(12, 114);
+            this.btnPrintReports.Name = "btnPrintReports";
+            this.btnPrintReports.Size = new System.Drawing.Size(195, 23);
+            this.btnPrintReports.TabIndex = 10;
+            this.btnPrintReports.Text = "&Print Reports";
+            this.btnPrintReports.UseVisualStyleBackColor = true;
+            this.btnPrintReports.Click += new System.EventHandler(this.btnPrintReports_Click);
             // 
             // frmManagers
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(219, 152);
+            this.Controls.Add(this.btnPrintReports);
+            this.Controls.Add(this.btnEmployeeScheduling);
+            this.Controls.Add(this.btnManageSpecials);
+            this.Controls.Add(this.btnManageProducts);
+            this.Controls.Add(this.mnuBar);
+            this.MainMenuStrip = this.mnuBar;
             this.Name = "frmManagers";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "frmManagers";
+            this.Text = "Managers Menu";
+            this.mnuBar.ResumeLayout(false);
+            this.mnuBar.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
+
+        private System.Windows.Forms.MenuStrip mnuBar;
+        private System.Windows.Forms.ToolStripMenuItem mnuFile;
+        private System.Windows.Forms.ToolStripMenuItem mnuClose;
+        private System.Windows.Forms.Button btnManageProducts;
+        private System.Windows.Forms.Button btnManageSpecials;
+        private System.Windows.Forms.Button btnEmployeeScheduling;
+        private System.Windows.Forms.Button btnPrintReports;
     }
 }

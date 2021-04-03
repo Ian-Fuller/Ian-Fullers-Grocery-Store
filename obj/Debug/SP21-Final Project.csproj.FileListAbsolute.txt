@@ -13,3 +13,11 @@ C:\Users\ianfu\Desktop\SP21-FullerI\SP21-FullerI\obj\Debug\SP21_Final_Project.fr
 C:\Users\ianfu\Desktop\SP21-FullerI\SP21-FullerI\obj\Debug\SP21_Final_Project.frmShoppingCart.resources
 C:\Users\ianfu\Desktop\SP21-FullerI\SP21-FullerI\obj\Debug\SP21_Final_Project.frmEmployees.resources
 C:\Users\ianfu\Desktop\SP21-FullerI\SP21-FullerI\obj\Debug\SP21_Final_Project.frmManagers.resources
+C:\Users\ianfu\Desktop\SP21-FullerI\SP21-FullerI\obj\Debug\SP21_Final_Project.frmProductAdd.resources
+C:\Users\ianfu\Desktop\SP21-FullerI\SP21-FullerI\obj\Debug\SP21_Final_Project.frmProductRemove.resources
+C:\Users\ianfu\Desktop\SP21-FullerI\SP21-FullerI\obj\Debug\SP21_Final_Project.frmProductUpdate.resources
+C:\Users\ianfu\Desktop\SP21-FullerI\SP21-FullerI\obj\Debug\SP21_Final_Project.frmProductManage.resources
+C:\Users\ianfu\Desktop\SP21-FullerI\SP21-FullerI\obj\Debug\SP21_Final_Project.frmSpecialManage.resources
+C:\Users\ianfu\Desktop\SP21-FullerI\SP21-FullerI\obj\Debug\SP21_Final_Project.frmSpecialAdd.resources
+C:\Users\ianfu\Desktop\SP21-FullerI\SP21-FullerI\obj\Debug\SP21_Final_Project.frmSpecialRemove.resources
+C:\Users\ianfu\Desktop\SP21-FullerI\SP21-FullerI\obj\Debug\SP21_Final_Project.frmSpecialUpdate.resources

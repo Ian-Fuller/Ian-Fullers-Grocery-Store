@@ -8,10 +8,10 @@ using System.Drawing;
 
 namespace SP21_Final_Project
 {
-    class SpecialPanel : ProductPanel
+    public class SpecialPanel : ProductPanel
     {
         //Unique variables
-        int intDiscount;
+        public int intDiscount;
         string strExtraDetails;
 
         //Form objects

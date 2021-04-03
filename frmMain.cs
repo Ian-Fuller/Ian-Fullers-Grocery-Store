@@ -2,6 +2,8 @@
 //Course: INEW 2332.10z1
 //Program purpose: Application that will allow the user to make purchases from a grocery store
 
+//improve comments
+//Specials loading may fail the same way the other products did (when ID skips a few numbers)
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,7 +19,7 @@ namespace SP21_Final_Project
     public partial class frmMain : Form
     {
         //Panel variables
-        List<ProductPanel> lstPanels = new List<ProductPanel>();
+        public static List<ProductPanel> lstPanels = new List<ProductPanel>();
         int intGroupSize = 8;
         List<ProductPanel[]> lstPanelGroups = new List<ProductPanel[]>();
         int[,] arrPanelPositions = new int[8, 2]
@@ -34,7 +36,7 @@ namespace SP21_Final_Project
         int intGroupIndex = 0;
 
         //Special variables
-        List<SpecialPanel> lstSpecials = new List<SpecialPanel>();
+        public static List<SpecialPanel> lstSpecials = new List<SpecialPanel>();
         int intSGroupSize = 2;
         List<SpecialPanel[]> lstSpecialGroups = new List<SpecialPanel[]>();
         int[,] arrSpecialPositions = new int[2, 2]
@@ -58,9 +60,14 @@ namespace SP21_Final_Project
                 int intRowsCount = DB.GetRowsCount("Products");
 
                 //Creates panels
+                int intIDOffset = 0;
                 for (int intCurrentRow = 0; intCurrentRow < intRowsCount; intCurrentRow++)
                 {
-                    DB.FillPanel(intCurrentRow + 1, lstPanels, 0, 0);
+                    if(DB.FillPanel(intCurrentRow + 1 + intIDOffset, lstPanels, 0, 0) == 1)
+                    {
+                        intIDOffset++;
+                        intCurrentRow--;
+                    }
                 }
 
                 int intGroupCount = (int)Math.Ceiling((double)intRowsCount / (double)intGroupSize);
@@ -94,9 +101,14 @@ namespace SP21_Final_Project
 
                 int intSpecialsCount = DB.GetRowsCount("Specials");
 
-                for(int intCurrentRow = 0; intCurrentRow < intSpecialsCount; intCurrentRow++)
+                intIDOffset = 0;
+                for (int intCurrentRow = 0; intCurrentRow < intSpecialsCount; intCurrentRow++)
                 {
-                    DB.FillSpecialPanel(intCurrentRow + 1, lstSpecials, 0, 0);
+                    if (DB.FillSpecialPanel(intCurrentRow + 1 + intIDOffset, lstSpecials, 0, 0) == 1)
+                    {
+                        intIDOffset++;
+                        intCurrentRow--;
+                    }
                 }
 
                 int intSGroupCount = (int)Math.Ceiling((double)intSpecialsCount / (double)intSGroupSize);

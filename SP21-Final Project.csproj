@@ -77,11 +77,59 @@
     <Compile Include="frmMoreInfo.Designer.cs">
       <DependentUpon>frmMoreInfo.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmProductAdd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmProductAdd.Designer.cs">
+      <DependentUpon>frmProductAdd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmProductManage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmProductManage.Designer.cs">
+      <DependentUpon>frmProductManage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmProductRemove.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmProductRemove.Designer.cs">
+      <DependentUpon>frmProductRemove.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmProductUpdate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmProductUpdate.Designer.cs">
+      <DependentUpon>frmProductUpdate.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmShoppingCart.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmShoppingCart.Designer.cs">
       <DependentUpon>frmShoppingCart.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmSpecialAdd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSpecialAdd.Designer.cs">
+      <DependentUpon>frmSpecialAdd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmSpecialManage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSpecialManage.Designer.cs">
+      <DependentUpon>frmSpecialManage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmSpecialRemove.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSpecialRemove.Designer.cs">
+      <DependentUpon>frmSpecialRemove.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmSpecialUpdate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSpecialUpdate.Designer.cs">
+      <DependentUpon>frmSpecialUpdate.cs</DependentUpon>
     </Compile>
     <Compile Include="ProductPanel.cs" />
     <Compile Include="Program.cs" />
@@ -102,8 +150,32 @@
     <EmbeddedResource Include="frmMoreInfo.resx">
       <DependentUpon>frmMoreInfo.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmProductAdd.resx">
+      <DependentUpon>frmProductAdd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmProductManage.resx">
+      <DependentUpon>frmProductManage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmProductRemove.resx">
+      <DependentUpon>frmProductRemove.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmProductUpdate.resx">
+      <DependentUpon>frmProductUpdate.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmShoppingCart.resx">
       <DependentUpon>frmShoppingCart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSpecialAdd.resx">
+      <DependentUpon>frmSpecialAdd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSpecialManage.resx">
+      <DependentUpon>frmSpecialManage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSpecialRemove.resx">
+      <DependentUpon>frmSpecialRemove.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSpecialUpdate.resx">
+      <DependentUpon>frmSpecialUpdate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -12,6 +12,8 @@ namespace SP21_Final_Project
 {
     public partial class frmLogin : Form
     {
+        public static string strCurrentUser;
+
         public frmLogin()
         {
             InitializeComponent();
@@ -24,11 +26,13 @@ namespace SP21_Final_Project
                 string strUserType = DB.Login(tbxUsername.Text, tbxPassword.Text);
                 if (strUserType == "Employee")
                 {
+                    strCurrentUser = tbxUsername.Text;
                     frmEmployees employees = new frmEmployees();
                     employees.ShowDialog();
                 }
                 else if (strUserType == "Manager")
                 {
+                    strCurrentUser = tbxUsername.Text;
                     frmManagers managers = new frmManagers();
                     managers.ShowDialog();
                 }
