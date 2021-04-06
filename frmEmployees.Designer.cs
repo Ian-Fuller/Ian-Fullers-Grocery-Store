@@ -52,6 +52,7 @@ namespace SP21_Final_Project
             this.btnRequestTrade.TabIndex = 0;
             this.btnRequestTrade.Text = "Request work day &trade";
             this.btnRequestTrade.UseVisualStyleBackColor = true;
+            this.btnRequestTrade.Click += new System.EventHandler(this.btnRequestTrade_Click);
             // 
             // mnuBar
             // 
@@ -86,6 +87,7 @@ namespace SP21_Final_Project
             this.btnRequestDayOff.TabIndex = 2;
             this.btnRequestDayOff.Text = "Request &day off";
             this.btnRequestDayOff.UseVisualStyleBackColor = true;
+            this.btnRequestDayOff.Click += new System.EventHandler(this.btnRequestDayOff_Click);
             // 
             // btnChangeInfo
             // 
@@ -95,6 +97,7 @@ namespace SP21_Final_Project
             this.btnChangeInfo.TabIndex = 3;
             this.btnChangeInfo.Text = "&Change Information";
             this.btnChangeInfo.UseVisualStyleBackColor = true;
+            this.btnChangeInfo.Click += new System.EventHandler(this.btnChangeInfo_Click);
             // 
             // dgvSchedule
             // 
@@ -146,7 +149,7 @@ namespace SP21_Final_Project
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(964, 450);
+            this.ClientSize = new System.Drawing.Size(964, 208);
             this.Controls.Add(this.btnPrint);
             this.Controls.Add(this.lblThisWeek);
             this.Controls.Add(this.lblTask);

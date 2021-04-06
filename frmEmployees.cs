@@ -95,5 +95,22 @@ namespace SP21_Final_Project
         {
             PrintReport(GenerateReport());
         }
+
+        private void btnChangeInfo_Click(object sender, EventArgs e)
+        {
+            frmUpdateEmployee update = new frmUpdateEmployee();
+            update.ShowDialog();
+        }
+
+        private void btnRequestTrade_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnRequestDayOff_Click(object sender, EventArgs e)
+        {
+            frmRequestDayOff dayoff = new frmRequestDayOff();
+            dayoff.ShowDialog();
+        }
     }
 }

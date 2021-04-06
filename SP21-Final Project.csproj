@@ -101,6 +101,54 @@
     <Compile Include="frmProductUpdate.Designer.cs">
       <DependentUpon>frmProductUpdate.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmReports.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmReports.Designer.cs">
+      <DependentUpon>frmReports.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmRequestDayOff.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmRequestDayOff.Designer.cs">
+      <DependentUpon>frmRequestDayOff.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmRequestTrade.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmRequestTrade.Designer.cs">
+      <DependentUpon>frmRequestTrade.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmRespond.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmRespond.Designer.cs">
+      <DependentUpon>frmRespond.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmScheduleAdd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmScheduleAdd.Designer.cs">
+      <DependentUpon>frmScheduleAdd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmScheduleRemove.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmScheduleRemove.Designer.cs">
+      <DependentUpon>frmScheduleRemove.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmScheduleUpdate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmScheduleUpdate.Designer.cs">
+      <DependentUpon>frmScheduleUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmScheduleManage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmScheduleManage.Designer.cs">
+      <DependentUpon>frmScheduleManage.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmShoppingCart.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -130,6 +178,12 @@
     </Compile>
     <Compile Include="frmSpecialUpdate.Designer.cs">
       <DependentUpon>frmSpecialUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmUpdateEmployee.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmUpdateEmployee.Designer.cs">
+      <DependentUpon>frmUpdateEmployee.cs</DependentUpon>
     </Compile>
     <Compile Include="ProductPanel.cs" />
     <Compile Include="Program.cs" />
@@ -162,6 +216,30 @@
     <EmbeddedResource Include="frmProductUpdate.resx">
       <DependentUpon>frmProductUpdate.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmReports.resx">
+      <DependentUpon>frmReports.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmRequestDayOff.resx">
+      <DependentUpon>frmRequestDayOff.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmRequestTrade.resx">
+      <DependentUpon>frmRequestTrade.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmRespond.resx">
+      <DependentUpon>frmRespond.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmScheduleAdd.resx">
+      <DependentUpon>frmScheduleAdd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmScheduleManage.resx">
+      <DependentUpon>frmScheduleManage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmScheduleRemove.resx">
+      <DependentUpon>frmScheduleRemove.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmScheduleUpdate.resx">
+      <DependentUpon>frmScheduleUpdate.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmShoppingCart.resx">
       <DependentUpon>frmShoppingCart.cs</DependentUpon>
     </EmbeddedResource>
@@ -176,6 +254,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmSpecialUpdate.resx">
       <DependentUpon>frmSpecialUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmUpdateEmployee.resx">
+      <DependentUpon>frmUpdateEmployee.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
