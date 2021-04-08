@@ -54,6 +54,7 @@ namespace SP21_Final_Project
             bool bolSizeValid = true;
             bool bolStockValid = true;
             bool bolHasImage = true;
+            bool bolWholesaleValid = true;
 
             if(tbxName.Text == "" || tbxPrice.Text == "" || tbxSize.Text =="" || tbxStock.Text == "")
             {
@@ -65,10 +66,10 @@ namespace SP21_Final_Project
                 bolNameValid = false;
                 MessageBox.Show("Product name can only be 50 characters long.", "Error Adding Product", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            if(!Double.TryParse(tbxPrice.Text, out double dblPrice))
+            if(!Double.TryParse(tbxPrice.Text, out double dblPrice) && !tbxPrice.Text.Contains('-'))
             {
                 bolPriceValid = false;
-                MessageBox.Show("Product price must be a decimal value.", "Error Adding Product", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Product price must be a positive decimal value.", "Error Adding Product", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             if (tbxSize.Text.Length > 20)
             {
@@ -85,10 +86,37 @@ namespace SP21_Final_Project
                 bolHasImage = false;
                 MessageBox.Show("Product must have an an image", "Error Adding Product", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            if (!Double.TryParse(tbxWholesalePrice.Text, out double dblWholesalePrice) && !tbxPrice.Text.Contains('-'))
+            {
+                bolWholesaleValid = false;
+                MessageBox.Show("Wholesale price must be a positive decimal value.", "Error Adding Product", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
-            if (bolNameValid && bolPriceValid && bolSizeValid && bolStockValid && bolHasImage)
+            if (bolNameValid && bolPriceValid && bolSizeValid && bolStockValid && bolHasImage && bolWholesaleValid)
             {
                 DB.AddNewProduct(tbxName.Text, dblPrice, tbxSize.Text, intStock, arrBytes);
+                PrintReport(DB.GenerateManagerPurchaseReceipt(tbxName.Text, intStock, dblPrice), "ManagerPurchaseReceipt.html");
+            }
+        }
+
+        private void PrintReport(StringBuilder html, string strFileName)
+        {
+            try
+            {
+                using (StreamWriter writer = new StreamWriter(strFileName))
+                {
+                    writer.WriteLine(html);
+                }
+                System.Diagnostics.Process.Start(@strFileName);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("You don't have write permissions", "Error System Permissions", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            DateTime today = DateTime.Now;
+            using (StreamWriter wr = new StreamWriter($"{today.ToString("yyyy-MM-dd-HHmmss")} - " + strFileName))
+            {
+                wr.WriteLine(html);
             }
         }
     }

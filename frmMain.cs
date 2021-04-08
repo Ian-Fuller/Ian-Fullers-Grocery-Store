@@ -4,6 +4,10 @@
 
 //improve comments
 //Specials loading may fail the same way the other products did (when ID skips a few numbers)
+//Schedule update not working
+//frmMain needs to be able to refresh
+//Reduce product quantity when purchasing
+//Add receipt printing when manager updating product
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

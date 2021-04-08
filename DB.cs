@@ -359,7 +359,7 @@ namespace SP21_Final_Project
                 }
                 else if(strColumnName == "Price")
                 {
-                    if (Double.TryParse(strNewValue, out double dblPrice))
+                    if (Double.TryParse(strNewValue, out double dblPrice) && !strNewValue.Contains('-'))
                     {
                         string strUpdateQuery = "UPDATE FullerIsp212332.Products SET " + strColumnName + " = " + dblPrice + " WHERE ProductName = '" + strProductName + "'";
                         SqlCommand cmdUpdateQuery = new SqlCommand(strUpdateQuery, _cntDatabase);
@@ -368,7 +368,7 @@ namespace SP21_Final_Project
                     }
                     else
                     {
-                        MessageBox.Show("Product price must be a decimal value.", "Error Updating Product", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Product price must be a positive decimal value.", "Error Updating Product", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
                 else if(strColumnName == "Size")
@@ -389,9 +389,39 @@ namespace SP21_Final_Project
                 {
                     if (Int32.TryParse(strNewValue, out int intStock))
                     {
+                        string strGetOldQuantity = $"SELECT UnitsInStock FROM FullerIsp212332.Products WHERE ProductName = '{strProductName}'";
+                        SqlCommand cmdGetOldQuantity = new SqlCommand(strGetOldQuantity, _cntDatabase);
+                        int intOldQuantity = (int)cmdGetOldQuantity.ExecuteScalar();
+
+                        string strGetPrice = $"SELECT Price FROM FullerIsp212332.Products WHERE ProductName = '{strProductName}'";
+                        SqlCommand cmdGetPrice = new SqlCommand(strGetPrice, _cntDatabase);
+                        double dblPrice = (double)(decimal)cmdGetPrice.ExecuteScalar();
+
                         string strUpdateQuery = "UPDATE FullerIsp212332.Products SET " + strColumnName + " = " + intStock + " WHERE ProductName = '" + strProductName + "'";
                         SqlCommand cmdUpdateQuery = new SqlCommand(strUpdateQuery, _cntDatabase);
                         cmdUpdateQuery.ExecuteNonQuery();
+
+                        StringBuilder html = GenerateManagerPurchaseReceipt(strProductName, intStock - intOldQuantity, dblPrice);
+
+                        string strFileName = "ManagerPurchaseReceipt.html";
+                        try
+                        {
+                            using (StreamWriter writer = new StreamWriter(strFileName))
+                            {
+                                writer.WriteLine(html);
+                            }
+                            System.Diagnostics.Process.Start(@strFileName);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("You don't have write permissions", "Error System Permissions", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        DateTime today = DateTime.Now;
+                        using (StreamWriter wr = new StreamWriter($"{today.ToString("yyyy-MM-dd-HHmmss")} - " + strFileName))
+                        {
+                            wr.WriteLine(html);
+                        }
+
                         MessageBox.Show("Product successfully updated.", "Product Updated", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     else
@@ -477,6 +507,11 @@ namespace SP21_Final_Project
                 {
                     if (Int32.TryParse(strNewValue, out int intNewDiscount))
                     {
+                        if(intNewDiscount < 0)
+                        {
+                            intNewDiscount *= -1;
+                        }
+
                         string strGetOldProductID = "SELECT ProductID FROM FullerIsp212332.Products WHERE ProductName = '" + strName + "'";
                         SqlCommand cmdGetOldProductID = new SqlCommand(strGetOldProductID, _cntDatabase);
                         int intOldProductID = (int)cmdGetOldProductID.ExecuteScalar();
@@ -520,7 +555,7 @@ namespace SP21_Final_Project
 
         //SPECIALS ADD, UPDATE, DELETE END----------------------------------------------------------------------------------------------------------------------------------------------
 
-        public static string GetSchedule(string strUsername, DataGridView dgvSchedule)
+        public static string GetSchedule(string strUsername, DataGridView dgvSchedule, string strWeek)
         {
             try
             {
@@ -529,53 +564,155 @@ namespace SP21_Final_Project
                 int intEmployeeID = (int)cmdGetID.ExecuteScalar();
 
                 string strStartDate = "";
-                DateTime tempDate = DateTime.Now;
-                switch (DateTime.Now.DayOfWeek.ToString())
+                if (strWeek == "This Week")
                 {
-                    case "Sunday":
-                        tempDate = DateTime.Now;
-                        break;
-                    case "Monday":
-                        tempDate = DateTime.Now.AddDays(-1);
-                        break;
-                    case "Tuesday":
-                        tempDate = DateTime.Now.AddDays(-2);
-                        break;
-                    case "Wednesday":
-                        tempDate = DateTime.Now.AddDays(-3);
-                        break;
-                    case "Thursday":
-                        tempDate = DateTime.Now.AddDays(-4);
-                        break;
-                    case "Friday":
-                        tempDate = DateTime.Now.AddDays(-5);
-                        break;
-                    case "Saturday":
-                        tempDate = DateTime.Now.AddDays(-6);
-                        break;
+                    DateTime tempDate = DateTime.Now;
+
+                    switch (DateTime.Now.DayOfWeek.ToString())
+                    {
+                        case "Sunday":
+                            tempDate = DateTime.Now;
+                            break;
+                        case "Monday":
+                            tempDate = DateTime.Now.AddDays(-1);
+                            break;
+                        case "Tuesday":
+                            tempDate = DateTime.Now.AddDays(-2);
+                            break;
+                        case "Wednesday":
+                            tempDate = DateTime.Now.AddDays(-3);
+                            break;
+                        case "Thursday":
+                            tempDate = DateTime.Now.AddDays(-4);
+                            break;
+                        case "Friday":
+                            tempDate = DateTime.Now.AddDays(-5);
+                            break;
+                        case "Saturday":
+                            tempDate = DateTime.Now.AddDays(-6);
+                            break;
+                    }
+
+                    strStartDate = "'" + tempDate.Year.ToString() + "-" + FormatDayOrMonth(tempDate.Month.ToString()) + "-" + FormatDayOrMonth(tempDate.Day.ToString()) + "'";
+
+                    string strGetSchedule = "SELECT Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday FROM FullerIsp212332.Schedules WHERE EmployeeID = " + intEmployeeID + " AND StartDate = " + strStartDate;
+                    SqlCommand cmdGetSchedule = new SqlCommand(strGetSchedule, _cntDatabase);
+                    SqlDataAdapter sdaGetSchedule = new SqlDataAdapter();
+                    DataTable dtbGetSchedule = new DataTable();
+
+                    sdaGetSchedule.SelectCommand = cmdGetSchedule;
+                    sdaGetSchedule.Fill(dtbGetSchedule);
+                    dgvSchedule.DataSource = dtbGetSchedule;
+
+                    string strToday = DateTime.Now.DayOfWeek.ToString();
+                    string strGetToday = "SELECT " + strToday + " FROM FullerIsp212332.Schedules WHERE EmployeeID = " + intEmployeeID;
+                    SqlCommand cmdGetToday = new SqlCommand(strGetToday, _cntDatabase);
+                    return (string)cmdGetToday.ExecuteScalar();
                 }
-                strStartDate = "'" + tempDate.Year.ToString() + "-" + FormatDayOrMonth(tempDate.Month.ToString()) + "-" + FormatDayOrMonth(tempDate.Day.ToString()) + "'";
+                else if (strWeek == "Next Week")
+                {
+                    DateTime tempDate = DateTime.Now;
 
-                string strGetSchedule = "SELECT Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday FROM FullerIsp212332.Schedules WHERE EmployeeID = " + intEmployeeID + " AND StartDate = " + strStartDate;
-                SqlCommand cmdGetSchedule = new SqlCommand(strGetSchedule, _cntDatabase);
-                SqlDataAdapter sdaGetSchedule = new SqlDataAdapter();
-                DataTable dtbGetSchedule = new DataTable();
+                    switch (DateTime.Now.DayOfWeek.ToString())
+                    {
+                        case "Sunday":
+                            tempDate = DateTime.Now;
+                            break;
+                        case "Monday":
+                            tempDate = DateTime.Now.AddDays(-1);
+                            break;
+                        case "Tuesday":
+                            tempDate = DateTime.Now.AddDays(-2);
+                            break;
+                        case "Wednesday":
+                            tempDate = DateTime.Now.AddDays(-3);
+                            break;
+                        case "Thursday":
+                            tempDate = DateTime.Now.AddDays(-4);
+                            break;
+                        case "Friday":
+                            tempDate = DateTime.Now.AddDays(-5);
+                            break;
+                        case "Saturday":
+                            tempDate = DateTime.Now.AddDays(-6);
+                            break;
+                    }
 
-                sdaGetSchedule.SelectCommand = cmdGetSchedule;
-                sdaGetSchedule.Fill(dtbGetSchedule);
-                dgvSchedule.DataSource = dtbGetSchedule;
+                    tempDate = tempDate.AddDays(7);
 
-                string strToday = DateTime.Now.DayOfWeek.ToString();
-                string strGetToday = "SELECT " + strToday + " FROM FullerIsp212332.Schedules WHERE EmployeeID = " + intEmployeeID;
-                SqlCommand cmdGetToday = new SqlCommand(strGetToday, _cntDatabase);
-                return (string)cmdGetToday.ExecuteScalar();
+                    strStartDate = "'" + tempDate.Year.ToString() + "-" + FormatDayOrMonth(tempDate.Month.ToString()) + "-" + FormatDayOrMonth(tempDate.Day.ToString()) + "'";
+
+                    string strGetSchedule = "SELECT Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday FROM FullerIsp212332.Schedules WHERE EmployeeID = " + intEmployeeID + " AND StartDate = " + strStartDate;
+                    SqlCommand cmdGetSchedule = new SqlCommand(strGetSchedule, _cntDatabase);
+                    SqlDataAdapter sdaGetSchedule = new SqlDataAdapter();
+                    DataTable dtbGetSchedule = new DataTable();
+
+                    sdaGetSchedule.SelectCommand = cmdGetSchedule;
+                    sdaGetSchedule.Fill(dtbGetSchedule);
+                    dgvSchedule.DataSource = dtbGetSchedule;
+
+                    string strToday = DateTime.Now.DayOfWeek.ToString();
+                    string strGetToday = "SELECT " + strToday + " FROM FullerIsp212332.Schedules WHERE EmployeeID = " + intEmployeeID;
+                    SqlCommand cmdGetToday = new SqlCommand(strGetToday, _cntDatabase);
+                    return (string)cmdGetToday.ExecuteScalar();
+                }
+                else if (strWeek == "All Previous Weeks")
+                {
+                    DateTime tempDate = DateTime.Now;
+
+                    switch (DateTime.Now.DayOfWeek.ToString())
+                    {
+                        case "Sunday":
+                            tempDate = DateTime.Now;
+                            break;
+                        case "Monday":
+                            tempDate = DateTime.Now.AddDays(-1);
+                            break;
+                        case "Tuesday":
+                            tempDate = DateTime.Now.AddDays(-2);
+                            break;
+                        case "Wednesday":
+                            tempDate = DateTime.Now.AddDays(-3);
+                            break;
+                        case "Thursday":
+                            tempDate = DateTime.Now.AddDays(-4);
+                            break;
+                        case "Friday":
+                            tempDate = DateTime.Now.AddDays(-5);
+                            break;
+                        case "Saturday":
+                            tempDate = DateTime.Now.AddDays(-6);
+                            break;
+                    }
+
+                    strStartDate = "'" + tempDate.Year.ToString() + "-" + FormatDayOrMonth(tempDate.Month.ToString()) + "-" + FormatDayOrMonth(tempDate.Day.ToString()) + "'";
+
+                    string strGetSchedule = "SELECT Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday FROM FullerIsp212332.Schedules WHERE EmployeeID = " + intEmployeeID + " AND StartDate < " + strStartDate;
+                    SqlCommand cmdGetSchedule = new SqlCommand(strGetSchedule, _cntDatabase);
+                    SqlDataAdapter sdaGetSchedule = new SqlDataAdapter();
+                    DataTable dtbGetSchedule = new DataTable();
+
+                    sdaGetSchedule.SelectCommand = cmdGetSchedule;
+                    sdaGetSchedule.Fill(dtbGetSchedule);
+                    dgvSchedule.DataSource = dtbGetSchedule;
+
+                    string strToday = DateTime.Now.DayOfWeek.ToString();
+                    string strGetToday = "SELECT " + strToday + " FROM FullerIsp212332.Schedules WHERE EmployeeID = " + intEmployeeID;
+                    SqlCommand cmdGetToday = new SqlCommand(strGetToday, _cntDatabase);
+                    return (string)cmdGetToday.ExecuteScalar();
+                }
+                else
+                {
+                    MessageBox.Show("Invalid Date.", "Error Creating Schedule", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return "Not found";
+                }
             }
             catch(Exception ex)
             {
                 MessageBox.Show("Cannot get schedule", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
-            return "Nothing";
+            return "Not found";
         }
 
         public static void GetRequests(DataGridView dgvRequests)
@@ -766,6 +903,67 @@ namespace SP21_Final_Project
             html.Append("<tr><td colspan=3><hr/></td></tr>");
             html.Append("</table>");
             html.Append($"<h3>Total Sales: $" + dblTotalSales + " Sales</h3>");
+            html.Append("</body></html>");
+
+            reader.Close();
+            return html;
+        }
+
+        public static StringBuilder GenerateManagerPurchaseReceipt(string strProductName, int intQuantity, double dblPrice)
+        {
+            string strGetID = $"SELECT ProductID FROM FullerIsp212332.Products WHERE ProductName = '{strProductName}'";
+            SqlCommand cmdGetID = new SqlCommand(strGetID, _cntDatabase);
+            int intProductID = (int)cmdGetID.ExecuteScalar();
+
+            string strInsertQuery = $"INSERT INTO FullerIsp212332.ManagerPurchases VALUES({intProductID}, {intQuantity}, {dblPrice}, {dblPrice * (double)intQuantity})";
+            SqlCommand cmdInsertQuery = new SqlCommand(strInsertQuery, _cntDatabase);
+            cmdInsertQuery.ExecuteNonQuery();
+
+            StringBuilder html = new StringBuilder();
+            StringBuilder css = new StringBuilder();
+
+            css.Append("<style>");
+            css.Append("td {padding:5px;text-align:center;font-weight:bold;text-align:conter;}");
+            css.Append("h1{color: black;}");
+            css.Append("</style>");
+
+            html.Append("<html>");
+            html.Append($"<head>{css}<title>Manager Purchase Receipt</title></head>");
+            html.Append("<body>");
+            html.Append($"<h1>Manager Purchase Receipt</h1>");
+
+            html.Append("<table>");
+            html.Append("<tr><td colspan=5><hr/></td></tr>");
+            html.Append($"<td>{"Product Name"}</td>");
+            html.Append($"<td>{"Quantity"}</td>");
+            html.Append($"<td>{"Price Per Item"}</td>");
+            html.Append($"<td>{"Total Price"}</td>");
+            html.Append($"<td>{"Total (With Tax)"}</td>");
+            html.Append("</tr>");
+            html.Append("<tr><td colspan=5><hr/></td></tr>");
+
+            SqlDataReader reader;
+            SqlCommand cmd;
+            cmd = _cntDatabase.CreateCommand();
+            cmd.CommandText = "SELECT ProductName, QuantityPurchased, PricePerItem, TotalPrice FROM FullerIsp212332.Products JOIN FullerIsp212332.ManagerPurchases ON Products.ProductID = ManagerPurchases.ProductID";
+            reader = cmd.ExecuteReader();
+
+            double dblTotalCost = 0;
+            html.Append("<tr><td colspan=5><hr/></td></tr>");
+            while(reader.Read())
+            {
+                html.Append("<tr><td colspan=5></td></tr>");
+                html.Append($"<td>{reader.GetString(0)}</td>");
+                html.Append($"<td>{reader.GetInt32(1)}</td>");
+                html.Append($"<td>${Math.Round(reader.GetDecimal(2), 2)}</td>");
+                html.Append($"<td>${Math.Round(reader.GetDecimal(3), 2)}</td>");
+                dblTotalCost += (double)reader.GetDecimal(3);
+                html.Append($"<td>${Math.Round((double)reader.GetDecimal(3) * 1.0825, 2)}</td>");
+                html.Append("<tr><td colspan=5></td></tr>");
+            }
+            html.Append("<tr><td colspan=5><hr/></td></tr>");
+            html.Append("</table>");
+            html.Append($"<h3>Total Price: ${Math.Round(dblTotalCost, 2)}, With Tax: ${Math.Round(dblTotalCost * 1.0825, 2)}");
             html.Append("</body></html>");
 
             reader.Close();
@@ -1221,6 +1419,44 @@ namespace SP21_Final_Project
 
                 strStartDate = "'" + tempDate.Year.ToString() + "-" + FormatDayOrMonth(tempDate.Month.ToString()) + "-" + FormatDayOrMonth(tempDate.Day.ToString()) + "'";
             }
+            else if (strWeek == "Previous Week")
+            {
+                DateTime tempDate = DateTime.Now;
+
+                switch (DateTime.Now.DayOfWeek.ToString())
+                {
+                    case "Sunday":
+                        tempDate = DateTime.Now;
+                        break;
+                    case "Monday":
+                        tempDate = DateTime.Now.AddDays(-1);
+                        break;
+                    case "Tuesday":
+                        tempDate = DateTime.Now.AddDays(-2);
+                        break;
+                    case "Wednesday":
+                        tempDate = DateTime.Now.AddDays(-3);
+                        break;
+                    case "Thursday":
+                        tempDate = DateTime.Now.AddDays(-4);
+                        break;
+                    case "Friday":
+                        tempDate = DateTime.Now.AddDays(-5);
+                        break;
+                    case "Saturday":
+                        tempDate = DateTime.Now.AddDays(-6);
+                        break;
+                }
+
+                strStartDate = "'" + tempDate.Year.ToString() + "-" + FormatDayOrMonth(tempDate.Month.ToString()) + "-" + FormatDayOrMonth(tempDate.Day.ToString()) + "'";
+
+                string strUpdateQuery1 = "UPDATE FullerIsp212332.Schedules SET Sunday = '" + strSunday + "', Monday = '" + strMonday + "', Tuesday = '" + strTuesday + "', Wednesday = '" + strWednesday + "', Thursday = '" + strThursday + "', Friday = '" + strFriday + "', Saturday = '" + strSaturday + "' WHERE StartDate = " + strStartDate + " AND EmployeeID = " + intEmployeeID;
+                SqlCommand cmdUpdateQuery1 = new SqlCommand(strUpdateQuery1, _cntDatabase);
+                cmdUpdateQuery1.ExecuteNonQuery();
+
+                MessageBox.Show("Schedule Updated", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
             else
             {
                 MessageBox.Show("Invalid Date.", "Error Creating Schedule", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -1254,6 +1490,39 @@ namespace SP21_Final_Project
             {
                 MessageBox.Show("Request too long.", "Input Invalid", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        public static List<string[]> GetRequests()
+        {
+            List<string[]> lstRequests = new List<string[]>();
+
+            SqlDataReader reader;
+            SqlCommand cmd;
+            cmd = _cntDatabase.CreateCommand();
+            cmd.CommandText = "SELECT * FROM FullerIsp212332.Requests";
+            reader = cmd.ExecuteReader();
+
+            int intListIndex = 0;
+            while (reader.Read())
+            {
+                lstRequests.Add(new string[3]);
+                lstRequests[intListIndex][0] = reader.GetInt32(0).ToString();
+                lstRequests[intListIndex][1] = reader.GetString(2);
+                lstRequests[intListIndex][2] = reader.GetString(3);
+                intListIndex++;
+            }
+
+            reader.Close();
+            return lstRequests;
+        }
+
+        public static void UpdateRequest(int intRequestID, string strNewStatus)
+        {
+            string strUpdateQuery = "UPDATE FullerIsp212332.Requests SET Status = '" + strNewStatus + "' WHERE RequestID = " + intRequestID;
+            SqlCommand cmdUpdateQuery = new SqlCommand(strUpdateQuery, _cntDatabase);
+            cmdUpdateQuery.ExecuteNonQuery();
+
+            MessageBox.Show("Response succesful.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

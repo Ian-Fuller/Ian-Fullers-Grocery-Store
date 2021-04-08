@@ -46,6 +46,11 @@ namespace SP21_Final_Project
                 bolExtraDetailsValid = false;
             }
 
+            if(intDiscount < 0)
+            {
+                intDiscount *= -1;
+            }
+
             if (bolDiscountValid && bolExtraDetailsValid)
             {
                 try

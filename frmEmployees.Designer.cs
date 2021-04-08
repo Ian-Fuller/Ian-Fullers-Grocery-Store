@@ -40,6 +40,10 @@ namespace SP21_Final_Project
             this.lblTask = new System.Windows.Forms.Label();
             this.lblThisWeek = new System.Windows.Forms.Label();
             this.btnPrint = new System.Windows.Forms.Button();
+            this.cbxWeek = new System.Windows.Forms.ComboBox();
+            this.btnPrevPage = new System.Windows.Forms.Button();
+            this.btnNextPage = new System.Windows.Forms.Button();
+            this.lblSpecials = new System.Windows.Forms.Label();
             this.mnuBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSchedule)).BeginInit();
             this.SuspendLayout();
@@ -145,11 +149,53 @@ namespace SP21_Final_Project
             this.btnPrint.UseVisualStyleBackColor = true;
             this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
             // 
+            // cbxWeek
+            // 
+            this.cbxWeek.FormattingEnabled = true;
+            this.cbxWeek.Location = new System.Drawing.Point(314, 167);
+            this.cbxWeek.Name = "cbxWeek";
+            this.cbxWeek.Size = new System.Drawing.Size(121, 21);
+            this.cbxWeek.TabIndex = 9;
+            this.cbxWeek.SelectedIndexChanged += new System.EventHandler(this.cbxWeek_SelectedIndexChanged);
+            // 
+            // btnPrevPage
+            // 
+            this.btnPrevPage.Location = new System.Drawing.Point(165, 371);
+            this.btnPrevPage.Name = "btnPrevPage";
+            this.btnPrevPage.Size = new System.Drawing.Size(383, 20);
+            this.btnPrevPage.TabIndex = 11;
+            this.btnPrevPage.Text = "&<";
+            this.btnPrevPage.UseVisualStyleBackColor = true;
+            this.btnPrevPage.Click += new System.EventHandler(this.btnPrevPage_Click);
+            // 
+            // btnNextPage
+            // 
+            this.btnNextPage.Location = new System.Drawing.Point(569, 371);
+            this.btnNextPage.Name = "btnNextPage";
+            this.btnNextPage.Size = new System.Drawing.Size(383, 20);
+            this.btnNextPage.TabIndex = 12;
+            this.btnNextPage.Text = "&>";
+            this.btnNextPage.UseVisualStyleBackColor = true;
+            this.btnNextPage.Click += new System.EventHandler(this.btnNextPage_Click);
+            // 
+            // lblSpecials
+            // 
+            this.lblSpecials.AutoSize = true;
+            this.lblSpecials.Location = new System.Drawing.Point(165, 196);
+            this.lblSpecials.Name = "lblSpecials";
+            this.lblSpecials.Size = new System.Drawing.Size(50, 13);
+            this.lblSpecials.TabIndex = 13;
+            this.lblSpecials.Text = "Specials:";
+            // 
             // frmEmployees
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(964, 208);
+            this.ClientSize = new System.Drawing.Size(964, 406);
+            this.Controls.Add(this.lblSpecials);
+            this.Controls.Add(this.btnNextPage);
+            this.Controls.Add(this.btnPrevPage);
+            this.Controls.Add(this.cbxWeek);
             this.Controls.Add(this.btnPrint);
             this.Controls.Add(this.lblThisWeek);
             this.Controls.Add(this.lblTask);
@@ -185,5 +231,9 @@ namespace SP21_Final_Project
         private System.Windows.Forms.Label lblTask;
         private System.Windows.Forms.Label lblThisWeek;
         private System.Windows.Forms.Button btnPrint;
+        private System.Windows.Forms.ComboBox cbxWeek;
+        private System.Windows.Forms.Button btnPrevPage;
+        private System.Windows.Forms.Button btnNextPage;
+        private System.Windows.Forms.Label lblSpecials;
     }
 }

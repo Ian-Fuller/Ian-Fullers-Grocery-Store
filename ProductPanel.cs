@@ -24,7 +24,7 @@ namespace SP21_Final_Project
         Label lblProductName;
         public PictureBox pbxProductImage;
         public Button btnMoreInfo;
-        Button btnAdd;
+        public Button btnAdd;
 
         public ProductPanel()
         {
@@ -140,6 +140,12 @@ namespace SP21_Final_Project
         public virtual int GetDiscount()
         {
             return 0;
+        }
+
+        public void SetButtonVisibility(bool bolOnOff)
+        {
+            btnAdd.Visible = bolOnOff;
+            btnMoreInfo.Visible = bolOnOff;
         }
     }
 }

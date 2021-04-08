@@ -71,7 +71,7 @@ namespace SP21_Final_Project
             // mnuClose
             // 
             this.mnuClose.Name = "mnuClose";
-            this.mnuClose.Size = new System.Drawing.Size(180, 22);
+            this.mnuClose.Size = new System.Drawing.Size(103, 22);
             this.mnuClose.Text = "&Close";
             this.mnuClose.Click += new System.EventHandler(this.mnuClose_Click);
             // 
@@ -101,11 +101,11 @@ namespace SP21_Final_Project
             // lblDiscount
             // 
             this.lblDiscount.AutoSize = true;
-            this.lblDiscount.Location = new System.Drawing.Point(28, 58);
+            this.lblDiscount.Location = new System.Drawing.Point(23, 58);
             this.lblDiscount.Name = "lblDiscount";
-            this.lblDiscount.Size = new System.Drawing.Size(47, 13);
+            this.lblDiscount.Size = new System.Drawing.Size(52, 13);
             this.lblDiscount.TabIndex = 5;
-            this.lblDiscount.Text = "Dicount:";
+            this.lblDiscount.Text = "Discount:";
             // 
             // lblExtraDetails
             // 

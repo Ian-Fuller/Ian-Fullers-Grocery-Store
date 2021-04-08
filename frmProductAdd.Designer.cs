@@ -43,6 +43,8 @@ namespace SP21_Final_Project
             this.btnSelectImage = new System.Windows.Forms.Button();
             this.pbxProductImage = new System.Windows.Forms.PictureBox();
             this.btnAdd = new System.Windows.Forms.Button();
+            this.tbxWholesalePrice = new System.Windows.Forms.TextBox();
+            this.lblWholesalePrice = new System.Windows.Forms.Label();
             this.mnuBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxProductImage)).BeginInit();
             this.SuspendLayout();
@@ -91,7 +93,7 @@ namespace SP21_Final_Project
             // lblPrice
             // 
             this.lblPrice.AutoSize = true;
-            this.lblPrice.Location = new System.Drawing.Point(13, 70);
+            this.lblPrice.Location = new System.Drawing.Point(13, 66);
             this.lblPrice.Name = "lblPrice";
             this.lblPrice.Size = new System.Drawing.Size(74, 13);
             this.lblPrice.TabIndex = 3;
@@ -100,7 +102,7 @@ namespace SP21_Final_Project
             // lblSize
             // 
             this.lblSize.AutoSize = true;
-            this.lblSize.Location = new System.Drawing.Point(35, 105);
+            this.lblSize.Location = new System.Drawing.Point(35, 128);
             this.lblSize.Name = "lblSize";
             this.lblSize.Size = new System.Drawing.Size(52, 13);
             this.lblSize.TabIndex = 4;
@@ -109,7 +111,7 @@ namespace SP21_Final_Project
             // lblStock
             // 
             this.lblStock.AutoSize = true;
-            this.lblStock.Location = new System.Drawing.Point(13, 140);
+            this.lblStock.Location = new System.Drawing.Point(13, 159);
             this.lblStock.Name = "lblStock";
             this.lblStock.Size = new System.Drawing.Size(76, 13);
             this.lblStock.TabIndex = 5;
@@ -117,28 +119,28 @@ namespace SP21_Final_Project
             // 
             // tbxPrice
             // 
-            this.tbxPrice.Location = new System.Drawing.Point(93, 67);
+            this.tbxPrice.Location = new System.Drawing.Point(93, 63);
             this.tbxPrice.Name = "tbxPrice";
             this.tbxPrice.Size = new System.Drawing.Size(121, 20);
             this.tbxPrice.TabIndex = 6;
             // 
             // tbxSize
             // 
-            this.tbxSize.Location = new System.Drawing.Point(93, 102);
+            this.tbxSize.Location = new System.Drawing.Point(93, 125);
             this.tbxSize.Name = "tbxSize";
             this.tbxSize.Size = new System.Drawing.Size(121, 20);
             this.tbxSize.TabIndex = 7;
             // 
             // tbxStock
             // 
-            this.tbxStock.Location = new System.Drawing.Point(93, 137);
+            this.tbxStock.Location = new System.Drawing.Point(93, 156);
             this.tbxStock.Name = "tbxStock";
             this.tbxStock.Size = new System.Drawing.Size(121, 20);
             this.tbxStock.TabIndex = 8;
             // 
             // btnSelectImage
             // 
-            this.btnSelectImage.Location = new System.Drawing.Point(221, 138);
+            this.btnSelectImage.Location = new System.Drawing.Point(220, 138);
             this.btnSelectImage.Name = "btnSelectImage";
             this.btnSelectImage.Size = new System.Drawing.Size(100, 20);
             this.btnSelectImage.TabIndex = 9;
@@ -148,7 +150,7 @@ namespace SP21_Final_Project
             // 
             // pbxProductImage
             // 
-            this.pbxProductImage.Location = new System.Drawing.Point(221, 32);
+            this.pbxProductImage.Location = new System.Drawing.Point(220, 32);
             this.pbxProductImage.Name = "pbxProductImage";
             this.pbxProductImage.Size = new System.Drawing.Size(100, 100);
             this.pbxProductImage.TabIndex = 10;
@@ -156,7 +158,7 @@ namespace SP21_Final_Project
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(52, 179);
+            this.btnAdd.Location = new System.Drawing.Point(61, 191);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(212, 54);
             this.btnAdd.TabIndex = 11;
@@ -164,11 +166,29 @@ namespace SP21_Final_Project
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
+            // tbxWholesalePrice
+            // 
+            this.tbxWholesalePrice.Location = new System.Drawing.Point(93, 94);
+            this.tbxWholesalePrice.Name = "tbxWholesalePrice";
+            this.tbxWholesalePrice.Size = new System.Drawing.Size(121, 20);
+            this.tbxWholesalePrice.TabIndex = 13;
+            // 
+            // lblWholesalePrice
+            // 
+            this.lblWholesalePrice.AutoSize = true;
+            this.lblWholesalePrice.Location = new System.Drawing.Point(3, 97);
+            this.lblWholesalePrice.Name = "lblWholesalePrice";
+            this.lblWholesalePrice.Size = new System.Drawing.Size(84, 13);
+            this.lblWholesalePrice.TabIndex = 12;
+            this.lblWholesalePrice.Text = "WholesalePrice:";
+            // 
             // frmProductAdd
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(340, 249);
+            this.ClientSize = new System.Drawing.Size(340, 261);
+            this.Controls.Add(this.tbxWholesalePrice);
+            this.Controls.Add(this.lblWholesalePrice);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.pbxProductImage);
             this.Controls.Add(this.btnSelectImage);
@@ -210,5 +230,7 @@ namespace SP21_Final_Project
         private System.Windows.Forms.Button btnSelectImage;
         private System.Windows.Forms.PictureBox pbxProductImage;
         private System.Windows.Forms.Button btnAdd;
+        private System.Windows.Forms.TextBox tbxWholesalePrice;
+        private System.Windows.Forms.Label lblWholesalePrice;
     }
 }

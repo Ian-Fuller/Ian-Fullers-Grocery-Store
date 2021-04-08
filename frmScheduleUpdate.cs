@@ -36,6 +36,8 @@ namespace SP21_Final_Project
 
             cbxWeek.Items.Add("This Week");
             cbxWeek.Items.Add("Next Week");
+            cbxWeek.Items.Add("Previous Week");
+            cbxWeek.Text = "This Week";
         }
 
         private void cbxEmployee_SelectedIndexChanged(object sender, EventArgs e)

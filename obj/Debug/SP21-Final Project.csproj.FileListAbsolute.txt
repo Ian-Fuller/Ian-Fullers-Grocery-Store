@@ -28,3 +28,5 @@ C:\Users\ianfu\Desktop\SP21-FullerI\SP21-FullerI\obj\Debug\SP21_Final_Project.fr
 C:\Users\ianfu\Desktop\SP21-FullerI\SP21-FullerI\obj\Debug\SP21_Final_Project.frmScheduleUpdate.resources
 C:\Users\ianfu\Desktop\SP21-FullerI\SP21-FullerI\obj\Debug\SP21_Final_Project.frmScheduleRemove.resources
 C:\Users\ianfu\Desktop\SP21-FullerI\SP21-FullerI\obj\Debug\SP21_Final_Project.frmRequestDayOff.resources
+C:\Users\ianfu\Desktop\SP21-FullerI\SP21-FullerI\obj\Debug\SP21_Final_Project.frmRequestTrade.resources
+C:\Users\ianfu\Desktop\SP21-FullerI\SP21-FullerI\obj\Debug\SP21_Final_Project.frmRespond.resources
