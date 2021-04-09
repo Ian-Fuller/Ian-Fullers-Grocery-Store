@@ -51,5 +51,11 @@ namespace SP21_Final_Project
         {
             this.Close();
         }
+
+        private void btnForgotPassword_Click(object sender, EventArgs e)
+        {
+            frmRecoverPassword recover = new frmRecoverPassword();
+            recover.ShowDialog();
+        }
     }
 }

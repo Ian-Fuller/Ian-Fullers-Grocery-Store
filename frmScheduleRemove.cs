@@ -13,7 +13,7 @@ namespace SP21_Final_Project
     public partial class frmScheduleRemove : Form
     {
         List<string[]> lstEmployeeNames;
-        string strStartWeek = "This Week";
+        List<string> lstScheduleDates;
 
         public frmScheduleRemove()
         {
@@ -27,27 +27,46 @@ namespace SP21_Final_Project
 
         private void frmScheduleRemove_Load(object sender, EventArgs e)
         {
-            lstEmployeeNames = DB.GetEmployeeNames();
-
-            for (int intCurrentName = 0; intCurrentName < lstEmployeeNames.Count; intCurrentName++)
+            try
             {
-                cbxEmployee.Items.Add(lstEmployeeNames[intCurrentName][0] + " " + lstEmployeeNames[intCurrentName][1]);
-            }
+                //Puts employee FirstName and LastName into combo box
+                lstEmployeeNames = DB.GetEmployeeNames();
+                for (int intCurrentName = 0; intCurrentName < lstEmployeeNames.Count; intCurrentName++)
+                {
+                    cbxEmployee.Items.Add(lstEmployeeNames[intCurrentName][0] + " " + lstEmployeeNames[intCurrentName][1]);
+                }
+                cbxEmployee.Text = (string)cbxEmployee.Items[0];
 
-            cbxWeek.Items.Add("This Week");
-            cbxWeek.Items.Add("Next Week");
-            cbxWeek.Items.Add("All Previous Weeks");
+                //Puts schedule dates into combo box
+                lstScheduleDates = DB.GetScheduleDates();
+                for (int intCurrentDate = 0; intCurrentDate < lstScheduleDates.Count; intCurrentDate++)
+                {
+                    cbxWeek.Items.Add(lstScheduleDates[intCurrentDate]);
+                }
+                cbxWeek.Text = (string)cbxWeek.Items[0];
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Error retrieving data", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnRemove_Click(object sender, EventArgs e)
         {
-            if(cbxEmployee.Text != "" && cbxWeek != null)
+            try
             {
-                DB.RemoveSchedule(lstEmployeeNames[cbxEmployee.SelectedIndex][0], lstEmployeeNames[cbxEmployee.SelectedIndex][1], cbxWeek.Text);
+                if (cbxEmployee.Text != "" && cbxWeek.Text != "")
+                {
+                    DB.RemoveSchedule(lstEmployeeNames[cbxEmployee.SelectedIndex][0], lstEmployeeNames[cbxEmployee.SelectedIndex][1], cbxWeek.Text);
+                }
+                else
+                {
+                    MessageBox.Show("One or more combo boxes is blank.", "Input Invalid", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
-            else
+            catch(Exception ex)
             {
-                MessageBox.Show("One or more combo boxes is blank.", "Input Invalid", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Cannot remove schedule", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

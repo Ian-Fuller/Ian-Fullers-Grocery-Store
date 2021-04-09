@@ -67,7 +67,7 @@ namespace SP21_Final_Project
             // mnuClose
             // 
             this.mnuClose.Name = "mnuClose";
-            this.mnuClose.Size = new System.Drawing.Size(180, 22);
+            this.mnuClose.Size = new System.Drawing.Size(103, 22);
             this.mnuClose.Text = "&Close";
             this.mnuClose.Click += new System.EventHandler(this.mnuClose_Click);
             // 
@@ -178,8 +178,10 @@ namespace SP21_Final_Project
             this.Controls.Add(this.tbxLastName);
             this.Controls.Add(this.tbxFirstName);
             this.Controls.Add(this.mnuBar);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MainMenuStrip = this.mnuBar;
             this.Name = "frmUpdateEmployee";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Update Information";
             this.Load += new System.EventHandler(this.frmUpdateEmployee_Load);
             this.mnuBar.ResumeLayout(false);

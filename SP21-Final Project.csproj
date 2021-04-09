@@ -101,6 +101,12 @@
     <Compile Include="frmProductUpdate.Designer.cs">
       <DependentUpon>frmProductUpdate.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmRecoverPassword.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmRecoverPassword.Designer.cs">
+      <DependentUpon>frmRecoverPassword.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmReports.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -215,6 +221,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmProductUpdate.resx">
       <DependentUpon>frmProductUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmRecoverPassword.resx">
+      <DependentUpon>frmRecoverPassword.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmReports.resx">
       <DependentUpon>frmReports.cs</DependentUpon>

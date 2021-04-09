@@ -75,7 +75,7 @@ namespace SP21_Final_Project
             // mnuClose
             // 
             this.mnuClose.Name = "mnuClose";
-            this.mnuClose.Size = new System.Drawing.Size(180, 22);
+            this.mnuClose.Size = new System.Drawing.Size(103, 22);
             this.mnuClose.Text = "&Close";
             this.mnuClose.Click += new System.EventHandler(this.mnuClose_Click);
             // 
@@ -150,7 +150,7 @@ namespace SP21_Final_Project
             this.cbxWeek.FormattingEnabled = true;
             this.cbxWeek.Location = new System.Drawing.Point(120, 243);
             this.cbxWeek.Name = "cbxWeek";
-            this.cbxWeek.Size = new System.Drawing.Size(107, 21);
+            this.cbxWeek.Size = new System.Drawing.Size(148, 21);
             this.cbxWeek.TabIndex = 10;
             // 
             // lblSunday

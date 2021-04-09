@@ -8,6 +8,8 @@
 //frmMain needs to be able to refresh
 //Reduce product quantity when purchasing
 //Add receipt printing when manager updating product
+//Sched Update has a bug at line 92
+//Specials on cusomers form medd up when going to employees form
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

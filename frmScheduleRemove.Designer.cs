@@ -76,6 +76,7 @@ namespace SP21_Final_Project
             // 
             // cbxWeek
             // 
+            this.cbxWeek.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxWeek.FormattingEnabled = true;
             this.cbxWeek.Location = new System.Drawing.Point(119, 54);
             this.cbxWeek.Name = "cbxWeek";
@@ -84,6 +85,7 @@ namespace SP21_Final_Project
             // 
             // cbxEmployee
             // 
+            this.cbxEmployee.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxEmployee.FormattingEnabled = true;
             this.cbxEmployee.Location = new System.Drawing.Point(119, 27);
             this.cbxEmployee.Name = "cbxEmployee";

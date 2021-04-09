@@ -83,7 +83,7 @@ namespace SP21_Final_Project
             // 
             this.btnUpdateSchedule.Location = new System.Drawing.Point(74, 273);
             this.btnUpdateSchedule.Name = "btnUpdateSchedule";
-            this.btnUpdateSchedule.Size = new System.Drawing.Size(179, 23);
+            this.btnUpdateSchedule.Size = new System.Drawing.Size(189, 23);
             this.btnUpdateSchedule.TabIndex = 38;
             this.btnUpdateSchedule.Text = "&Update";
             this.btnUpdateSchedule.UseVisualStyleBackColor = true;
@@ -163,6 +163,7 @@ namespace SP21_Final_Project
             // 
             // cbxWeek
             // 
+            this.cbxWeek.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxWeek.FormattingEnabled = true;
             this.cbxWeek.Location = new System.Drawing.Point(118, 60);
             this.cbxWeek.Name = "cbxWeek";
@@ -221,6 +222,7 @@ namespace SP21_Final_Project
             // 
             // cbxEmployee
             // 
+            this.cbxEmployee.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxEmployee.FormattingEnabled = true;
             this.cbxEmployee.Location = new System.Drawing.Point(118, 33);
             this.cbxEmployee.Name = "cbxEmployee";

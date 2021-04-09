@@ -1011,463 +1011,189 @@ namespace SP21_Final_Project
         }
 
         //ADD, UPDATE, DELETE SCHEDULES START---------------------------------------------------------------------------------------------------------------------------------------------
+        
+        //Gets employee names so schedules can be addes, updated, and removed
         public static List<string[]> GetEmployeeNames()
         {
             List<string[]> lstNames = new List<string[]>();
 
-            SqlDataReader reader;
-            SqlCommand cmd;
-            cmd = _cntDatabase.CreateCommand();
-            cmd.CommandText = "SELECT * FROM FullerIsp212332.Employees";
-            reader = cmd.ExecuteReader();
-
-            int intListIndex = 0;
-            while(reader.Read())
-            {
-                lstNames.Add(new string[2]);
-                lstNames[intListIndex][0] = reader.GetString(1);
-                lstNames[intListIndex][1] = reader.GetString(2);
-                intListIndex++;
-            }
-
-            reader.Close();
-            return lstNames;
-        }
-        
-        public static void AddSchedule(string strFName, string strLName, string strSunday, string strMonday, string strTuesday, string strWednesday, string strThursday, string strFriday, string strSaturday, string strWeek)
-        {
-            string strGetID = "SELECT EmployeeID FROM FullerIsp212332.Employees WHERE FirstName = '" + strFName + "' AND LastName = '" + strLName + "'";
-            SqlCommand cmdGetID = new SqlCommand(strGetID, _cntDatabase);
-            int intEmployeeID = (int)cmdGetID.ExecuteScalar();
-
-            string strStartDate = "";
-            if(strWeek == "This Week")
-            {
-                DateTime tempDate = DateTime.Now;
-
-                switch(DateTime.Now.DayOfWeek.ToString())
-                {
-                    case "Sunday":
-                        tempDate = DateTime.Now;
-                        break;
-                    case "Monday":
-                        tempDate = DateTime.Now.AddDays(-1);
-                        break;
-                    case "Tuesday":
-                        tempDate = DateTime.Now.AddDays(-2);
-                        break;
-                    case "Wednesday":
-                        tempDate = DateTime.Now.AddDays(-3);
-                        break;
-                    case "Thursday":
-                        tempDate = DateTime.Now.AddDays(-4);
-                        break;
-                    case "Friday":
-                        tempDate = DateTime.Now.AddDays(-5);
-                        break;
-                    case "Saturday":
-                        tempDate = DateTime.Now.AddDays(-6);
-                        break;
-                }
-
-                strStartDate = "'" + tempDate.Year.ToString() + "-" + FormatDayOrMonth(tempDate.Month.ToString()) + "-" + FormatDayOrMonth(tempDate.Day.ToString()) + "'";
-            }
-            else if (strWeek == "Next Week")
-            {
-                DateTime tempDate = DateTime.Now;
-
-                switch (DateTime.Now.DayOfWeek.ToString())
-                {
-                    case "Sunday":
-                        tempDate = DateTime.Now;
-                        break;
-                    case "Monday":
-                        tempDate = DateTime.Now.AddDays(-1);
-                        break;
-                    case "Tuesday":
-                        tempDate = DateTime.Now.AddDays(-2);
-                        break;
-                    case "Wednesday":
-                        tempDate = DateTime.Now.AddDays(-3);
-                        break;
-                    case "Thursday":
-                        tempDate = DateTime.Now.AddDays(-4);
-                        break;
-                    case "Friday":
-                        tempDate = DateTime.Now.AddDays(-5);
-                        break;
-                    case "Saturday":
-                        tempDate = DateTime.Now.AddDays(-6);
-                        break;
-                }
-
-                tempDate = tempDate.AddDays(7);
-
-                strStartDate = "'" + tempDate.Year.ToString() + "-" + FormatDayOrMonth(tempDate.Month.ToString()) + "-" + FormatDayOrMonth(tempDate.Day.ToString()) + "'";
-            }
-            else
-            {
-                MessageBox.Show("Invalid Date.", "Error Creating Schedule", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            string strInsertSchedule = "INSERT INTO FullerIsp212332.Schedules(EmployeeID, Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, StartDate) VALUES(" + intEmployeeID + ", '" + strSunday + "', '" + strMonday + "', '" + strTuesday + "', '" + strWednesday + "', '" + strThursday + "', '" + strFriday + "', '" + strSaturday + "', " + strStartDate + ")";
-            SqlCommand cmdInsertSchedule = new SqlCommand(strInsertSchedule, _cntDatabase);
-            cmdInsertSchedule.ExecuteNonQuery();
-
-            MessageBox.Show("Schedule Created.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-        public static void RemoveSchedule(string strFName, string strLName, string strWeek)
-        {
-            string strGetID = "SELECT EmployeeID FROM FullerIsp212332.Employees WHERE FirstName = '" + strFName + "' AND LastName = '" + strLName + "'";
-            SqlCommand cmdGetID = new SqlCommand(strGetID, _cntDatabase);
-            int intEmployeeID = (int)cmdGetID.ExecuteScalar();
-
-            string strStartDate = "";
-            if (strWeek == "This Week")
-            {
-                DateTime tempDate = DateTime.Now;
-
-                switch (DateTime.Now.DayOfWeek.ToString())
-                {
-                    case "Sunday":
-                        tempDate = DateTime.Now;
-                        break;
-                    case "Monday":
-                        tempDate = DateTime.Now.AddDays(-1);
-                        break;
-                    case "Tuesday":
-                        tempDate = DateTime.Now.AddDays(-2);
-                        break;
-                    case "Wednesday":
-                        tempDate = DateTime.Now.AddDays(-3);
-                        break;
-                    case "Thursday":
-                        tempDate = DateTime.Now.AddDays(-4);
-                        break;
-                    case "Friday":
-                        tempDate = DateTime.Now.AddDays(-5);
-                        break;
-                    case "Saturday":
-                        tempDate = DateTime.Now.AddDays(-6);
-                        break;
-                }
-
-                strStartDate = "'" + tempDate.Year.ToString() + "-" + FormatDayOrMonth(tempDate.Month.ToString()) + "-" + FormatDayOrMonth(tempDate.Day.ToString()) + "'";
-
-                string strDeleteQuery = "DELETE FROM FullerIsp212332.Schedules WHERE StartDate = " + strStartDate;
-                SqlCommand cmdDeleteQuery = new SqlCommand(strDeleteQuery, _cntDatabase);
-                cmdDeleteQuery.ExecuteNonQuery();
-            }
-            else if (strWeek == "Next Week")
-            {
-                DateTime tempDate = DateTime.Now;
-
-                switch (DateTime.Now.DayOfWeek.ToString())
-                {
-                    case "Sunday":
-                        tempDate = DateTime.Now;
-                        break;
-                    case "Monday":
-                        tempDate = DateTime.Now.AddDays(-1);
-                        break;
-                    case "Tuesday":
-                        tempDate = DateTime.Now.AddDays(-2);
-                        break;
-                    case "Wednesday":
-                        tempDate = DateTime.Now.AddDays(-3);
-                        break;
-                    case "Thursday":
-                        tempDate = DateTime.Now.AddDays(-4);
-                        break;
-                    case "Friday":
-                        tempDate = DateTime.Now.AddDays(-5);
-                        break;
-                    case "Saturday":
-                        tempDate = DateTime.Now.AddDays(-6);
-                        break;
-                }
-
-                tempDate = tempDate.AddDays(7);
-
-                strStartDate = "'" + tempDate.Year.ToString() + "-" + FormatDayOrMonth(tempDate.Month.ToString()) + "-" + FormatDayOrMonth(tempDate.Day.ToString()) + "'";
-
-                string strDeleteQuery = "DELETE FROM FullerIsp212332.Schedules WHERE StartDate = " + strStartDate;
-                SqlCommand cmdDeleteQuery = new SqlCommand(strDeleteQuery, _cntDatabase);
-                cmdDeleteQuery.ExecuteNonQuery();
-            }
-            else if (strWeek == "All Previous Weeks")
-            {
-                DateTime tempDate = DateTime.Now;
-
-                switch (DateTime.Now.DayOfWeek.ToString())
-                {
-                    case "Sunday":
-                        tempDate = DateTime.Now;
-                        break;
-                    case "Monday":
-                        tempDate = DateTime.Now.AddDays(-1);
-                        break;
-                    case "Tuesday":
-                        tempDate = DateTime.Now.AddDays(-2);
-                        break;
-                    case "Wednesday":
-                        tempDate = DateTime.Now.AddDays(-3);
-                        break;
-                    case "Thursday":
-                        tempDate = DateTime.Now.AddDays(-4);
-                        break;
-                    case "Friday":
-                        tempDate = DateTime.Now.AddDays(-5);
-                        break;
-                    case "Saturday":
-                        tempDate = DateTime.Now.AddDays(-6);
-                        break;
-                }
-
-                strStartDate = "'" + tempDate.Year.ToString() + "-" + FormatDayOrMonth(tempDate.Month.ToString()) + "-" + FormatDayOrMonth(tempDate.Day.ToString()) + "'";
-
-                string strDeleteQuery = "DELETE FROM FullerIsp212332.Schedules WHERE StartDate < " + strStartDate;
-                SqlCommand cmdDeleteQuery = new SqlCommand(strDeleteQuery, _cntDatabase);
-                cmdDeleteQuery.ExecuteNonQuery();
-            }
-            else
-            {
-                MessageBox.Show("Invalid Date.", "Error Creating Schedule", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            MessageBox.Show("Schedule removed.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-        public static string[]GetEmployeeTasks(string strFName, string strLName, string strWeek)
-        {
-            string strGetID = "SELECT EmployeeID FROM FullerIsp212332.Employees WHERE FirstName = '" + strFName + "' AND LastName = '" + strLName + "'";
-            SqlCommand cmdGetID = new SqlCommand(strGetID, _cntDatabase);
-            int intEmployeeID = (int)cmdGetID.ExecuteScalar();
-
-            string[] arrTasks = new string[7];
-
-            string strStartDate = "";
-            if (strWeek == "This Week")
-            {
-                DateTime tempDate = DateTime.Now;
-
-                switch (DateTime.Now.DayOfWeek.ToString())
-                {
-                    case "Sunday":
-                        tempDate = DateTime.Now;
-                        break;
-                    case "Monday":
-                        tempDate = DateTime.Now.AddDays(-1);
-                        break;
-                    case "Tuesday":
-                        tempDate = DateTime.Now.AddDays(-2);
-                        break;
-                    case "Wednesday":
-                        tempDate = DateTime.Now.AddDays(-3);
-                        break;
-                    case "Thursday":
-                        tempDate = DateTime.Now.AddDays(-4);
-                        break;
-                    case "Friday":
-                        tempDate = DateTime.Now.AddDays(-5);
-                        break;
-                    case "Saturday":
-                        tempDate = DateTime.Now.AddDays(-6);
-                        break;
-                }
-
-                strStartDate = "'" + tempDate.Year.ToString() + "-" + FormatDayOrMonth(tempDate.Month.ToString()) + "-" + FormatDayOrMonth(tempDate.Day.ToString()) + "'";
-            }
-            else if (strWeek == "Next Week")
-            {
-                DateTime tempDate = DateTime.Now;
-
-                switch (DateTime.Now.DayOfWeek.ToString())
-                {
-                    case "Sunday":
-                        tempDate = DateTime.Now;
-                        break;
-                    case "Monday":
-                        tempDate = DateTime.Now.AddDays(-1);
-                        break;
-                    case "Tuesday":
-                        tempDate = DateTime.Now.AddDays(-2);
-                        break;
-                    case "Wednesday":
-                        tempDate = DateTime.Now.AddDays(-3);
-                        break;
-                    case "Thursday":
-                        tempDate = DateTime.Now.AddDays(-4);
-                        break;
-                    case "Friday":
-                        tempDate = DateTime.Now.AddDays(-5);
-                        break;
-                    case "Saturday":
-                        tempDate = DateTime.Now.AddDays(-6);
-                        break;
-                }
-
-                tempDate = tempDate.AddDays(7);
-
-                strStartDate = "'" + tempDate.Year.ToString() + "-" + FormatDayOrMonth(tempDate.Month.ToString()) + "-" + FormatDayOrMonth(tempDate.Day.ToString()) + "'";
-            }
-            else
-            {
-                MessageBox.Show("Invalid Date.", "Error Updating Schedule", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return null;
-            }
-
-            SqlDataReader reader;
-            SqlCommand cmd;
-            cmd = _cntDatabase.CreateCommand();
-            cmd.CommandText = "SELECT * FROM FullerIsp212332.Schedules WHERE EmployeeID = " + intEmployeeID + " AND StartDate = " + strStartDate;
-            reader = cmd.ExecuteReader();
-
             try
             {
-                reader.Read();
-                arrTasks[0] = reader.GetString(2);
-                arrTasks[1] = reader.GetString(3);
-                arrTasks[2] = reader.GetString(4);
-                arrTasks[3] = reader.GetString(5);
-                arrTasks[4] = reader.GetString(6);
-                arrTasks[5] = reader.GetString(7);
-                arrTasks[6] = reader.GetString(8);
+                SqlDataReader reader;
+                SqlCommand cmd;
+                cmd = _cntDatabase.CreateCommand();
+                cmd.CommandText = "SELECT * FROM FullerIsp212332.Employees";
+                reader = cmd.ExecuteReader();
+
+                int intListIndex = 0;
+                while (reader.Read())
+                {
+                    lstNames.Add(new string[2]);
+                    lstNames[intListIndex][0] = reader.GetString(1);
+                    lstNames[intListIndex][1] = reader.GetString(2);
+                    intListIndex++;
+                }
+
+                reader.Close();
             }
             catch(Exception ex)
             {
-                MessageBox.Show("No schedule found", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                reader.Close();
-                return null;
+                MessageBox.Show("Cannot retrieve employee names.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
-            reader.Close();
+            return lstNames;
+        }
+
+        //Gets all of the StartDates for the shceduels so they can be selected from when updating, removing, etc.
+        public static List<string> GetScheduleDates()
+        {
+            List<string> lstDates = new List<string>();
+
+            try
+            {
+                SqlDataReader reader;
+                SqlCommand cmd;
+                cmd = _cntDatabase.CreateCommand();
+                cmd.CommandText = "SELECT DISTINCT StartDate FROM FullerIsp212332.Schedules";
+                reader = cmd.ExecuteReader();
+
+                //Formats the date and puts it into the list
+                while (reader.Read())
+                {
+                    lstDates.Add($"{reader.GetDateTime(0).Year.ToString()}-{FormatDayOrMonth(reader.GetDateTime(0).Month.ToString())}-{FormatDayOrMonth(reader.GetDateTime(0).Day.ToString())}");
+                }
+
+                reader.Close();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Cannot retrieve schedule dates.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            return lstDates;
+        }
+
+        //Gets employee tasks for employee viewing and manager updating
+        public static string[] GetEmployeeTasks(string strFName, string strLName, string strDate)
+        {
+            string[] arrTasks = { "", "", "", "", "", "", "" };
+
+            try
+            {
+                //Gets ID so schedule can be found with foreign key
+                string strGetID = $"SELECT EmployeeID FROM FullerIsp212332.Employees WHERE FirstName = '{strFName}' AND LastName = '{strLName}'";
+                SqlCommand cmdGetID = new SqlCommand(strGetID, _cntDatabase);
+                int intEmployeeID = (int)cmdGetID.ExecuteScalar();
+
+                SqlDataReader reader;
+                SqlCommand cmd;
+                cmd = _cntDatabase.CreateCommand();
+                cmd.CommandText = $"SELECT * FROM FullerIsp212332.Schedules WHERE EmployeeID = {intEmployeeID} AND StartDate = '{strDate}'";
+                reader = cmd.ExecuteReader();
+
+                try
+                {
+                    //Puts tasks into array
+                    reader.Read();
+                    arrTasks[0] = reader.GetString(2);
+                    arrTasks[1] = reader.GetString(3);
+                    arrTasks[2] = reader.GetString(4);
+                    arrTasks[3] = reader.GetString(5);
+                    arrTasks[4] = reader.GetString(6);
+                    arrTasks[5] = reader.GetString(7);
+                    arrTasks[6] = reader.GetString(8);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("No schedule for the selected date found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    reader.Close();
+                }
+
+                reader.Close();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("No schedule for the selected date found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
             return arrTasks;
         }
 
-        public static void UpdateSchedule(string strFName, string strLName, string strSunday, string strMonday, string strTuesday, string strWednesday, string strThursday, string strFriday, string strSaturday, string strWeek)
+        //Adds schedule for employee. An employee can only have one shcedule per week
+        public static void AddSchedule(string strFName, string strLName, string strSunday, string strMonday, string strTuesday, string strWednesday, string strThursday, string strFriday, string strSaturday, string strDate)
         {
-            string strGetID = "SELECT EmployeeID FROM FullerIsp212332.Employees WHERE FirstName = '" + strFName + "' AND LastName = '" + strLName + "'";
-            SqlCommand cmdGetID = new SqlCommand(strGetID, _cntDatabase);
-            int intEmployeeID = (int)cmdGetID.ExecuteScalar();
-
-            string strStartDate = "";
-            if (strWeek == "This Week")
+            try
             {
-                DateTime tempDate = DateTime.Now;
+                //Gets ID so schedule can be found with foreign key
+                string strGetID = $"SELECT EmployeeID FROM FullerIsp212332.Employees WHERE FirstName = '{strFName}' AND LastName = '{strLName}'";
+                SqlCommand cmdGetID = new SqlCommand(strGetID, _cntDatabase);
+                int intEmployeeID = (int)cmdGetID.ExecuteScalar();
 
-                switch (DateTime.Now.DayOfWeek.ToString())
+                //Cancels creation if the employee already has a schedule for the selected week
+                string strCheckForExistance = $"SELECT ScheduleID FROM FullerIsp212332.Schedules WHERE EmployeeID = {intEmployeeID} AND StartDate = '{strDate}'";
+                SqlCommand cmdCheckForExistance = new SqlCommand(strCheckForExistance, _cntDatabase);
+                if(cmdCheckForExistance.ExecuteScalar() != null)
                 {
-                    case "Sunday":
-                        tempDate = DateTime.Now;
-                        break;
-                    case "Monday":
-                        tempDate = DateTime.Now.AddDays(-1);
-                        break;
-                    case "Tuesday":
-                        tempDate = DateTime.Now.AddDays(-2);
-                        break;
-                    case "Wednesday":
-                        tempDate = DateTime.Now.AddDays(-3);
-                        break;
-                    case "Thursday":
-                        tempDate = DateTime.Now.AddDays(-4);
-                        break;
-                    case "Friday":
-                        tempDate = DateTime.Now.AddDays(-5);
-                        break;
-                    case "Saturday":
-                        tempDate = DateTime.Now.AddDays(-6);
-                        break;
+                    MessageBox.Show("This employee already has a schedule for the selected week. Try deleting the current schedule before adding, or just update the currently existing schedule.", "Cannot add schedule", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
                 }
 
-                strStartDate = "'" + tempDate.Year.ToString() + "-" + FormatDayOrMonth(tempDate.Month.ToString()) + "-" + FormatDayOrMonth(tempDate.Day.ToString()) + "'";
+                //Creates the schedule
+                string strInsertSchedule = $"INSERT INTO FullerIsp212332.Schedules VALUES({intEmployeeID}, '{strSunday}', '{strMonday}', '{strTuesday}', '{strWednesday}', '{strThursday}', '{strFriday}', '{strSaturday}', '{strDate}')";
+                SqlCommand cmdInsertSchedule = new SqlCommand(strInsertSchedule, _cntDatabase);
+                cmdInsertSchedule.ExecuteNonQuery();
+
+                MessageBox.Show("Schedule Created.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            else if (strWeek == "Next Week")
+            catch(Exception ex)
             {
-                DateTime tempDate = DateTime.Now;
-
-                switch (DateTime.Now.DayOfWeek.ToString())
-                {
-                    case "Sunday":
-                        tempDate = DateTime.Now;
-                        break;
-                    case "Monday":
-                        tempDate = DateTime.Now.AddDays(-1);
-                        break;
-                    case "Tuesday":
-                        tempDate = DateTime.Now.AddDays(-2);
-                        break;
-                    case "Wednesday":
-                        tempDate = DateTime.Now.AddDays(-3);
-                        break;
-                    case "Thursday":
-                        tempDate = DateTime.Now.AddDays(-4);
-                        break;
-                    case "Friday":
-                        tempDate = DateTime.Now.AddDays(-5);
-                        break;
-                    case "Saturday":
-                        tempDate = DateTime.Now.AddDays(-6);
-                        break;
-                }
-
-                tempDate = tempDate.AddDays(7);
-
-                strStartDate = "'" + tempDate.Year.ToString() + "-" + FormatDayOrMonth(tempDate.Month.ToString()) + "-" + FormatDayOrMonth(tempDate.Day.ToString()) + "'";
+                MessageBox.Show("Cannot add schedule", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            else if (strWeek == "Previous Week")
+        }
+
+        //Removes a schedule by using the employee's name and shcedule date
+        public static void RemoveSchedule(string strFName, string strLName, string strDate)
+        {
+            try
             {
-                DateTime tempDate = DateTime.Now;
+                //Gets ID from the employee's name so the schedule can be found
+                string strGetID = $"SELECT EmployeeID FROM FullerIsp212332.Employees WHERE FirstName = '{strFName}' AND LastName = '{strLName}'";
+                SqlCommand cmdGetID = new SqlCommand(strGetID, _cntDatabase);
+                int intEmployeeID = (int)cmdGetID.ExecuteScalar();
 
-                switch (DateTime.Now.DayOfWeek.ToString())
-                {
-                    case "Sunday":
-                        tempDate = DateTime.Now;
-                        break;
-                    case "Monday":
-                        tempDate = DateTime.Now.AddDays(-1);
-                        break;
-                    case "Tuesday":
-                        tempDate = DateTime.Now.AddDays(-2);
-                        break;
-                    case "Wednesday":
-                        tempDate = DateTime.Now.AddDays(-3);
-                        break;
-                    case "Thursday":
-                        tempDate = DateTime.Now.AddDays(-4);
-                        break;
-                    case "Friday":
-                        tempDate = DateTime.Now.AddDays(-5);
-                        break;
-                    case "Saturday":
-                        tempDate = DateTime.Now.AddDays(-6);
-                        break;
-                }
+                //Deletes the schedule
+                string strRemoveSchedule = $"DELETE FROM FullerIsp212332.Schedules WHERE EmployeeID = {intEmployeeID} AND StartDate = '{strDate}'";
+                SqlCommand cmdRemoveSchedule = new SqlCommand(strRemoveSchedule, _cntDatabase);
+                cmdRemoveSchedule.ExecuteNonQuery();
 
-                strStartDate = "'" + tempDate.Year.ToString() + "-" + FormatDayOrMonth(tempDate.Month.ToString()) + "-" + FormatDayOrMonth(tempDate.Day.ToString()) + "'";
+                MessageBox.Show("Schedule removed.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Cannot remove schedule", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
-                string strUpdateQuery1 = "UPDATE FullerIsp212332.Schedules SET Sunday = '" + strSunday + "', Monday = '" + strMonday + "', Tuesday = '" + strTuesday + "', Wednesday = '" + strWednesday + "', Thursday = '" + strThursday + "', Friday = '" + strFriday + "', Saturday = '" + strSaturday + "' WHERE StartDate = " + strStartDate + " AND EmployeeID = " + intEmployeeID;
-                SqlCommand cmdUpdateQuery1 = new SqlCommand(strUpdateQuery1, _cntDatabase);
-                cmdUpdateQuery1.ExecuteNonQuery();
+        public static void UpdateSchedule(string strFName, string strLName, string strSunday, string strMonday, string strTuesday, string strWednesday, string strThursday, string strFriday, string strSaturday, string strDate)
+        {
+            try
+            {
+                //Gets ID from the employee's name so the schedule can be found
+                string strGetID = $"SELECT EmployeeID FROM FullerIsp212332.Employees WHERE FirstName = '{strFName}' AND LastName = '{strLName}'";
+                SqlCommand cmdGetID = new SqlCommand(strGetID, _cntDatabase);
+                int intEmployeeID = (int)cmdGetID.ExecuteScalar();
+
+                //Updates the schedule
+                string strUpdateQuery = $"UPDATE FullerIsp212332.Schedules SET Sunday = '{strSunday}', Monday = '{strMonday}', Tuesday = '{strTuesday}', Wednesday = '{strWednesday}', Thursday = '{strThursday}', Friday = '{strFriday}', Saturday = '{strSaturday}' WHERE StartDate = '{strDate}' AND EmployeeID = {intEmployeeID}";
+                SqlCommand cmdUpdateQuery = new SqlCommand(strUpdateQuery, _cntDatabase);
+                cmdUpdateQuery.ExecuteNonQuery();
 
                 MessageBox.Show("Schedule Updated", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
             }
-            else
+            catch(Exception ex)
             {
-                MessageBox.Show("Invalid Date.", "Error Creating Schedule", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                MessageBox.Show("Cannot update schedule", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-            string strUpdateQuery = "UPDATE FullerIsp212332.Schedules SET Sunday = '" + strSunday + "', Monday = '" + strMonday + "', Tuesday = '" + strTuesday + "', Wednesday = '" + strWednesday + "', Thursday = '" + strThursday + "', Friday = '" + strFriday + "', Saturday = '" + strSaturday + "' WHERE StartDate = " + strStartDate + " AND EmployeeID = " + intEmployeeID;
-            SqlCommand cmdUpdateQuery = new SqlCommand(strUpdateQuery, _cntDatabase);
-            cmdUpdateQuery.ExecuteNonQuery();
-
-            MessageBox.Show("Schedule Updated", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
         //ADD, UPDATE, DELETE SCHEDULES START---------------------------------------------------------------------------------------------------------------------------------------------
         
@@ -1523,6 +1249,19 @@ namespace SP21_Final_Project
             cmdUpdateQuery.ExecuteNonQuery();
 
             MessageBox.Show("Response succesful.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        public static void UpdatePassword(string strUsername, string strNewPassword)
+        {
+            string strUpdateEmployee = $"UPDATE FullerIsp212332.Employees SET Password = '{strNewPassword}' WHERE Username = '{strUsername}'";
+            SqlCommand cmdUpdateEmployee = new SqlCommand(strUpdateEmployee, _cntDatabase);
+            cmdUpdateEmployee.ExecuteNonQuery();
+
+            string strUpdateManager = $"UPDATE FullerIsp212332.Managers SET Password = '{strNewPassword}' WHERE Username = '{strUsername}'";
+            SqlCommand cmdUpdateManager = new SqlCommand(strUpdateManager, _cntDatabase);
+            cmdUpdateManager.ExecuteNonQuery();
+
+            MessageBox.Show("Email sent.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }
