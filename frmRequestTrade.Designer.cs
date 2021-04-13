@@ -29,6 +29,7 @@ namespace SP21_Final_Project
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmRequestTrade));
             this.btnRequest = new System.Windows.Forms.Button();
             this.tbxRequest = new System.Windows.Forms.TextBox();
             this.lblRequest = new System.Windows.Forms.Label();
@@ -85,7 +86,7 @@ namespace SP21_Final_Project
             // mnuClose
             // 
             this.mnuClose.Name = "mnuClose";
-            this.mnuClose.Size = new System.Drawing.Size(180, 22);
+            this.mnuClose.Size = new System.Drawing.Size(103, 22);
             this.mnuClose.Text = "&Close";
             this.mnuClose.Click += new System.EventHandler(this.mnuClose_Click);
             // 
@@ -98,8 +99,10 @@ namespace SP21_Final_Project
             this.Controls.Add(this.tbxRequest);
             this.Controls.Add(this.lblRequest);
             this.Controls.Add(this.mnuBar);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmRequestTrade";
             this.Text = "Request Trade";
+            this.Load += new System.EventHandler(this.frmRequestTrade_Load);
             this.mnuBar.ResumeLayout(false);
             this.mnuBar.PerformLayout();
             this.ResumeLayout(false);

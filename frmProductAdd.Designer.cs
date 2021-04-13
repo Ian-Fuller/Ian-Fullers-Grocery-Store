@@ -29,9 +29,12 @@ namespace SP21_Final_Project
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmProductAdd));
             this.mnuBar = new System.Windows.Forms.MenuStrip();
             this.mnuFile = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuClose = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuHelp = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuAddProduct = new System.Windows.Forms.ToolStripMenuItem();
             this.lblProductName = new System.Windows.Forms.Label();
             this.tbxName = new System.Windows.Forms.TextBox();
             this.lblPrice = new System.Windows.Forms.Label();
@@ -52,7 +55,8 @@ namespace SP21_Final_Project
             // mnuBar
             // 
             this.mnuBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mnuFile});
+            this.mnuFile,
+            this.mnuHelp});
             this.mnuBar.Location = new System.Drawing.Point(0, 0);
             this.mnuBar.Name = "mnuBar";
             this.mnuBar.Size = new System.Drawing.Size(340, 24);
@@ -73,6 +77,21 @@ namespace SP21_Final_Project
             this.mnuClose.Size = new System.Drawing.Size(103, 22);
             this.mnuClose.Text = "&Close";
             this.mnuClose.Click += new System.EventHandler(this.mnuClose_Click);
+            // 
+            // mnuHelp
+            // 
+            this.mnuHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuAddProduct});
+            this.mnuHelp.Name = "mnuHelp";
+            this.mnuHelp.Size = new System.Drawing.Size(44, 20);
+            this.mnuHelp.Text = "&Help";
+            // 
+            // mnuAddProduct
+            // 
+            this.mnuAddProduct.Name = "mnuAddProduct";
+            this.mnuAddProduct.Size = new System.Drawing.Size(141, 22);
+            this.mnuAddProduct.Text = "&Add Product";
+            this.mnuAddProduct.Click += new System.EventHandler(this.mnuAddProduct_Click);
             // 
             // lblProductName
             // 
@@ -95,9 +114,9 @@ namespace SP21_Final_Project
             this.lblPrice.AutoSize = true;
             this.lblPrice.Location = new System.Drawing.Point(13, 66);
             this.lblPrice.Name = "lblPrice";
-            this.lblPrice.Size = new System.Drawing.Size(74, 13);
+            this.lblPrice.Size = new System.Drawing.Size(83, 13);
             this.lblPrice.TabIndex = 3;
-            this.lblPrice.Text = "Price per Unit:";
+            this.lblPrice.Text = "Price per Unit: $";
             // 
             // lblSize
             // 
@@ -178,9 +197,9 @@ namespace SP21_Final_Project
             this.lblWholesalePrice.AutoSize = true;
             this.lblWholesalePrice.Location = new System.Drawing.Point(3, 97);
             this.lblWholesalePrice.Name = "lblWholesalePrice";
-            this.lblWholesalePrice.Size = new System.Drawing.Size(84, 13);
+            this.lblWholesalePrice.Size = new System.Drawing.Size(93, 13);
             this.lblWholesalePrice.TabIndex = 12;
-            this.lblWholesalePrice.Text = "WholesalePrice:";
+            this.lblWholesalePrice.Text = "WholesalePrice: $";
             // 
             // frmProductAdd
             // 
@@ -202,10 +221,12 @@ namespace SP21_Final_Project
             this.Controls.Add(this.lblProductName);
             this.Controls.Add(this.mnuBar);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.mnuBar;
             this.Name = "frmProductAdd";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Add New Product";
+            this.Load += new System.EventHandler(this.frmProductAdd_Load);
             this.mnuBar.ResumeLayout(false);
             this.mnuBar.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxProductImage)).EndInit();
@@ -232,5 +253,7 @@ namespace SP21_Final_Project
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.TextBox tbxWholesalePrice;
         private System.Windows.Forms.Label lblWholesalePrice;
+        private System.Windows.Forms.ToolStripMenuItem mnuHelp;
+        private System.Windows.Forms.ToolStripMenuItem mnuAddProduct;
     }
 }

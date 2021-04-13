@@ -60,5 +60,15 @@ namespace SP21_Final_Project
         {
             this.Close();
         }
+
+        private void mnuPasswordRecovery_Click(object sender, EventArgs e)
+        {
+            Help.HelpForgotPassword();
+        }
+
+        private void frmRecoverPassword_Load(object sender, EventArgs e)
+        {
+            MaximizeBox = false;
+        }
     }
 }

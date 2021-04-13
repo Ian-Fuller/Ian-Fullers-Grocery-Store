@@ -29,6 +29,7 @@ namespace SP21_Final_Project
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMoreInfo));
             this.pbxProductImage = new System.Windows.Forms.PictureBox();
             this.lblInfo = new System.Windows.Forms.Label();
             this.btnClose = new System.Windows.Forms.Button();
@@ -69,9 +70,11 @@ namespace SP21_Final_Project
             this.Controls.Add(this.lblInfo);
             this.Controls.Add(this.pbxProductImage);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmMoreInfo";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "More Info";
+            this.Load += new System.EventHandler(this.frmMoreInfo_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pbxProductImage)).EndInit();
             this.ResumeLayout(false);
 

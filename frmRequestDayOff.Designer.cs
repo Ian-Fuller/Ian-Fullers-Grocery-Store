@@ -29,6 +29,7 @@ namespace SP21_Final_Project
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmRequestDayOff));
             this.mnuBar = new System.Windows.Forms.MenuStrip();
             this.mnuFile = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuClose = new System.Windows.Forms.ToolStripMenuItem();
@@ -99,10 +100,12 @@ namespace SP21_Final_Project
             this.Controls.Add(this.lblRequest);
             this.Controls.Add(this.mnuBar);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.mnuBar;
             this.Name = "frmRequestDayOff";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Request Day Off";
+            this.Load += new System.EventHandler(this.frmRequestDayOff_Load);
             this.mnuBar.ResumeLayout(false);
             this.mnuBar.PerformLayout();
             this.ResumeLayout(false);

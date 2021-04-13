@@ -15,14 +15,26 @@ namespace SP21_Final_Project
         public frmMoreInfo(Image imgProductImage, string strInfo)
         {
             InitializeComponent();
-            
-            pbxProductImage.Image = imgProductImage;
-            lblInfo.Text = strInfo;
+
+            try
+            {
+                pbxProductImage.Image = imgProductImage;
+                lblInfo.Text = strInfo;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error getting info", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void frmMoreInfo_Load(object sender, EventArgs e)
+        {
+            MaximizeBox = false;
         }
     }
 }

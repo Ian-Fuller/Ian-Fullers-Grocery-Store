@@ -29,31 +29,36 @@ namespace SP21_Final_Project
         /// </summary>
         private void InitializeComponent()
         {
-            this.cbxSpecials = new System.Windows.Forms.ComboBox();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmSpecialUpdate));
+            this.cboSpecials = new System.Windows.Forms.ComboBox();
             this.mnuBar = new System.Windows.Forms.MenuStrip();
             this.mnuFile = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuClose = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuHelp = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuUpdateSpecial = new System.Windows.Forms.ToolStripMenuItem();
             this.tbxNewValue = new System.Windows.Forms.TextBox();
             this.lblTo = new System.Windows.Forms.Label();
-            this.cbxColumnName = new System.Windows.Forms.ComboBox();
+            this.cboColumnName = new System.Windows.Forms.ComboBox();
             this.lblSet = new System.Windows.Forms.Label();
             this.btnUpdate = new System.Windows.Forms.Button();
-            this.cbxProduct = new System.Windows.Forms.ComboBox();
+            this.cboProduct = new System.Windows.Forms.ComboBox();
             this.mnuBar.SuspendLayout();
             this.SuspendLayout();
             // 
-            // cbxSpecials
+            // cboSpecials
             // 
-            this.cbxSpecials.FormattingEnabled = true;
-            this.cbxSpecials.Location = new System.Drawing.Point(12, 27);
-            this.cbxSpecials.Name = "cbxSpecials";
-            this.cbxSpecials.Size = new System.Drawing.Size(171, 21);
-            this.cbxSpecials.TabIndex = 0;
+            this.cboSpecials.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboSpecials.FormattingEnabled = true;
+            this.cboSpecials.Location = new System.Drawing.Point(12, 27);
+            this.cboSpecials.Name = "cboSpecials";
+            this.cboSpecials.Size = new System.Drawing.Size(171, 21);
+            this.cboSpecials.TabIndex = 0;
             // 
             // mnuBar
             // 
             this.mnuBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mnuFile});
+            this.mnuFile,
+            this.mnuHelp});
             this.mnuBar.Location = new System.Drawing.Point(0, 0);
             this.mnuBar.Name = "mnuBar";
             this.mnuBar.Size = new System.Drawing.Size(317, 24);
@@ -75,6 +80,21 @@ namespace SP21_Final_Project
             this.mnuClose.Text = "&Close";
             this.mnuClose.Click += new System.EventHandler(this.mnuClose_Click);
             // 
+            // mnuHelp
+            // 
+            this.mnuHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuUpdateSpecial});
+            this.mnuHelp.Name = "mnuHelp";
+            this.mnuHelp.Size = new System.Drawing.Size(44, 20);
+            this.mnuHelp.Text = "&Help";
+            // 
+            // mnuUpdateSpecial
+            // 
+            this.mnuUpdateSpecial.Name = "mnuUpdateSpecial";
+            this.mnuUpdateSpecial.Size = new System.Drawing.Size(152, 22);
+            this.mnuUpdateSpecial.Text = "&Update Special";
+            this.mnuUpdateSpecial.Click += new System.EventHandler(this.mnuUpdateSpecial_Click);
+            // 
             // tbxNewValue
             // 
             this.tbxNewValue.Location = new System.Drawing.Point(194, 68);
@@ -91,14 +111,15 @@ namespace SP21_Final_Project
             this.lblTo.TabIndex = 12;
             this.lblTo.Text = "To";
             // 
-            // cbxColumnName
+            // cboColumnName
             // 
-            this.cbxColumnName.FormattingEnabled = true;
-            this.cbxColumnName.Location = new System.Drawing.Point(41, 68);
-            this.cbxColumnName.Name = "cbxColumnName";
-            this.cbxColumnName.Size = new System.Drawing.Size(121, 21);
-            this.cbxColumnName.TabIndex = 11;
-            this.cbxColumnName.SelectedIndexChanged += new System.EventHandler(this.cbxColumnName_SelectedIndexChanged);
+            this.cboColumnName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboColumnName.FormattingEnabled = true;
+            this.cboColumnName.Location = new System.Drawing.Point(41, 68);
+            this.cboColumnName.Name = "cboColumnName";
+            this.cboColumnName.Size = new System.Drawing.Size(121, 21);
+            this.cboColumnName.TabIndex = 11;
+            this.cboColumnName.SelectedIndexChanged += new System.EventHandler(this.cbxColumnName_SelectedIndexChanged);
             // 
             // lblSet
             // 
@@ -119,29 +140,31 @@ namespace SP21_Final_Project
             this.btnUpdate.UseVisualStyleBackColor = true;
             this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
-            // cbxProduct
+            // cboProduct
             // 
-            this.cbxProduct.FormattingEnabled = true;
-            this.cbxProduct.Location = new System.Drawing.Point(194, 67);
-            this.cbxProduct.Name = "cbxProduct";
-            this.cbxProduct.Size = new System.Drawing.Size(100, 21);
-            this.cbxProduct.TabIndex = 15;
-            this.cbxProduct.Visible = false;
+            this.cboProduct.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboProduct.FormattingEnabled = true;
+            this.cboProduct.Location = new System.Drawing.Point(194, 67);
+            this.cboProduct.Name = "cboProduct";
+            this.cboProduct.Size = new System.Drawing.Size(100, 21);
+            this.cboProduct.TabIndex = 15;
+            this.cboProduct.Visible = false;
             // 
             // frmSpecialUpdate
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(317, 177);
-            this.Controls.Add(this.cbxProduct);
+            this.Controls.Add(this.cboProduct);
             this.Controls.Add(this.btnUpdate);
             this.Controls.Add(this.tbxNewValue);
             this.Controls.Add(this.lblTo);
-            this.Controls.Add(this.cbxColumnName);
+            this.Controls.Add(this.cboColumnName);
             this.Controls.Add(this.lblSet);
-            this.Controls.Add(this.cbxSpecials);
+            this.Controls.Add(this.cboSpecials);
             this.Controls.Add(this.mnuBar);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.mnuBar;
             this.Name = "frmSpecialUpdate";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -156,15 +179,17 @@ namespace SP21_Final_Project
 
         #endregion
 
-        private System.Windows.Forms.ComboBox cbxSpecials;
+        private System.Windows.Forms.ComboBox cboSpecials;
         private System.Windows.Forms.MenuStrip mnuBar;
         private System.Windows.Forms.ToolStripMenuItem mnuFile;
         private System.Windows.Forms.ToolStripMenuItem mnuClose;
         private System.Windows.Forms.TextBox tbxNewValue;
         private System.Windows.Forms.Label lblTo;
-        private System.Windows.Forms.ComboBox cbxColumnName;
+        private System.Windows.Forms.ComboBox cboColumnName;
         private System.Windows.Forms.Label lblSet;
         private System.Windows.Forms.Button btnUpdate;
-        private System.Windows.Forms.ComboBox cbxProduct;
+        private System.Windows.Forms.ComboBox cboProduct;
+        private System.Windows.Forms.ToolStripMenuItem mnuHelp;
+        private System.Windows.Forms.ToolStripMenuItem mnuUpdateSpecial;
     }
 }

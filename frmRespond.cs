@@ -26,32 +26,53 @@ namespace SP21_Final_Project
 
         private void frmRespond_Load(object sender, EventArgs e)
         {
-            lstRequests = DB.GetRequests();
-
-            for(int intCurrentID = 0; intCurrentID < lstRequests.Count; intCurrentID++)
+            try
             {
-                cbxID.Items.Add(lstRequests[intCurrentID][0]);
+                MaximizeBox = false;
+
+                lstRequests = DB.GetRequests();
+
+                for (int intCurrentID = 0; intCurrentID < lstRequests.Count; intCurrentID++)
+                {
+                    cboID.Items.Add(lstRequests[intCurrentID][0]);
+                }
+                cboID.Text = lstRequests[0][0];
+
+                tbxRequest.Text = lstRequests[0][1];
+
+                cboStatus.Items.Add("Unread");
+                cboStatus.Items.Add("Accepted");
+                cboStatus.Items.Add("Declined");
+                cboStatus.Text = lstRequests[0][2];
             }
-            cbxID.Text = lstRequests[0][0];
-
-            tbxRequest.Text = lstRequests[0][1];
-
-            cbxStatus.Items.Add("Unread");
-            cbxStatus.Items.Add("Accepted");
-            cbxStatus.Items.Add("Declined");
-            cbxStatus.Text = lstRequests[0][2];
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error retrieving data", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void cbxID_SelectedIndexChanged(object sender, EventArgs e)
         {
-            tbxRequest.Text = lstRequests[cbxID.SelectedIndex][1];
-            cbxStatus.Text = lstRequests[cbxID.SelectedIndex][2];
+            try
+            {
+                tbxRequest.Text = lstRequests[cboID.SelectedIndex][1];
+                cboStatus.Text = lstRequests[cboID.SelectedIndex][2];
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error selecting request", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnRespond_Click(object sender, EventArgs e)
         {
-            Int32.TryParse(cbxID.Text, out int intRequestID);
-            DB.UpdateRequest(intRequestID, cbxStatus.Text);
+            Int32.TryParse(cboID.Text, out int intRequestID);
+            DB.UpdateRequest(intRequestID, cboStatus.Text);
+        }
+
+        private void mnuRespond_Click(object sender, EventArgs e)
+        {
+            Help.HelpRespond();
         }
     }
 }

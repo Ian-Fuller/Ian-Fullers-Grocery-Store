@@ -50,7 +50,7 @@ namespace SP21_Final_Project
 
             //Label
             lblProductName = new Label();
-            lblProductName.Text = strProductName + "\n$" + dblPrice;
+            lblProductName.Text = strProductName + "\n" + FormatCurrency(dblPrice);
             lblProductName.Width = 100;
             lblProductName.Height = 45;
             lblProductName.BackColor = Color.White;
@@ -146,6 +146,30 @@ namespace SP21_Final_Project
         {
             btnAdd.Visible = bolOnOff;
             btnMoreInfo.Visible = bolOnOff;
+        }
+
+        public void RemoveFromParent(Form frmParentForm)
+        {
+            frmParentForm.Controls.Remove(pnlParentPanel);
+        }
+
+        public static string FormatCurrency(double dblPrice)
+        {
+            try
+            {
+                string strPrice = "$" + dblPrice.ToString();
+                string[] arrHalves = strPrice.Split('.');
+                if (arrHalves[1].Length < 2)
+                {
+                    strPrice += "0";
+                }
+                return strPrice;
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Error formatting currency", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return "$X.XX";
+            }
         }
     }
 }

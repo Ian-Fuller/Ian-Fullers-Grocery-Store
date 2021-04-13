@@ -29,9 +29,12 @@ namespace SP21_Final_Project
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmShoppingCart));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.mnuFile = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuClose = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuHelp = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuShoppingCart = new System.Windows.Forms.ToolStripMenuItem();
             this.lbxItemsInCart = new System.Windows.Forms.ListBox();
             this.lblItemsInCart = new System.Windows.Forms.Label();
             this.lblCity = new System.Windows.Forms.Label();
@@ -52,7 +55,8 @@ namespace SP21_Final_Project
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mnuFile});
+            this.mnuFile,
+            this.mnuHelp});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(557, 24);
@@ -73,6 +77,21 @@ namespace SP21_Final_Project
             this.mnuClose.Size = new System.Drawing.Size(103, 22);
             this.mnuClose.Text = "&Close";
             this.mnuClose.Click += new System.EventHandler(this.mnuClose_Click);
+            // 
+            // mnuHelp
+            // 
+            this.mnuHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuShoppingCart});
+            this.mnuHelp.Name = "mnuHelp";
+            this.mnuHelp.Size = new System.Drawing.Size(44, 20);
+            this.mnuHelp.Text = "&Help";
+            // 
+            // mnuShoppingCart
+            // 
+            this.mnuShoppingCart.Name = "mnuShoppingCart";
+            this.mnuShoppingCart.Size = new System.Drawing.Size(150, 22);
+            this.mnuShoppingCart.Text = "&Shopping Cart";
+            this.mnuShoppingCart.Click += new System.EventHandler(this.mnuShoppingCart_Click);
             // 
             // lbxItemsInCart
             // 
@@ -204,6 +223,7 @@ namespace SP21_Final_Project
             this.Controls.Add(this.lbxItemsInCart);
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "frmShoppingCart";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -235,5 +255,7 @@ namespace SP21_Final_Project
         private System.Windows.Forms.Label lblAmountOrdered;
         private System.Windows.Forms.Button btnRemove;
         private System.Windows.Forms.Label lblDiscount;
+        private System.Windows.Forms.ToolStripMenuItem mnuHelp;
+        private System.Windows.Forms.ToolStripMenuItem mnuShoppingCart;
     }
 }

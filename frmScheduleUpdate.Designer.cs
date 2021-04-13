@@ -29,9 +29,12 @@ namespace SP21_Final_Project
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmScheduleUpdate));
             this.mnuBar = new System.Windows.Forms.MenuStrip();
             this.mnuFile = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuClose = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuHelp = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuUpdateSchedule = new System.Windows.Forms.ToolStripMenuItem();
             this.btnUpdateSchedule = new System.Windows.Forms.Button();
             this.lblWeek = new System.Windows.Forms.Label();
             this.lblSaturday = new System.Windows.Forms.Label();
@@ -41,7 +44,7 @@ namespace SP21_Final_Project
             this.lblTuesday = new System.Windows.Forms.Label();
             this.lblMonday = new System.Windows.Forms.Label();
             this.lblSunday = new System.Windows.Forms.Label();
-            this.cbxWeek = new System.Windows.Forms.ComboBox();
+            this.cboWeek = new System.Windows.Forms.ComboBox();
             this.tbxSaturday = new System.Windows.Forms.TextBox();
             this.tbxFriday = new System.Windows.Forms.TextBox();
             this.tbxThursday = new System.Windows.Forms.TextBox();
@@ -49,7 +52,7 @@ namespace SP21_Final_Project
             this.tbxTuesday = new System.Windows.Forms.TextBox();
             this.tbxMonday = new System.Windows.Forms.TextBox();
             this.tbxSunday = new System.Windows.Forms.TextBox();
-            this.cbxEmployee = new System.Windows.Forms.ComboBox();
+            this.cboEmployee = new System.Windows.Forms.ComboBox();
             this.lblFor = new System.Windows.Forms.Label();
             this.mnuBar.SuspendLayout();
             this.SuspendLayout();
@@ -57,7 +60,8 @@ namespace SP21_Final_Project
             // mnuBar
             // 
             this.mnuBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mnuFile});
+            this.mnuFile,
+            this.mnuHelp});
             this.mnuBar.Location = new System.Drawing.Point(0, 0);
             this.mnuBar.Name = "mnuBar";
             this.mnuBar.Size = new System.Drawing.Size(351, 24);
@@ -78,6 +82,21 @@ namespace SP21_Final_Project
             this.mnuClose.Size = new System.Drawing.Size(103, 22);
             this.mnuClose.Text = "&Close";
             this.mnuClose.Click += new System.EventHandler(this.mnuClose_Click);
+            // 
+            // mnuHelp
+            // 
+            this.mnuHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuUpdateSchedule});
+            this.mnuHelp.Name = "mnuHelp";
+            this.mnuHelp.Size = new System.Drawing.Size(44, 20);
+            this.mnuHelp.Text = "&Help";
+            // 
+            // mnuUpdateSchedule
+            // 
+            this.mnuUpdateSchedule.Name = "mnuUpdateSchedule";
+            this.mnuUpdateSchedule.Size = new System.Drawing.Size(163, 22);
+            this.mnuUpdateSchedule.Text = "&Update Schedule";
+            this.mnuUpdateSchedule.Click += new System.EventHandler(this.mnuUpdateSchedule_Click);
             // 
             // btnUpdateSchedule
             // 
@@ -161,15 +180,15 @@ namespace SP21_Final_Project
             this.lblSunday.TabIndex = 30;
             this.lblSunday.Text = "Sunday:";
             // 
-            // cbxWeek
+            // cboWeek
             // 
-            this.cbxWeek.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbxWeek.FormattingEnabled = true;
-            this.cbxWeek.Location = new System.Drawing.Point(118, 60);
-            this.cbxWeek.Name = "cbxWeek";
-            this.cbxWeek.Size = new System.Drawing.Size(107, 21);
-            this.cbxWeek.TabIndex = 29;
-            this.cbxWeek.SelectedIndexChanged += new System.EventHandler(this.cbxWeek_SelectedIndexChanged);
+            this.cboWeek.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboWeek.FormattingEnabled = true;
+            this.cboWeek.Location = new System.Drawing.Point(118, 60);
+            this.cboWeek.Name = "cboWeek";
+            this.cboWeek.Size = new System.Drawing.Size(107, 21);
+            this.cboWeek.TabIndex = 29;
+            this.cboWeek.SelectedIndexChanged += new System.EventHandler(this.cbxWeek_SelectedIndexChanged);
             // 
             // tbxSaturday
             // 
@@ -220,15 +239,15 @@ namespace SP21_Final_Project
             this.tbxSunday.Size = new System.Drawing.Size(217, 20);
             this.tbxSunday.TabIndex = 22;
             // 
-            // cbxEmployee
+            // cboEmployee
             // 
-            this.cbxEmployee.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbxEmployee.FormattingEnabled = true;
-            this.cbxEmployee.Location = new System.Drawing.Point(118, 33);
-            this.cbxEmployee.Name = "cbxEmployee";
-            this.cbxEmployee.Size = new System.Drawing.Size(217, 21);
-            this.cbxEmployee.TabIndex = 21;
-            this.cbxEmployee.SelectedIndexChanged += new System.EventHandler(this.cbxEmployee_SelectedIndexChanged);
+            this.cboEmployee.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboEmployee.FormattingEnabled = true;
+            this.cboEmployee.Location = new System.Drawing.Point(118, 33);
+            this.cboEmployee.Name = "cboEmployee";
+            this.cboEmployee.Size = new System.Drawing.Size(217, 21);
+            this.cboEmployee.TabIndex = 21;
+            this.cboEmployee.SelectedIndexChanged += new System.EventHandler(this.cbxEmployee_SelectedIndexChanged);
             // 
             // lblFor
             // 
@@ -253,7 +272,7 @@ namespace SP21_Final_Project
             this.Controls.Add(this.lblTuesday);
             this.Controls.Add(this.lblMonday);
             this.Controls.Add(this.lblSunday);
-            this.Controls.Add(this.cbxWeek);
+            this.Controls.Add(this.cboWeek);
             this.Controls.Add(this.tbxSaturday);
             this.Controls.Add(this.tbxFriday);
             this.Controls.Add(this.tbxThursday);
@@ -261,10 +280,11 @@ namespace SP21_Final_Project
             this.Controls.Add(this.tbxTuesday);
             this.Controls.Add(this.tbxMonday);
             this.Controls.Add(this.tbxSunday);
-            this.Controls.Add(this.cbxEmployee);
+            this.Controls.Add(this.cboEmployee);
             this.Controls.Add(this.lblFor);
             this.Controls.Add(this.mnuBar);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.mnuBar;
             this.Name = "frmScheduleUpdate";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -291,7 +311,7 @@ namespace SP21_Final_Project
         private System.Windows.Forms.Label lblTuesday;
         private System.Windows.Forms.Label lblMonday;
         private System.Windows.Forms.Label lblSunday;
-        private System.Windows.Forms.ComboBox cbxWeek;
+        private System.Windows.Forms.ComboBox cboWeek;
         private System.Windows.Forms.TextBox tbxSaturday;
         private System.Windows.Forms.TextBox tbxFriday;
         private System.Windows.Forms.TextBox tbxThursday;
@@ -299,7 +319,9 @@ namespace SP21_Final_Project
         private System.Windows.Forms.TextBox tbxTuesday;
         private System.Windows.Forms.TextBox tbxMonday;
         private System.Windows.Forms.TextBox tbxSunday;
-        private System.Windows.Forms.ComboBox cbxEmployee;
+        private System.Windows.Forms.ComboBox cboEmployee;
         private System.Windows.Forms.Label lblFor;
+        private System.Windows.Forms.ToolStripMenuItem mnuHelp;
+        private System.Windows.Forms.ToolStripMenuItem mnuUpdateSchedule;
     }
 }

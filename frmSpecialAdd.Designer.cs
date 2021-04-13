@@ -29,10 +29,13 @@ namespace SP21_Final_Project
         /// </summary>
         private void InitializeComponent()
         {
-            this.cbxProducts = new System.Windows.Forms.ComboBox();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmSpecialAdd));
+            this.cboProducts = new System.Windows.Forms.ComboBox();
             this.mnuBar = new System.Windows.Forms.MenuStrip();
             this.mnuFile = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuClose = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuHelp = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuAddSpecial = new System.Windows.Forms.ToolStripMenuItem();
             this.lblSpecialFor = new System.Windows.Forms.Label();
             this.tbxDiscount = new System.Windows.Forms.TextBox();
             this.tbxExtraDetails = new System.Windows.Forms.TextBox();
@@ -42,18 +45,20 @@ namespace SP21_Final_Project
             this.mnuBar.SuspendLayout();
             this.SuspendLayout();
             // 
-            // cbxProducts
+            // cboProducts
             // 
-            this.cbxProducts.FormattingEnabled = true;
-            this.cbxProducts.Location = new System.Drawing.Point(81, 27);
-            this.cbxProducts.Name = "cbxProducts";
-            this.cbxProducts.Size = new System.Drawing.Size(121, 21);
-            this.cbxProducts.TabIndex = 0;
+            this.cboProducts.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboProducts.FormattingEnabled = true;
+            this.cboProducts.Location = new System.Drawing.Point(81, 27);
+            this.cboProducts.Name = "cboProducts";
+            this.cboProducts.Size = new System.Drawing.Size(121, 21);
+            this.cboProducts.TabIndex = 0;
             // 
             // mnuBar
             // 
             this.mnuBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mnuFile});
+            this.mnuFile,
+            this.mnuHelp});
             this.mnuBar.Location = new System.Drawing.Point(0, 0);
             this.mnuBar.Name = "mnuBar";
             this.mnuBar.Size = new System.Drawing.Size(213, 24);
@@ -74,6 +79,21 @@ namespace SP21_Final_Project
             this.mnuClose.Size = new System.Drawing.Size(103, 22);
             this.mnuClose.Text = "&Close";
             this.mnuClose.Click += new System.EventHandler(this.mnuClose_Click);
+            // 
+            // mnuHelp
+            // 
+            this.mnuHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuAddSpecial});
+            this.mnuHelp.Name = "mnuHelp";
+            this.mnuHelp.Size = new System.Drawing.Size(44, 20);
+            this.mnuHelp.Text = "&Help";
+            // 
+            // mnuAddSpecial
+            // 
+            this.mnuAddSpecial.Name = "mnuAddSpecial";
+            this.mnuAddSpecial.Size = new System.Drawing.Size(136, 22);
+            this.mnuAddSpecial.Text = "&Add Special";
+            this.mnuAddSpecial.Click += new System.EventHandler(this.addSpecialToolStripMenuItem_Click);
             // 
             // lblSpecialFor
             // 
@@ -137,9 +157,10 @@ namespace SP21_Final_Project
             this.Controls.Add(this.tbxExtraDetails);
             this.Controls.Add(this.tbxDiscount);
             this.Controls.Add(this.lblSpecialFor);
-            this.Controls.Add(this.cbxProducts);
+            this.Controls.Add(this.cboProducts);
             this.Controls.Add(this.mnuBar);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.mnuBar;
             this.Name = "frmSpecialAdd";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -154,7 +175,7 @@ namespace SP21_Final_Project
 
         #endregion
 
-        private System.Windows.Forms.ComboBox cbxProducts;
+        private System.Windows.Forms.ComboBox cboProducts;
         private System.Windows.Forms.MenuStrip mnuBar;
         private System.Windows.Forms.ToolStripMenuItem mnuFile;
         private System.Windows.Forms.ToolStripMenuItem mnuClose;
@@ -164,5 +185,7 @@ namespace SP21_Final_Project
         private System.Windows.Forms.Label lblDiscount;
         private System.Windows.Forms.Label lblExtraDetails;
         private System.Windows.Forms.Button btnAddSpecial;
+        private System.Windows.Forms.ToolStripMenuItem mnuHelp;
+        private System.Windows.Forms.ToolStripMenuItem mnuAddSpecial;
     }
 }

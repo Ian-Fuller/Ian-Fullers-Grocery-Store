@@ -19,25 +19,51 @@ namespace SP21_Final_Project
 
         private void btnAddNewProduct_Click(object sender, EventArgs e)
         {
-            frmProductAdd add = new frmProductAdd();
-            add.ShowDialog();
+            try
+            {
+                frmProductAdd add = new frmProductAdd();
+                add.ShowDialog();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Unable to open form", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnRemoveProduct_Click(object sender, EventArgs e)
         {
-            frmProductRemove remove = new frmProductRemove();
-            remove.ShowDialog();
+            try
+            {
+                frmProductRemove remove = new frmProductRemove();
+                remove.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unable to open form", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnUpdateProduct_Click(object sender, EventArgs e)
         {
-            frmProductUpdate update = new frmProductUpdate();
-            update.ShowDialog();
+            try
+            {
+                frmProductUpdate update = new frmProductUpdate();
+                update.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unable to open form", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void mnuClose_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void frmProductManage_Load(object sender, EventArgs e)
+        {
+            MaximizeBox = false;
         }
     }
 }

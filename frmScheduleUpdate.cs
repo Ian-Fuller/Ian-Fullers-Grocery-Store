@@ -29,24 +29,26 @@ namespace SP21_Final_Project
         {
             try
             {
+                MaximizeBox = false;
+
                 //Puts employee FirstName and LastName into combo box
                 lstEmployeeNames = DB.GetEmployeeNames();
                 for (int intCurrentName = 0; intCurrentName < lstEmployeeNames.Count; intCurrentName++)
                 {
-                    cbxEmployee.Items.Add(lstEmployeeNames[intCurrentName][0] + " " + lstEmployeeNames[intCurrentName][1]);
+                    cboEmployee.Items.Add(lstEmployeeNames[intCurrentName][0] + " " + lstEmployeeNames[intCurrentName][1]);
                 }
-                cbxEmployee.Text = (string)cbxEmployee.Items[0];
+                cboEmployee.Text = (string)cboEmployee.Items[0];
 
                 //Puts schedule dates into combo box
                 lstScheduleDates = DB.GetScheduleDates();
                 for (int intCurrentDate = 0; intCurrentDate < lstScheduleDates.Count; intCurrentDate++)
                 {
-                    cbxWeek.Items.Add(lstScheduleDates[intCurrentDate]);
+                    cboWeek.Items.Add(lstScheduleDates[intCurrentDate]);
                 }
-                cbxWeek.Text = (string)cbxWeek.Items[0];
+                cboWeek.Text = (string)cboWeek.Items[0];
 
                 //Fills tasks upon loading
-                string[] arrTasks = DB.GetEmployeeTasks(lstEmployeeNames[cbxEmployee.SelectedIndex][0], lstEmployeeNames[cbxEmployee.SelectedIndex][1], lstScheduleDates[cbxWeek.SelectedIndex]);
+                string[] arrTasks = DB.GetEmployeeTasks(lstEmployeeNames[cboEmployee.SelectedIndex][0], lstEmployeeNames[cboEmployee.SelectedIndex][1], lstScheduleDates[cboWeek.SelectedIndex]);
                 tbxSunday.Text = arrTasks[0];
                 tbxMonday.Text = arrTasks[1];
                 tbxTuesday.Text = arrTasks[2];
@@ -66,7 +68,7 @@ namespace SP21_Final_Project
         {
             try
             {
-                string[] arrTasks = DB.GetEmployeeTasks(lstEmployeeNames[cbxEmployee.SelectedIndex][0], lstEmployeeNames[cbxEmployee.SelectedIndex][1], cbxWeek.Text);
+                string[] arrTasks = DB.GetEmployeeTasks(lstEmployeeNames[cboEmployee.SelectedIndex][0], lstEmployeeNames[cboEmployee.SelectedIndex][1], cboWeek.Text);
                 if (arrTasks != null)
                 {
                     btnUpdateSchedule.Enabled = true;
@@ -101,7 +103,7 @@ namespace SP21_Final_Project
         {
             try
             {
-                string[] arrTasks = DB.GetEmployeeTasks(lstEmployeeNames[cbxEmployee.SelectedIndex][0], lstEmployeeNames[cbxEmployee.SelectedIndex][1], cbxWeek.Text);
+                string[] arrTasks = DB.GetEmployeeTasks(lstEmployeeNames[cboEmployee.SelectedIndex][0], lstEmployeeNames[cboEmployee.SelectedIndex][1], cboWeek.Text);
                 if (arrTasks != null)
                 {
                     btnUpdateSchedule.Enabled = true;
@@ -139,7 +141,7 @@ namespace SP21_Final_Project
                 {
                     if (tbxSunday.Text.Length <= 100 && tbxMonday.Text.Length <= 100 && tbxTuesday.Text.Length <= 100 && tbxWednesday.Text.Length <= 100 && tbxThursday.Text.Length <= 100 && tbxFriday.Text.Length <= 100 && tbxSaturday.Text.Length <= 100)
                     {
-                        DB.UpdateSchedule(lstEmployeeNames[cbxEmployee.SelectedIndex][0], lstEmployeeNames[cbxEmployee.SelectedIndex][1], tbxSunday.Text, tbxMonday.Text, tbxTuesday.Text, tbxWednesday.Text, tbxThursday.Text, tbxFriday.Text, tbxSaturday.Text, cbxWeek.Text);
+                        DB.UpdateSchedule(lstEmployeeNames[cboEmployee.SelectedIndex][0], lstEmployeeNames[cboEmployee.SelectedIndex][1], tbxSunday.Text, tbxMonday.Text, tbxTuesday.Text, tbxWednesday.Text, tbxThursday.Text, tbxFriday.Text, tbxSaturday.Text, cboWeek.Text);
                     }
                     else
                     {
@@ -155,6 +157,11 @@ namespace SP21_Final_Project
             {
                 MessageBox.Show("Cannot update schedule.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void mnuUpdateSchedule_Click(object sender, EventArgs e)
+        {
+            Help.HelpScheduleUpdate();
         }
     }
 }

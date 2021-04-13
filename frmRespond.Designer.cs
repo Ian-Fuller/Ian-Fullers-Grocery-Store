@@ -29,13 +29,16 @@ namespace SP21_Final_Project
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmRespond));
             this.mnuBar = new System.Windows.Forms.MenuStrip();
             this.mnuFile = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuClose = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuHelp = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuRespond = new System.Windows.Forms.ToolStripMenuItem();
             this.lblID = new System.Windows.Forms.Label();
-            this.cbxID = new System.Windows.Forms.ComboBox();
+            this.cboID = new System.Windows.Forms.ComboBox();
             this.tbxRequest = new System.Windows.Forms.TextBox();
-            this.cbxStatus = new System.Windows.Forms.ComboBox();
+            this.cboStatus = new System.Windows.Forms.ComboBox();
             this.lblRequest = new System.Windows.Forms.Label();
             this.lblStatus = new System.Windows.Forms.Label();
             this.btnRespond = new System.Windows.Forms.Button();
@@ -45,7 +48,8 @@ namespace SP21_Final_Project
             // mnuBar
             // 
             this.mnuBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mnuFile});
+            this.mnuFile,
+            this.mnuHelp});
             this.mnuBar.Location = new System.Drawing.Point(0, 0);
             this.mnuBar.Name = "mnuBar";
             this.mnuBar.Size = new System.Drawing.Size(404, 24);
@@ -63,9 +67,24 @@ namespace SP21_Final_Project
             // mnuClose
             // 
             this.mnuClose.Name = "mnuClose";
-            this.mnuClose.Size = new System.Drawing.Size(180, 22);
+            this.mnuClose.Size = new System.Drawing.Size(103, 22);
             this.mnuClose.Text = "&Close";
             this.mnuClose.Click += new System.EventHandler(this.mnuClose_Click);
+            // 
+            // mnuHelp
+            // 
+            this.mnuHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuRespond});
+            this.mnuHelp.Name = "mnuHelp";
+            this.mnuHelp.Size = new System.Drawing.Size(44, 20);
+            this.mnuHelp.Text = "&Help";
+            // 
+            // mnuRespond
+            // 
+            this.mnuRespond.Name = "mnuRespond";
+            this.mnuRespond.Size = new System.Drawing.Size(184, 22);
+            this.mnuRespond.Text = "&Respond to Requests";
+            this.mnuRespond.Click += new System.EventHandler(this.mnuRespond_Click);
             // 
             // lblID
             // 
@@ -76,14 +95,15 @@ namespace SP21_Final_Project
             this.lblID.TabIndex = 1;
             this.lblID.Text = "Request ID:";
             // 
-            // cbxID
+            // cboID
             // 
-            this.cbxID.FormattingEnabled = true;
-            this.cbxID.Location = new System.Drawing.Point(108, 28);
-            this.cbxID.Name = "cbxID";
-            this.cbxID.Size = new System.Drawing.Size(43, 21);
-            this.cbxID.TabIndex = 2;
-            this.cbxID.SelectedIndexChanged += new System.EventHandler(this.cbxID_SelectedIndexChanged);
+            this.cboID.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboID.FormattingEnabled = true;
+            this.cboID.Location = new System.Drawing.Point(108, 28);
+            this.cboID.Name = "cboID";
+            this.cboID.Size = new System.Drawing.Size(43, 21);
+            this.cboID.TabIndex = 2;
+            this.cboID.SelectedIndexChanged += new System.EventHandler(this.cbxID_SelectedIndexChanged);
             // 
             // tbxRequest
             // 
@@ -92,13 +112,14 @@ namespace SP21_Final_Project
             this.tbxRequest.Size = new System.Drawing.Size(277, 20);
             this.tbxRequest.TabIndex = 3;
             // 
-            // cbxStatus
+            // cboStatus
             // 
-            this.cbxStatus.FormattingEnabled = true;
-            this.cbxStatus.Location = new System.Drawing.Point(108, 81);
-            this.cbxStatus.Name = "cbxStatus";
-            this.cbxStatus.Size = new System.Drawing.Size(92, 21);
-            this.cbxStatus.TabIndex = 4;
+            this.cboStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboStatus.FormattingEnabled = true;
+            this.cboStatus.Location = new System.Drawing.Point(108, 81);
+            this.cboStatus.Name = "cboStatus";
+            this.cboStatus.Size = new System.Drawing.Size(92, 21);
+            this.cboStatus.TabIndex = 4;
             // 
             // lblRequest
             // 
@@ -136,12 +157,13 @@ namespace SP21_Final_Project
             this.Controls.Add(this.btnRespond);
             this.Controls.Add(this.lblStatus);
             this.Controls.Add(this.lblRequest);
-            this.Controls.Add(this.cbxStatus);
+            this.Controls.Add(this.cboStatus);
             this.Controls.Add(this.tbxRequest);
-            this.Controls.Add(this.cbxID);
+            this.Controls.Add(this.cboID);
             this.Controls.Add(this.lblID);
             this.Controls.Add(this.mnuBar);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.mnuBar;
             this.Name = "frmRespond";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -160,11 +182,13 @@ namespace SP21_Final_Project
         private System.Windows.Forms.ToolStripMenuItem mnuFile;
         private System.Windows.Forms.ToolStripMenuItem mnuClose;
         private System.Windows.Forms.Label lblID;
-        private System.Windows.Forms.ComboBox cbxID;
+        private System.Windows.Forms.ComboBox cboID;
         private System.Windows.Forms.TextBox tbxRequest;
-        private System.Windows.Forms.ComboBox cbxStatus;
+        private System.Windows.Forms.ComboBox cboStatus;
         private System.Windows.Forms.Label lblRequest;
         private System.Windows.Forms.Label lblStatus;
         private System.Windows.Forms.Button btnRespond;
+        private System.Windows.Forms.ToolStripMenuItem mnuHelp;
+        private System.Windows.Forms.ToolStripMenuItem mnuRespond;
     }
 }

@@ -24,44 +24,46 @@ namespace SP21_Final_Project
         {
             try
             {
+                MaximizeBox = false;
+
                 lstEmployeeNames = DB.GetEmployeeNames();
                 for (int intCurrentName = 0; intCurrentName < lstEmployeeNames.Count; intCurrentName++)
                 {
-                    cbxEmployee.Items.Add(lstEmployeeNames[intCurrentName][0] + " " + lstEmployeeNames[intCurrentName][1]);
+                    cboEmployee.Items.Add(lstEmployeeNames[intCurrentName][0] + " " + lstEmployeeNames[intCurrentName][1]);
                 }
 
-                DateTime today = DateTime.Now;
+                DateTime dtToday = DateTime.Now;
                 switch (DateTime.Now.DayOfWeek.ToString())
                 {
                     case "Sunday":
-                        today = DateTime.Now;
+                        dtToday = DateTime.Now;
                         break;
                     case "Monday":
-                        today = DateTime.Now.AddDays(-1);
+                        dtToday = DateTime.Now.AddDays(-1);
                         break;
                     case "Tuesday":
-                        today = DateTime.Now.AddDays(-2);
+                        dtToday = DateTime.Now.AddDays(-2);
                         break;
                     case "Wednesday":
-                        today = DateTime.Now.AddDays(-3);
+                        dtToday = DateTime.Now.AddDays(-3);
                         break;
                     case "Thursday":
-                        today = DateTime.Now.AddDays(-4);
+                        dtToday = DateTime.Now.AddDays(-4);
                         break;
                     case "Friday":
-                        today = DateTime.Now.AddDays(-5);
+                        dtToday = DateTime.Now.AddDays(-5);
                         break;
                     case "Saturday":
-                        today = DateTime.Now.AddDays(-6);
+                        dtToday = DateTime.Now.AddDays(-6);
                         break;
                 }
-                DateTime nextWeek = today.AddDays(7);
-                arrDates[0] = $"{today.Year.ToString()}-{DB.FormatDayOrMonth(today.Month.ToString())}-{DB.FormatDayOrMonth(today.Day.ToString())}";
-                arrDates[1] = $"{nextWeek.Year.ToString()}-{DB.FormatDayOrMonth(nextWeek.Month.ToString())}-{DB.FormatDayOrMonth(nextWeek.Day.ToString())}";
+                DateTime dtNextWeek = dtToday.AddDays(7);
+                arrDates[0] = $"{dtToday.Year.ToString()}-{DB.FormatDayOrMonth(dtToday.Month.ToString())}-{DB.FormatDayOrMonth(dtToday.Day.ToString())}";
+                arrDates[1] = $"{dtNextWeek.Year.ToString()}-{DB.FormatDayOrMonth(dtNextWeek.Month.ToString())}-{DB.FormatDayOrMonth(dtNextWeek.Day.ToString())}";
                 //strStartDate = "'" + today.Year.ToString() + "-" + FormatDayOrMonth(today.Month.ToString()) + "-" + FormatDayOrMonth(today.Day.ToString()) + "'";
 
-                cbxWeek.Items.Add($"This Week ({arrDates[0]})");
-                cbxWeek.Items.Add($"Next Week ({arrDates[1]})");
+                cboWeek.Items.Add($"This Week ({arrDates[0]})");
+                cboWeek.Items.Add($"Next Week ({arrDates[1]})");
             }
             catch(Exception ex)
             {
@@ -78,11 +80,11 @@ namespace SP21_Final_Project
         {
             try
             {
-                if (cbxEmployee.Text != "" && tbxSunday.Text != "" && tbxMonday.Text != "" && tbxTuesday.Text != "" && tbxWednesday.Text != "" && tbxThursday.Text != "" && tbxFriday.Text != "" && tbxSaturday.Text != "" && cbxWeek.Text != "")
+                if (cboEmployee.Text != "" && tbxSunday.Text != "" && tbxMonday.Text != "" && tbxTuesday.Text != "" && tbxWednesday.Text != "" && tbxThursday.Text != "" && tbxFriday.Text != "" && tbxSaturday.Text != "" && cboWeek.Text != "")
                 {
                     if (tbxSunday.Text.Length <= 100 && tbxMonday.Text.Length <= 100 && tbxTuesday.Text.Length <= 100 && tbxWednesday.Text.Length <= 100 && tbxThursday.Text.Length <= 100 && tbxFriday.Text.Length <= 100 && tbxSaturday.Text.Length <= 100)
                     {
-                        DB.AddSchedule(lstEmployeeNames[cbxEmployee.SelectedIndex][0], lstEmployeeNames[cbxEmployee.SelectedIndex][1], tbxSunday.Text, tbxMonday.Text, tbxTuesday.Text, tbxWednesday.Text, tbxThursday.Text, tbxFriday.Text, tbxSaturday.Text, arrDates[cbxWeek.SelectedIndex]);
+                        DB.AddSchedule(lstEmployeeNames[cboEmployee.SelectedIndex][0], lstEmployeeNames[cboEmployee.SelectedIndex][1], tbxSunday.Text, tbxMonday.Text, tbxTuesday.Text, tbxWednesday.Text, tbxThursday.Text, tbxFriday.Text, tbxSaturday.Text, arrDates[cboWeek.SelectedIndex]);
                     }
                     else
                     {
@@ -98,6 +100,11 @@ namespace SP21_Final_Project
             {
                 MessageBox.Show("Cannot add schedule", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void mnuCreateSchedules_Click(object sender, EventArgs e)
+        {
+            Help.HelpScheduleAdd();
         }
     }
 }

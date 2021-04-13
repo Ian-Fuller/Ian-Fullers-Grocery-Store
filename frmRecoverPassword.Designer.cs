@@ -29,24 +29,23 @@ namespace SP21_Final_Project
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmRecoverPassword));
             this.btnSendEmail = new System.Windows.Forms.Button();
             this.mnuBar = new System.Windows.Forms.MenuStrip();
             this.mnuFile = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuClose = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuPasswordRecovery = new System.Windows.Forms.ToolStripMenuItem();
             this.tbxUsername = new System.Windows.Forms.TextBox();
             this.tbxEmailAddress = new System.Windows.Forms.TextBox();
             this.lblUsername = new System.Windows.Forms.Label();
             this.lblEmail = new System.Windows.Forms.Label();
-            this.lblHelp = new System.Windows.Forms.Label();
-            this.lblHelp2 = new System.Windows.Forms.Label();
-            this.lblHelp3 = new System.Windows.Forms.Label();
-            this.lblHelp4 = new System.Windows.Forms.Label();
             this.mnuBar.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnSendEmail
             // 
-            this.btnSendEmail.Location = new System.Drawing.Point(78, 153);
+            this.btnSendEmail.Location = new System.Drawing.Point(78, 79);
             this.btnSendEmail.Name = "btnSendEmail";
             this.btnSendEmail.Size = new System.Drawing.Size(75, 23);
             this.btnSendEmail.TabIndex = 0;
@@ -57,7 +56,8 @@ namespace SP21_Final_Project
             // mnuBar
             // 
             this.mnuBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mnuFile});
+            this.mnuFile,
+            this.helpToolStripMenuItem});
             this.mnuBar.Location = new System.Drawing.Point(0, 0);
             this.mnuBar.Name = "mnuBar";
             this.mnuBar.Size = new System.Drawing.Size(294, 24);
@@ -75,9 +75,24 @@ namespace SP21_Final_Project
             // mnuClose
             // 
             this.mnuClose.Name = "mnuClose";
-            this.mnuClose.Size = new System.Drawing.Size(180, 22);
+            this.mnuClose.Size = new System.Drawing.Size(103, 22);
             this.mnuClose.Text = "&Close";
             this.mnuClose.Click += new System.EventHandler(this.mnuClose_Click);
+            // 
+            // helpToolStripMenuItem
+            // 
+            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuPasswordRecovery});
+            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.helpToolStripMenuItem.Text = "&Help";
+            // 
+            // mnuPasswordRecovery
+            // 
+            this.mnuPasswordRecovery.Name = "mnuPasswordRecovery";
+            this.mnuPasswordRecovery.Size = new System.Drawing.Size(175, 22);
+            this.mnuPasswordRecovery.Text = "&Password Recovery";
+            this.mnuPasswordRecovery.Click += new System.EventHandler(this.mnuPasswordRecovery_Click);
             // 
             // tbxUsername
             // 
@@ -111,51 +126,11 @@ namespace SP21_Final_Project
             this.lblEmail.TabIndex = 5;
             this.lblEmail.Text = "Email";
             // 
-            // lblHelp
-            // 
-            this.lblHelp.AutoSize = true;
-            this.lblHelp.Location = new System.Drawing.Point(43, 86);
-            this.lblHelp.Name = "lblHelp";
-            this.lblHelp.Size = new System.Drawing.Size(218, 13);
-            this.lblHelp.TabIndex = 6;
-            this.lblHelp.Text = "The account will have its password changed";
-            // 
-            // lblHelp2
-            // 
-            this.lblHelp2.AutoSize = true;
-            this.lblHelp2.Location = new System.Drawing.Point(43, 99);
-            this.lblHelp2.Name = "lblHelp2";
-            this.lblHelp2.Size = new System.Drawing.Size(236, 13);
-            this.lblHelp2.TabIndex = 7;
-            this.lblHelp2.Text = "to a randomly-generated number. Open the email";
-            // 
-            // lblHelp3
-            // 
-            this.lblHelp3.AutoSize = true;
-            this.lblHelp3.Location = new System.Drawing.Point(43, 112);
-            this.lblHelp3.Name = "lblHelp3";
-            this.lblHelp3.Size = new System.Drawing.Size(237, 13);
-            this.lblHelp3.TabIndex = 8;
-            this.lblHelp3.Text = "and log in with the new password. The password";
-            // 
-            // lblHelp4
-            // 
-            this.lblHelp4.AutoSize = true;
-            this.lblHelp4.Location = new System.Drawing.Point(43, 125);
-            this.lblHelp4.Name = "lblHelp4";
-            this.lblHelp4.Size = new System.Drawing.Size(160, 13);
-            this.lblHelp4.TabIndex = 9;
-            this.lblHelp4.Text = "can be changed after logging in.";
-            // 
             // frmRecoverPassword
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(294, 192);
-            this.Controls.Add(this.lblHelp4);
-            this.Controls.Add(this.lblHelp3);
-            this.Controls.Add(this.lblHelp2);
-            this.Controls.Add(this.lblHelp);
+            this.ClientSize = new System.Drawing.Size(294, 126);
             this.Controls.Add(this.lblEmail);
             this.Controls.Add(this.lblUsername);
             this.Controls.Add(this.tbxEmailAddress);
@@ -163,10 +138,12 @@ namespace SP21_Final_Project
             this.Controls.Add(this.btnSendEmail);
             this.Controls.Add(this.mnuBar);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.mnuBar;
             this.Name = "frmRecoverPassword";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Password Recovery";
+            this.Load += new System.EventHandler(this.frmRecoverPassword_Load);
             this.mnuBar.ResumeLayout(false);
             this.mnuBar.PerformLayout();
             this.ResumeLayout(false);
@@ -184,9 +161,7 @@ namespace SP21_Final_Project
         private System.Windows.Forms.TextBox tbxEmailAddress;
         private System.Windows.Forms.Label lblUsername;
         private System.Windows.Forms.Label lblEmail;
-        private System.Windows.Forms.Label lblHelp;
-        private System.Windows.Forms.Label lblHelp2;
-        private System.Windows.Forms.Label lblHelp3;
-        private System.Windows.Forms.Label lblHelp4;
+        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mnuPasswordRecovery;
     }
 }

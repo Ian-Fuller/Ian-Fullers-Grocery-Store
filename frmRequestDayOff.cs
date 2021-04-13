@@ -26,5 +26,10 @@ namespace SP21_Final_Project
         {
             DB.MakeRequest(frmLogin.strCurrentUser, "(Day off)", tbxRequest.Text);
         }
+
+        private void frmRequestDayOff_Load(object sender, EventArgs e)
+        {
+            MaximizeBox = false;
+        }
     }
 }

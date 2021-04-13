@@ -24,26 +24,64 @@ namespace SP21_Final_Project
 
         private void btnManageProducts_Click(object sender, EventArgs e)
         {
-            frmProductManage product = new frmProductManage();
-            product.ShowDialog();
+            try
+            {
+                frmProductManage product = new frmProductManage();
+                product.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error opening form", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnManageSpecials_Click(object sender, EventArgs e)
         {
-            frmSpecialManage special = new frmSpecialManage();
-            special.ShowDialog();
+            try
+            {
+                frmSpecialManage special = new frmSpecialManage();
+                special.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error opening form", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnEmployeeScheduling_Click(object sender, EventArgs e)
         {
-            frmScheduleManage schedule = new frmScheduleManage();
-            schedule.ShowDialog();
+            try
+            {
+                frmScheduleManage schedule = new frmScheduleManage();
+                schedule.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error opening form", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnPrintReports_Click(object sender, EventArgs e)
         {
-            frmReports reports = new frmReports();
-            reports.ShowDialog();
+            try
+            {
+                frmReports reports = new frmReports();
+                reports.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error opening form", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void mnuManagersMenu_Click(object sender, EventArgs e)
+        {
+            Help.HelpManagersMenu();
+        }
+
+        private void frmManagers_Load(object sender, EventArgs e)
+        {
+            MaximizeBox = false;
         }
     }
 }

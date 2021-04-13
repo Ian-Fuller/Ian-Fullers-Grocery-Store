@@ -19,25 +19,51 @@ namespace SP21_Final_Project
 
         private void btnAddNewSpecial_Click(object sender, EventArgs e)
         {
-            frmSpecialAdd add = new frmSpecialAdd();
-            add.ShowDialog();
+            try
+            {
+                frmSpecialAdd add = new frmSpecialAdd();
+                add.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unable to open form", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnRemoveSpecial_Click(object sender, EventArgs e)
         {
-            frmSpecialRemove remove = new frmSpecialRemove();
-            remove.ShowDialog();
+            try
+            {
+                frmSpecialRemove remove = new frmSpecialRemove();
+                remove.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unable to open form", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnUpdateSpecial_Click(object sender, EventArgs e)
         {
-            frmSpecialUpdate update = new frmSpecialUpdate();
-            update.ShowDialog();
+            try
+            {
+                frmSpecialUpdate update = new frmSpecialUpdate();
+                update.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unable to open form", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void mnuClose_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void frmSpecialManage_Load(object sender, EventArgs e)
+        {
+            MaximizeBox = false;
         }
     }
 }

@@ -29,21 +29,23 @@ namespace SP21_Final_Project
         {
             try
             {
+                MaximizeBox = false;
+
                 //Puts employee FirstName and LastName into combo box
                 lstEmployeeNames = DB.GetEmployeeNames();
                 for (int intCurrentName = 0; intCurrentName < lstEmployeeNames.Count; intCurrentName++)
                 {
-                    cbxEmployee.Items.Add(lstEmployeeNames[intCurrentName][0] + " " + lstEmployeeNames[intCurrentName][1]);
+                    cboEmployee.Items.Add(lstEmployeeNames[intCurrentName][0] + " " + lstEmployeeNames[intCurrentName][1]);
                 }
-                cbxEmployee.Text = (string)cbxEmployee.Items[0];
+                cboEmployee.Text = (string)cboEmployee.Items[0];
 
                 //Puts schedule dates into combo box
                 lstScheduleDates = DB.GetScheduleDates();
                 for (int intCurrentDate = 0; intCurrentDate < lstScheduleDates.Count; intCurrentDate++)
                 {
-                    cbxWeek.Items.Add(lstScheduleDates[intCurrentDate]);
+                    cboWeek.Items.Add(lstScheduleDates[intCurrentDate]);
                 }
-                cbxWeek.Text = (string)cbxWeek.Items[0];
+                cboWeek.Text = (string)cboWeek.Items[0];
             }
             catch(Exception ex)
             {
@@ -55,9 +57,9 @@ namespace SP21_Final_Project
         {
             try
             {
-                if (cbxEmployee.Text != "" && cbxWeek.Text != "")
+                if (cboEmployee.Text != "" && cboWeek.Text != "")
                 {
-                    DB.RemoveSchedule(lstEmployeeNames[cbxEmployee.SelectedIndex][0], lstEmployeeNames[cbxEmployee.SelectedIndex][1], cbxWeek.Text);
+                    DB.RemoveSchedule(lstEmployeeNames[cboEmployee.SelectedIndex][0], lstEmployeeNames[cboEmployee.SelectedIndex][1], cboWeek.Text);
                 }
                 else
                 {
@@ -68,6 +70,11 @@ namespace SP21_Final_Project
             {
                 MessageBox.Show("Cannot remove schedule", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void mnuRemoveSchedule_Click(object sender, EventArgs e)
+        {
+            Help.HelpScheduleRemove();
         }
     }
 }

@@ -20,9 +20,18 @@ namespace SP21_Final_Project
 
         private void frmProductRemove_Load(object sender, EventArgs e)
         {
-            for(int intCurrentPanel = 0; intCurrentPanel < frmMain.lstPanels.Count; intCurrentPanel++)
+            try
             {
-                cbxToRemove.Items.Add(frmMain.lstPanels[intCurrentPanel].strProductName);
+                MaximizeBox = false;
+
+                for (int intCurrentPanel = 0; intCurrentPanel < frmMain.lstPanels.Count; intCurrentPanel++)
+                {
+                    cboToRemove.Items.Add(frmMain.lstPanels[intCurrentPanel].strProductName);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Cannot retrieve data", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -33,7 +42,13 @@ namespace SP21_Final_Project
 
         private void btnRemove_Click(object sender, EventArgs e)
         {
-            DB.RemoveProduct(cbxToRemove.Text);
+            DB.RemoveProduct(cboToRemove.Text);
+            frmMain.FillRefreshPanelData();
+        }
+
+        private void mnuRemoveProduct_Click(object sender, EventArgs e)
+        {
+            Help.HelpRemoveProduct();
         }
     }
 }

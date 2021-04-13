@@ -21,29 +21,36 @@ namespace SP21_Final_Project
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            if (tbxUsername.Text.Length <= 30 && tbxPassword.Text.Length <= 30)
+            try
             {
-                string strUserType = DB.Login(tbxUsername.Text, tbxPassword.Text);
-                if (strUserType == "Employee")
+                if (tbxUsername.Text.Length <= 30 && tbxPassword.Text.Length <= 30)
                 {
-                    strCurrentUser = tbxUsername.Text;
-                    frmEmployees employees = new frmEmployees();
-                    employees.ShowDialog();
-                }
-                else if (strUserType == "Manager")
-                {
-                    strCurrentUser = tbxUsername.Text;
-                    frmManagers managers = new frmManagers();
-                    managers.ShowDialog();
+                    string strUserType = DB.Login(tbxUsername.Text, tbxPassword.Text);
+                    if (strUserType == "Employee")
+                    {
+                        strCurrentUser = tbxUsername.Text;
+                        frmEmployees employees = new frmEmployees();
+                        employees.ShowDialog();
+                    }
+                    else if (strUserType == "Manager")
+                    {
+                        strCurrentUser = tbxUsername.Text;
+                        frmManagers managers = new frmManagers();
+                        managers.ShowDialog();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Username or password is incorrect.", "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("Username or password is incorrect.", "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Username and password can only be 30 characters long.", "Login Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Username and password can only be 30 characters long.", "Login Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error logging in", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -54,8 +61,25 @@ namespace SP21_Final_Project
 
         private void btnForgotPassword_Click(object sender, EventArgs e)
         {
-            frmRecoverPassword recover = new frmRecoverPassword();
-            recover.ShowDialog();
+            try
+            {
+                frmRecoverPassword recover = new frmRecoverPassword();
+                recover.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error changing page", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void mnuLoginHelp_Click(object sender, EventArgs e)
+        {
+            Help.HelpLogin();
+        }
+
+        private void frmLogin_Load(object sender, EventArgs e)
+        {
+            MaximizeBox = false;
         }
     }
 }

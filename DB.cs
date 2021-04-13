@@ -22,9 +22,6 @@ namespace SP21_Final_Project
         private const string strConnection = @"Server = cstnt.tstc.edu; Database = inew2332sp21; User Id = FullerIsp212332; Password = 1756605";
         private static SqlConnection _cntDatabase = new SqlConnection(strConnection);
 
-        //CLASS OBEJCTS
-        //CLASS OBJECTS
-
         //Open/Close functions
         public static void OpenDatabase()
         {
@@ -54,27 +51,33 @@ namespace SP21_Final_Project
         //Easy way to show SQL exception
         public static void ShowSQLException(SqlException ex, string errorMessage)
         {
-            StringBuilder errorMessages = new StringBuilder();
-            if (ex is SqlException)
+            try
             {
-                for (int intCurrentError = 0; intCurrentError < ex.Errors.Count; intCurrentError++)
+                StringBuilder errorMessages = new StringBuilder();
+                if (ex is SqlException)
                 {
-                    errorMessages.Append("Index #" + intCurrentError + "\n" +
-                        "Message: " + ex.Errors[intCurrentError].Message + "\n" +
-                        "LineNumber: " + ex.Errors[intCurrentError].LineNumber + "\n" +
-                        "Source: " + ex.Errors[intCurrentError].Source + "\n" +
-                        "Procedure: " + ex.Errors[intCurrentError].Procedure + "\n");
+                    for (int intCurrentError = 0; intCurrentError < ex.Errors.Count; intCurrentError++)
+                    {
+                        errorMessages.Append("Index #" + intCurrentError + "\n" +
+                            "Message: " + ex.Errors[intCurrentError].Message + "\n" +
+                            "LineNumber: " + ex.Errors[intCurrentError].LineNumber + "\n" +
+                            "Source: " + ex.Errors[intCurrentError].Source + "\n" +
+                            "Procedure: " + ex.Errors[intCurrentError].Procedure + "\n");
+                    }
+                    MessageBox.Show(errorMessages.ToString(), errorMessage, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                MessageBox.Show(errorMessages.ToString(), errorMessage, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                else
+                {
+                    MessageBox.Show(ex.Message, errorMessage, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
-            else
+            catch (Exception ex2)
             {
-                MessageBox.Show(ex.Message, errorMessage, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error showing exception", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         //PANELS START-----------------------------------------------------------------------------------------------------------------------------------------------------
-
         //Gets count of rows for filling product panels
         public static int GetRowsCount(String strTable)
         {
@@ -91,168 +94,97 @@ namespace SP21_Final_Project
             }
         }
 
-        //Gets data from a row in the database, then fills a newly-created panel with that data
-        public static int FillPanel(int intCurrentRow, List<ProductPanel> lstPanels, int intLeft, int intTop)
+        //Fills/Refreshes ProductPanels
+        public static void FillRefreshPanels(List<ProductPanel> lstPanels)
         {
-            string strProductName;
-            double dblPrice;
-            string strSize;
-            int intUnitsInStock = 0;
-            byte[] arrImageBytes = null;
-
             try
             {
-                string strNameQuery = "SELECT ProductName FROM FullerIsp212332.Products WHERE ProductID = " + intCurrentRow;
-                SqlCommand nameCommand = new SqlCommand(strNameQuery, _cntDatabase);
-                strProductName = (string)nameCommand.ExecuteScalar();
+                SqlDataReader reader;
+                SqlCommand cmd;
+                cmd = _cntDatabase.CreateCommand();
+                cmd.CommandText = "SELECT * FROM FullerIsp212332.Products";
+                reader = cmd.ExecuteReader();
 
-                if(strProductName == null)
+                while (reader.Read())
                 {
-                    return 1;
+                    long lngLength = reader.GetBytes(5, 0, null, 0, 0); //Gets length of bytes in field
+                    byte[] arrBuffer = new byte[lngLength]; //Makes a buffer based on that length
+                    reader.GetBytes(5, 0, arrBuffer, 0, (int)lngLength); //Reads the bytes into the array
+                    lstPanels.Add(new ProductPanel(reader.GetInt32(0), reader.GetString(1), (double)reader.GetDecimal(2), reader.GetString(3), reader.GetInt32(4), arrBuffer, 0, 0));
                 }
 
-                string strPriceQuery = "SELECT Price FROM FullerIsp212332.Products WHERE ProductID = " + intCurrentRow;
-                SqlCommand priceCommand = new SqlCommand(strPriceQuery, _cntDatabase);
-                dblPrice = Convert.ToDouble(priceCommand.ExecuteScalar());
-
-                string strSizeQuery = "SELECT Size FROM FullerIsp212332.Products WHERE ProductID = " + intCurrentRow;
-                SqlCommand sizeCommand = new SqlCommand(strSizeQuery, _cntDatabase);
-                strSize = (string)sizeCommand.ExecuteScalar();
-
-                string strUnitsQuery = "SELECT UnitsInStock FROM FullerIsp212332.Products WHERE ProductID = " + intCurrentRow;
-                SqlCommand unitsCommand = new SqlCommand(strUnitsQuery, _cntDatabase);
-                intUnitsInStock = (int)unitsCommand.ExecuteScalar();
-
-                string strImageQuery = "SELECT ProductImage FROM FullerIsp212332.Products WHERE ProductID = " + intCurrentRow;
-                SqlCommand imageCommand = new SqlCommand(strImageQuery, _cntDatabase);
-                arrImageBytes = (byte[])imageCommand.ExecuteScalar();
-
-                lstPanels.Add(new ProductPanel(intCurrentRow, strProductName, dblPrice, strSize, intUnitsInStock, arrImageBytes, intLeft, intTop));
+                reader.Close();
             }
-            catch (SqlException ex)
+            catch(Exception ex)
             {
-                ShowSQLException(ex, "Failed to fill a product panel.");
+                MessageBox.Show("Error retrieving product data", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-            return 0;
         }
-
-        public static int FillSpecialPanel(int intCurrentRow, List<SpecialPanel> lstPanels, int intLeft, int intTop)
+        //Fills/Refreshes SpecialPanels
+        public static void FillRefreshSpecialPanels(List<SpecialPanel> lstPanels)
         {
-            int intID;
-
-            string strProductName;
-            double dblPrice;
-            string strSize;
-            int intUnitsInStock;
-            byte[] arrImageBytes;
-            int intDiscount;
-            string strExtraDetails;
-
             try
             {
-                string strIDQuery = "SELECT ProductID FROM FullerIsp212332.Specials WHERE SpecialID = " + intCurrentRow;
-                SqlCommand IDCommand = new SqlCommand(strIDQuery, _cntDatabase);
-                if(IDCommand.ExecuteScalar() == null)
+                SqlDataReader reader;
+                SqlCommand cmd;
+                cmd = _cntDatabase.CreateCommand();
+                cmd.CommandText = "SELECT Products.ProductID, ProductName, Price, Size, UnitsInStock, ProductImage, PriceDiscounted, ExtraDetails FROM FullerIsp212332.Products JOIN FullerIsp212332.Specials ON Products.ProductID = Specials.ProductID";
+                reader = cmd.ExecuteReader();
+
+                while (reader.Read())
                 {
-                    return 1;
+                    long lngLength = reader.GetBytes(5, 0, null, 0, 0); //Gets length of bytes in field
+                    byte[] arrBuffer = new byte[lngLength]; //Makes a buffer based on that length
+                    reader.GetBytes(5, 0, arrBuffer, 0, (int)lngLength); //Reads the bytes into the array
+                    lstPanels.Add(new SpecialPanel(reader.GetInt32(0), reader.GetString(1), (double)reader.GetDecimal(2), reader.GetString(3), reader.GetInt32(4), arrBuffer, 0, 0, reader.GetInt32(6), reader.GetString(7)));
                 }
-                else
-                {
-                    intID = (int)IDCommand.ExecuteScalar();
-                }
 
-                string strNameQuery = "SELECT ProductName FROM FullerIsp212332.Products WHERE ProductID = " + intID;
-                SqlCommand nameCommand = new SqlCommand(strNameQuery, _cntDatabase);
-                strProductName = (string)nameCommand.ExecuteScalar();
-
-                string strPriceQuery = "SELECT Price FROM FullerIsp212332.Products WHERE ProductID = " + intID;
-                SqlCommand priceCommand = new SqlCommand(strPriceQuery, _cntDatabase);
-                dblPrice = Convert.ToDouble(priceCommand.ExecuteScalar());
-
-                string strSizeQuery = "SELECT Size FROM FullerIsp212332.Products WHERE ProductID = " + intID;
-                SqlCommand sizeCommand = new SqlCommand(strSizeQuery, _cntDatabase);
-                strSize = (string)sizeCommand.ExecuteScalar();
-
-                string strUnitsQuery = "SELECT UnitsInStock FROM FullerIsp212332.Products WHERE ProductID = " + intID;
-                SqlCommand unitsCommand = new SqlCommand(strUnitsQuery, _cntDatabase);
-                intUnitsInStock = (int)unitsCommand.ExecuteScalar();
-
-                string strImageQuery = "SELECT ProductImage FROM FullerIsp212332.Products WHERE ProductID = " + intID;
-                SqlCommand imageCommand = new SqlCommand(strImageQuery, _cntDatabase);
-                arrImageBytes = (byte[])imageCommand.ExecuteScalar();
-
-                string strDiscountQuery = "SELECT PriceDiscounted FROM FullerIsp212332.Specials WHERE SpecialID = " + intCurrentRow;
-                SqlCommand discountCommand = new SqlCommand(strDiscountQuery, _cntDatabase);
-                intDiscount = (int)discountCommand.ExecuteScalar();
-
-                string strDetailsQuery = "SELECT ExtraDetails FROM FullerIsp212332.Specials WHERE SpecialID = " + intCurrentRow;
-                SqlCommand detailsCommand = new SqlCommand(strDetailsQuery, _cntDatabase);
-                strExtraDetails = (string)detailsCommand.ExecuteScalar();
-
-                lstPanels.Add(new SpecialPanel(intCurrentRow, strProductName, dblPrice, strSize, intUnitsInStock, arrImageBytes, intLeft, intTop, intDiscount, strExtraDetails));
+                reader.Close();
             }
-            catch (SqlException ex)
+            catch (Exception ex)
             {
-                ShowSQLException(ex, "Failed to fill a product panel.");
+                MessageBox.Show("Error retrieving specials data", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-            return 0;
         }
-
         //PANELS END---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-        public static void InsertImage(string productName)
-        {
-            OpenFileDialog openFile = new OpenFileDialog();
-            openFile.ValidateNames = true;
-            openFile.AddExtension = false;
-            openFile.Filter = "Image File|*.png|Image File|*.jpg";
-            openFile.Title = "File to Upload";
-
-            if(openFile.ShowDialog() == DialogResult.OK)
-            {
-                byte[] image = File.ReadAllBytes(openFile.FileName);
-                try
-                {
-                    string query = $"UPDATE FullerIsp212332.Products SET ProductImage = @Image WHERE ProductName = '" + productName + "'";
-                    SqlCommand cmd = new SqlCommand(query, _cntDatabase);
-                    SqlParameter param = cmd.Parameters.AddWithValue("@Image", image);
-                    param.DbType = System.Data.DbType.Binary;
-                    cmd.ExecuteNonQuery();
-                }
-                catch (SqlException ex)
-                {
-                    MessageBox.Show(ex.Message, "Error During Upload", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-        }
-
+        //Called when user attempts to log in a manager or employee
         public static string Login(string strUsername, string strPassword)
         {
-            string strEmployeeQuery = "SELECT Password FROM FullerIsp212332.Employees WHERE Username = '" + strUsername + "'";
-            SqlCommand employeeCommand = new SqlCommand(strEmployeeQuery, _cntDatabase);
-            if((string)employeeCommand.ExecuteScalar() == strPassword)
+            try
             {
-                return "Employee";
-            }
+                //Attempts to lig in as employee
+                string strEmployeeQuery = "SELECT Password FROM FullerIsp212332.Employees WHERE Username = '" + strUsername + "'";
+                SqlCommand employeeCommand = new SqlCommand(strEmployeeQuery, _cntDatabase);
+                if ((string)employeeCommand.ExecuteScalar() == strPassword)
+                {
+                    return "Employee";
+                }
 
-            string strManagerQuery = "SELECT Password FROM FullerIsp212332.Managers WHERE Username = '" + strUsername + "'";
-            SqlCommand managerCommand = new SqlCommand(strManagerQuery, _cntDatabase);
-            if((string)managerCommand.ExecuteScalar() == strPassword)
+                //Attempts to lig in as manager
+                string strManagerQuery = "SELECT Password FROM FullerIsp212332.Managers WHERE Username = '" + strUsername + "'";
+                SqlCommand managerCommand = new SqlCommand(strManagerQuery, _cntDatabase);
+                if ((string)managerCommand.ExecuteScalar() == strPassword)
+                {
+                    return "Manager";
+                }
+            }
+            catch (Exception ex)
             {
-                return "Manager";
+                MessageBox.Show("Error logging in", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             return "";
         }
 
+        //Puts an invoice into the invoices table when a purchase is made
         public static void CreateInvoice(string strCity, string strAddress, List<ProductPanel> lstProducts, List<int> lstQuantities)
         {
             try
             {
                 int intNewID;
 
+                //new ID = current highest id in table + 1
                 if (GetRowsCount("Customers") == 0)
                 {
                     intNewID = 1;
@@ -274,8 +206,6 @@ namespace SP21_Final_Project
                     string strNewInvoice = "INSERT INTO FullerIsp212332.Invoices(CustomerID, ProductID, Discount, Quantity, TotalPrice, OrderDate) VALUES(" + intNewID + ", " + lstProducts[intCurrentProduct].intProductID + ", " + lstProducts[intCurrentProduct].GetDiscount() + ", " + lstQuantities[intCurrentProduct] + ", " + (Math.Round(lstProducts[intCurrentProduct].dblPrice * (1f - (double)lstProducts[intCurrentProduct].GetDiscount() / 100f), 2)) * lstQuantities[intCurrentProduct] + ", " + strOrderDate + ")";
                     SqlCommand invoiceCommand = new SqlCommand(strNewInvoice, _cntDatabase);
                     invoiceCommand.ExecuteNonQuery();
-
-                    MessageBox.Show("Purchase successful.", "Purchase", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch(Exception ex)
@@ -287,16 +217,24 @@ namespace SP21_Final_Project
         //Formats 1 digit day/month to a 2 digit day/month
         public static string FormatDayOrMonth(string strDayMonth)
         {
-            if(strDayMonth.Length == 1)
+            try
             {
-                strDayMonth = "0" + strDayMonth;
-            }
+                if (strDayMonth.Length == 1)
+                {
+                    strDayMonth = "0" + strDayMonth;
+                }
 
-            return strDayMonth;
+                return strDayMonth;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error formatting date", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return "00";
+            }
         }
 
         //PRODUCTS ADD, UPDATE, DELETE START--------------------------------------------------------------------------------------------------------------------------------------------
-
+        //Adds product to products table
         public static void AddNewProduct(string strName, double dblPrice, string strSize, int intStock, byte[] arrBytes)
         {
             try
@@ -314,7 +252,7 @@ namespace SP21_Final_Project
                 ShowSQLException(ex, "Failed to add product");
             }
         }
-
+        //Removes product from products table
         public static void RemoveProduct(string strProductName)
         {
             try
@@ -338,7 +276,7 @@ namespace SP21_Final_Project
                 ShowSQLException(ex, "Failed to remove product");
             }
         }
-
+        //Updates product value by column name passed in
         public static void UpdateProduct(string strColumnName, string strNewValue, string strProductName)
         {
             try
@@ -406,9 +344,9 @@ namespace SP21_Final_Project
                         string strFileName = "ManagerPurchaseReceipt.html";
                         try
                         {
-                            using (StreamWriter writer = new StreamWriter(strFileName))
+                            using (StreamWriter swWriter = new StreamWriter(strFileName))
                             {
-                                writer.WriteLine(html);
+                                swWriter.WriteLine(html);
                             }
                             System.Diagnostics.Process.Start(@strFileName);
                         }
@@ -416,10 +354,10 @@ namespace SP21_Final_Project
                         {
                             MessageBox.Show("You don't have write permissions", "Error System Permissions", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
-                        DateTime today = DateTime.Now;
-                        using (StreamWriter wr = new StreamWriter($"{today.ToString("yyyy-MM-dd-HHmmss")} - " + strFileName))
+                        DateTime dtToday = DateTime.Now;
+                        using (StreamWriter swWriter = new StreamWriter($"{dtToday.ToString("yyyy-MM-dd-HHmmss")} - " + strFileName))
                         {
-                            wr.WriteLine(html);
+                            swWriter.WriteLine(html);
                         }
 
                         MessageBox.Show("Product successfully updated.", "Product Updated", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -449,20 +387,27 @@ namespace SP21_Final_Project
         //PRODUCTS ADD, UPDATE, DELETE END----------------------------------------------------------------------------------------------------------------------------------------------
 
         //SPECIALS ADD, UPDATE, DELETE START----------------------------------------------------------------------------------------------------------------------------------------------
-
+        //Add special
         public static void AddSpecial(string strProductName, int intDiscount, string strExtraDetails)
         {
-            string strGetProductID = "SELECT ProductID FROM FullerIsp212332.Products WHERE ProductName = '" + strProductName + "'";
-            SqlCommand cmdGetProductID = new SqlCommand(strGetProductID, _cntDatabase);
-            int intProductID = (int)cmdGetProductID.ExecuteScalar();
+            try
+            {
+                string strGetProductID = "SELECT ProductID FROM FullerIsp212332.Products WHERE ProductName = '" + strProductName + "'";
+                SqlCommand cmdGetProductID = new SqlCommand(strGetProductID, _cntDatabase);
+                int intProductID = (int)cmdGetProductID.ExecuteScalar();
 
-            string strInsertCommand = "INSERT INTO FullerIsp212332.Specials VALUES(" + intProductID + ", " + intDiscount + ", '" + strExtraDetails + "')";
-            SqlCommand cmdInsertCommand = new SqlCommand(strInsertCommand, _cntDatabase);
-            cmdInsertCommand.ExecuteNonQuery();
+                string strInsertCommand = "INSERT INTO FullerIsp212332.Specials VALUES(" + intProductID + ", " + intDiscount + ", '" + strExtraDetails + "')";
+                SqlCommand cmdInsertCommand = new SqlCommand(strInsertCommand, _cntDatabase);
+                cmdInsertCommand.ExecuteNonQuery();
 
-            MessageBox.Show("Special successfully added.", "Special Added", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Special successfully added.", "Special Added", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Error adding special", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
-
+        //remove special
         public static void RemoveSpecial(string strName, int intDiscount)
         {
             try
@@ -482,7 +427,7 @@ namespace SP21_Final_Project
                 ShowSQLException(ex, "Failed to remove special");
             }
         }
-
+        //Updates special value by column name passed in
         public static void UpdateSpecial(string strName, int intDiscount, string strColumnName, string strNewValue)
         {
             try
@@ -554,7 +499,7 @@ namespace SP21_Final_Project
         }
 
         //SPECIALS ADD, UPDATE, DELETE END----------------------------------------------------------------------------------------------------------------------------------------------
-
+        //Fills data grid view with schedule
         public static string GetSchedule(string strUsername, DataGridView dgvSchedule, string strWeek)
         {
             try
@@ -566,34 +511,34 @@ namespace SP21_Final_Project
                 string strStartDate = "";
                 if (strWeek == "This Week")
                 {
-                    DateTime tempDate = DateTime.Now;
+                    DateTime dtTempDate = DateTime.Now;
 
                     switch (DateTime.Now.DayOfWeek.ToString())
                     {
                         case "Sunday":
-                            tempDate = DateTime.Now;
+                            dtTempDate = DateTime.Now;
                             break;
                         case "Monday":
-                            tempDate = DateTime.Now.AddDays(-1);
+                            dtTempDate = DateTime.Now.AddDays(-1);
                             break;
                         case "Tuesday":
-                            tempDate = DateTime.Now.AddDays(-2);
+                            dtTempDate = DateTime.Now.AddDays(-2);
                             break;
                         case "Wednesday":
-                            tempDate = DateTime.Now.AddDays(-3);
+                            dtTempDate = DateTime.Now.AddDays(-3);
                             break;
                         case "Thursday":
-                            tempDate = DateTime.Now.AddDays(-4);
+                            dtTempDate = DateTime.Now.AddDays(-4);
                             break;
                         case "Friday":
-                            tempDate = DateTime.Now.AddDays(-5);
+                            dtTempDate = DateTime.Now.AddDays(-5);
                             break;
                         case "Saturday":
-                            tempDate = DateTime.Now.AddDays(-6);
+                            dtTempDate = DateTime.Now.AddDays(-6);
                             break;
                     }
 
-                    strStartDate = "'" + tempDate.Year.ToString() + "-" + FormatDayOrMonth(tempDate.Month.ToString()) + "-" + FormatDayOrMonth(tempDate.Day.ToString()) + "'";
+                    strStartDate = "'" + dtTempDate.Year.ToString() + "-" + FormatDayOrMonth(dtTempDate.Month.ToString()) + "-" + FormatDayOrMonth(dtTempDate.Day.ToString()) + "'";
 
                     string strGetSchedule = "SELECT Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday FROM FullerIsp212332.Schedules WHERE EmployeeID = " + intEmployeeID + " AND StartDate = " + strStartDate;
                     SqlCommand cmdGetSchedule = new SqlCommand(strGetSchedule, _cntDatabase);
@@ -611,36 +556,36 @@ namespace SP21_Final_Project
                 }
                 else if (strWeek == "Next Week")
                 {
-                    DateTime tempDate = DateTime.Now;
+                    DateTime dtTempDate = DateTime.Now;
 
                     switch (DateTime.Now.DayOfWeek.ToString())
                     {
                         case "Sunday":
-                            tempDate = DateTime.Now;
+                            dtTempDate = DateTime.Now;
                             break;
                         case "Monday":
-                            tempDate = DateTime.Now.AddDays(-1);
+                            dtTempDate = DateTime.Now.AddDays(-1);
                             break;
                         case "Tuesday":
-                            tempDate = DateTime.Now.AddDays(-2);
+                            dtTempDate = DateTime.Now.AddDays(-2);
                             break;
                         case "Wednesday":
-                            tempDate = DateTime.Now.AddDays(-3);
+                            dtTempDate = DateTime.Now.AddDays(-3);
                             break;
                         case "Thursday":
-                            tempDate = DateTime.Now.AddDays(-4);
+                            dtTempDate = DateTime.Now.AddDays(-4);
                             break;
                         case "Friday":
-                            tempDate = DateTime.Now.AddDays(-5);
+                            dtTempDate = DateTime.Now.AddDays(-5);
                             break;
                         case "Saturday":
-                            tempDate = DateTime.Now.AddDays(-6);
+                            dtTempDate = DateTime.Now.AddDays(-6);
                             break;
                     }
 
-                    tempDate = tempDate.AddDays(7);
+                    dtTempDate = dtTempDate.AddDays(7);
 
-                    strStartDate = "'" + tempDate.Year.ToString() + "-" + FormatDayOrMonth(tempDate.Month.ToString()) + "-" + FormatDayOrMonth(tempDate.Day.ToString()) + "'";
+                    strStartDate = "'" + dtTempDate.Year.ToString() + "-" + FormatDayOrMonth(dtTempDate.Month.ToString()) + "-" + FormatDayOrMonth(dtTempDate.Day.ToString()) + "'";
 
                     string strGetSchedule = "SELECT Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday FROM FullerIsp212332.Schedules WHERE EmployeeID = " + intEmployeeID + " AND StartDate = " + strStartDate;
                     SqlCommand cmdGetSchedule = new SqlCommand(strGetSchedule, _cntDatabase);
@@ -658,34 +603,34 @@ namespace SP21_Final_Project
                 }
                 else if (strWeek == "All Previous Weeks")
                 {
-                    DateTime tempDate = DateTime.Now;
+                    DateTime dtTempDate = DateTime.Now;
 
                     switch (DateTime.Now.DayOfWeek.ToString())
                     {
                         case "Sunday":
-                            tempDate = DateTime.Now;
+                            dtTempDate = DateTime.Now;
                             break;
                         case "Monday":
-                            tempDate = DateTime.Now.AddDays(-1);
+                            dtTempDate = DateTime.Now.AddDays(-1);
                             break;
                         case "Tuesday":
-                            tempDate = DateTime.Now.AddDays(-2);
+                            dtTempDate = DateTime.Now.AddDays(-2);
                             break;
                         case "Wednesday":
-                            tempDate = DateTime.Now.AddDays(-3);
+                            dtTempDate = DateTime.Now.AddDays(-3);
                             break;
                         case "Thursday":
-                            tempDate = DateTime.Now.AddDays(-4);
+                            dtTempDate = DateTime.Now.AddDays(-4);
                             break;
                         case "Friday":
-                            tempDate = DateTime.Now.AddDays(-5);
+                            dtTempDate = DateTime.Now.AddDays(-5);
                             break;
                         case "Saturday":
-                            tempDate = DateTime.Now.AddDays(-6);
+                            dtTempDate = DateTime.Now.AddDays(-6);
                             break;
                     }
 
-                    strStartDate = "'" + tempDate.Year.ToString() + "-" + FormatDayOrMonth(tempDate.Month.ToString()) + "-" + FormatDayOrMonth(tempDate.Day.ToString()) + "'";
+                    strStartDate = "'" + dtTempDate.Year.ToString() + "-" + FormatDayOrMonth(dtTempDate.Month.ToString()) + "-" + FormatDayOrMonth(dtTempDate.Day.ToString()) + "'";
 
                     string strGetSchedule = "SELECT Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday FROM FullerIsp212332.Schedules WHERE EmployeeID = " + intEmployeeID + " AND StartDate < " + strStartDate;
                     SqlCommand cmdGetSchedule = new SqlCommand(strGetSchedule, _cntDatabase);
@@ -715,6 +660,7 @@ namespace SP21_Final_Project
             return "Not found";
         }
 
+        //gets requests from requests table
         public static void GetRequests(DataGridView dgvRequests)
         {
             try
@@ -736,52 +682,61 @@ namespace SP21_Final_Project
         }
 
         //REPORTS START---------------------------------------------------------------------------------------------------------------------------------------------------------
-
+        //Generates a report of all the products in the Products table
         public static StringBuilder GenerateInventoryReport()
         {
             StringBuilder html = new StringBuilder();
             StringBuilder css = new StringBuilder();
 
-            css.Append("<style>");
-            css.Append("td {padding:5px;text-align:center;font-weight:bold;text-align:conter;}");
-            css.Append("h1{color: black;}");
-            css.Append("</style>");
-
-            html.Append("<html>");
-            html.Append($"<head>{css}<title>{"Current Inventory"}</title></head>");
-            html.Append("<body>");
-            html.Append($"<h1>{"Current Inventory"}</h1>");
-
-            SqlDataReader reader;
-            SqlCommand cmd;
-            cmd = _cntDatabase.CreateCommand();
-            cmd.CommandText = "SELECT ProductID, ProductName, Price, Size, UnitsInStock FROM FullerIsp212332.Products";
-            reader = cmd.ExecuteReader();
-
-            html.Append("<table>");
-            html.Append("<tr><td colspan=5><hr/></td></tr>");
-            html.Append($"<td>{"Product ID"}</td>");
-            html.Append($"<td>{"Product Name"}</td>");
-            html.Append($"<td>{"Price Per Unit"}</td>");
-            html.Append($"<td>{"Unit Size"}</td>");
-            html.Append($"<td>{"Units in Stock"}</td>");
-            html.Append("</tr>");
-            html.Append("<tr><td colspan=5><hr/></td></tr>");
-
-            while (reader.Read())
+            try
             {
-                html.Append($"<td>{reader.GetInt32(0)}</td>");
-                html.Append($"<td>{reader.GetString(1)}</td>");
-                html.Append($"<td>{reader.GetDecimal(2)}</td>");
-                html.Append($"<td>{reader.GetString(3)}</td>");
-                html.Append($"<td>{reader.GetInt32(4)}</td>");
-                html.Append("</tr>");
-            }
-            html.Append("<tr><td colspan=5><hr/></td></tr>");
-            html.Append("</table>");
-            html.Append("</body></html>");
+                css.Append("<style>");
+                css.Append("td {padding:5px;text-align:center;font-weight:bold;text-align:conter;}");
+                css.Append("h1{color: black;}");
+                css.Append("</style>");
 
-            reader.Close();
+                html.Append("<html>");
+                html.Append($"<head>{css}<title>{"Current Inventory"}</title></head>");
+                html.Append("<body>");
+                html.Append($"<h1>{"Current Inventory"}</h1>");
+
+                SqlDataReader reader;
+                SqlCommand cmd;
+                cmd = _cntDatabase.CreateCommand();
+                cmd.CommandText = "SELECT ProductID, ProductName, Price, Size, UnitsInStock FROM FullerIsp212332.Products";
+                reader = cmd.ExecuteReader();
+
+                html.Append("<table>");
+                html.Append("<tr><td colspan=5><hr/></td></tr>");
+                html.Append($"<td>{"Product ID"}</td>");
+                html.Append($"<td>{"Product Name"}</td>");
+                html.Append($"<td>{"Price Per Unit"}</td>");
+                html.Append($"<td>{"Unit Size"}</td>");
+                html.Append($"<td>{"Units in Stock"}</td>");
+                html.Append("</tr>");
+                html.Append("<tr><td colspan=5><hr/></td></tr>");
+
+                while (reader.Read())
+                {
+                    html.Append($"<td>{reader.GetInt32(0)}</td>");
+                    html.Append($"<td>{reader.GetString(1)}</td>");
+                    html.Append($"<td>{reader.GetDecimal(2)}</td>");
+                    html.Append($"<td>{reader.GetString(3)}</td>");
+                    html.Append($"<td>{reader.GetInt32(4)}</td>");
+                    html.Append("</tr>");
+                }
+                html.Append("<tr><td colspan=5><hr/></td></tr>");
+                html.Append("</table>");
+                html.Append("</body></html>");
+
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Cannot print report", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                html.Append("<html><body><h1>Error</h1></body></html>");
+            }
+
             return html;
         }
 
@@ -790,183 +745,210 @@ namespace SP21_Final_Project
             StringBuilder html = new StringBuilder();
             StringBuilder css = new StringBuilder();
 
-            css.Append("<style>");
-            css.Append("td {padding:5px;text-align:center;font-weight:bold;text-align:conter;}");
-            css.Append("h1{color: black;}");
-            css.Append("</style>");
-
-            html.Append("<html>");
-            html.Append($"<head>{css}<title>{"Employee Schedules"}</title></head>");
-            html.Append("<body>");
-            html.Append($"<h1>{"Employee Schedules"}</h1>");
-
-            SqlDataReader reader;
-            SqlCommand cmd;
-            cmd = _cntDatabase.CreateCommand();
-            cmd.CommandText = "SELECT Employees.EmployeeID, FirstName, LastName, Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday FROM FullerIsp212332.Employees JOIN FullerIsp212332.Schedules ON Employees.EmployeeID = Schedules.EmployeeID";
-            reader = cmd.ExecuteReader();
-
-            html.Append("<table>");
-            html.Append("<tr><td colspan=10><hr/></td></tr>");
-            html.Append($"<td>{"Employee ID"}</td>");
-            html.Append($"<td>{"First Name"}</td>");
-            html.Append($"<td>{"Last name"}</td>");
-            html.Append($"<td>{"Sunday"}</td>");
-            html.Append($"<td>{"Monday"}</td>");
-            html.Append($"<td>{"Tuesday"}</td>");
-            html.Append($"<td>{"Wednesday"}</td>");
-            html.Append($"<td>{"Thursday"}</td>");
-            html.Append($"<td>{"Friday"}</td>");
-            html.Append($"<td>{"Saturday"}</td>");
-            html.Append("</tr>");
-            html.Append("<tr><td colspan=10><hr/></td></tr>");
-
-            while (reader.Read())
+            try
             {
-                html.Append($"<td>{reader.GetInt32(0)}</td>");
-                html.Append($"<td>{reader.GetString(1)}</td>");
-                html.Append($"<td>{reader.GetString(2)}</td>");
-                html.Append($"<td>{reader.GetString(3)}</td>");
-                html.Append($"<td>{reader.GetString(4)}</td>");
-                html.Append($"<td>{reader.GetString(5)}</td>");
-                html.Append($"<td>{reader.GetString(6)}</td>");
-                html.Append($"<td>{reader.GetString(7)}</td>");
-                html.Append($"<td>{reader.GetString(8)}</td>");
-                html.Append($"<td>{reader.GetString(9)}</td>");
-                html.Append("</tr>");
-            }
-            html.Append("<tr><td colspan=10><hr/></td></tr>");
-            html.Append("</table>");
-            html.Append("</body></html>");
+                css.Append("<style>");
+                css.Append("td {padding:5px;text-align:center;font-weight:bold;text-align:conter;}");
+                css.Append("h1{color: black;}");
+                css.Append("</style>");
 
-            reader.Close();
+                html.Append("<html>");
+                html.Append($"<head>{css}<title>{"Employee Schedules"}</title></head>");
+                html.Append("<body>");
+                html.Append($"<h1>{"Employee Schedules"}</h1>");
+
+                SqlDataReader reader;
+                SqlCommand cmd;
+                cmd = _cntDatabase.CreateCommand();
+                cmd.CommandText = "SELECT Employees.EmployeeID, FirstName, LastName, Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday FROM FullerIsp212332.Employees JOIN FullerIsp212332.Schedules ON Employees.EmployeeID = Schedules.EmployeeID";
+                reader = cmd.ExecuteReader();
+
+                html.Append("<table>");
+                html.Append("<tr><td colspan=10><hr/></td></tr>");
+                html.Append($"<td>{"Employee ID"}</td>");
+                html.Append($"<td>{"First Name"}</td>");
+                html.Append($"<td>{"Last name"}</td>");
+                html.Append($"<td>{"Sunday"}</td>");
+                html.Append($"<td>{"Monday"}</td>");
+                html.Append($"<td>{"Tuesday"}</td>");
+                html.Append($"<td>{"Wednesday"}</td>");
+                html.Append($"<td>{"Thursday"}</td>");
+                html.Append($"<td>{"Friday"}</td>");
+                html.Append($"<td>{"Saturday"}</td>");
+                html.Append("</tr>");
+                html.Append("<tr><td colspan=10><hr/></td></tr>");
+
+                while (reader.Read())
+                {
+                    html.Append($"<td>{reader.GetInt32(0)}</td>");
+                    html.Append($"<td>{reader.GetString(1)}</td>");
+                    html.Append($"<td>{reader.GetString(2)}</td>");
+                    html.Append($"<td>{reader.GetString(3)}</td>");
+                    html.Append($"<td>{reader.GetString(4)}</td>");
+                    html.Append($"<td>{reader.GetString(5)}</td>");
+                    html.Append($"<td>{reader.GetString(6)}</td>");
+                    html.Append($"<td>{reader.GetString(7)}</td>");
+                    html.Append($"<td>{reader.GetString(8)}</td>");
+                    html.Append($"<td>{reader.GetString(9)}</td>");
+                    html.Append("</tr>");
+                }
+                html.Append("<tr><td colspan=10><hr/></td></tr>");
+                html.Append("</table>");
+                html.Append("</body></html>");
+
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Cannot print report", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                html.Append("<html><body><h1>Error</h1></body></html>");
+            }
+
             return html;
         }
 
-        public static StringBuilder GenerateSalesReport(string strPeriod, DateTime today)
+        public static StringBuilder GenerateSalesReport(string strPeriod, DateTime dtToday)
         {
-            string strStartDate = "";
-            string strEndDate = "";
-            double dblTotalSales = 0;
-
-            if(strPeriod == "Weekly")
-            {
-                strStartDate = today.AddDays(-7).Year.ToString() + "-" + today.AddDays(-7).Month.ToString() + "-" + today.AddDays(-7).Day.ToString();
-                strEndDate = today.Year.ToString() + "-" + today.Month.ToString() + "-" + today.Day.ToString();
-            }
-            else if(strPeriod == "Monthly")
-            {
-                strStartDate = today.AddDays(-30).Year.ToString() + "-" + today.AddDays(-30).Month.ToString() + "-" + today.AddDays(-30).Day.ToString();
-                strEndDate = today.Year.ToString() + "-" + today.Month.ToString() + "-" + today.Day.ToString();
-            }
-            else //Daily
-            {
-                strStartDate = today.Year.ToString() + "-" + today.Month.ToString() + "-" + today.Day.ToString();
-                strEndDate = today.Year.ToString() + "-" + today.Month.ToString() + "-" + today.Day.ToString();
-            }
-
             StringBuilder html = new StringBuilder();
             StringBuilder css = new StringBuilder();
 
-            css.Append("<style>");
-            css.Append("td {padding:5px;text-align:center;font-weight:bold;text-align:conter;}");
-            css.Append("h1{color: black;}");
-            css.Append("</style>");
-
-            html.Append("<html>");
-            html.Append($"<head>{css}<title>" + strPeriod + " Sales</title></head>");
-            html.Append("<body>");
-            html.Append($"<h1>" + strPeriod + " Sales</h1>");
-
-            SqlDataReader reader;
-            SqlCommand cmd;
-            cmd = _cntDatabase.CreateCommand();
-            cmd.CommandText = "SELECT ProductName, TotalPrice, OrderDate FROM FullerIsp212332.Products JOIN FullerIsp212332.Invoices ON Products.ProductID = Invoices.ProductID WHERE OrderDate BETWEEN '" + strStartDate + "' AND '" + strEndDate +"'";
-            reader = cmd.ExecuteReader();
-
-            html.Append("<table>");
-            html.Append("<tr><td colspan=3><hr/></td></tr>");
-            html.Append($"<td>{"Product Name"}</td>");
-            html.Append($"<td>{"Total Price"}</td>");
-            html.Append($"<td>{"Order Date"}</td>");
-            html.Append("</tr>");
-            html.Append("<tr><td colspan=3><hr/></td></tr>");
-
-            while (reader.Read())
+            try
             {
-                html.Append($"<td>{reader.GetString(0)}</td>");
-                html.Append($"<td>{reader.GetDecimal(1)}</td>");
-                dblTotalSales += (double)reader.GetDecimal(1);
-                html.Append($"<td>{reader.GetDateTime(2)}</td>");
-                html.Append("</tr>");
-            }
-            html.Append("<tr><td colspan=3><hr/></td></tr>");
-            html.Append("</table>");
-            html.Append($"<h3>Total Sales: $" + dblTotalSales + " Sales</h3>");
-            html.Append("</body></html>");
+                string strStartDate = "";
+                string strEndDate = "";
+                double dblTotalSales = 0;
 
-            reader.Close();
+                if (strPeriod == "Weekly")
+                {
+                    strStartDate = dtToday.AddDays(-7).Year.ToString() + "-" + dtToday.AddDays(-7).Month.ToString() + "-" + dtToday.AddDays(-7).Day.ToString();
+                    strEndDate = dtToday.Year.ToString() + "-" + dtToday.Month.ToString() + "-" + dtToday.Day.ToString();
+                }
+                else if (strPeriod == "Monthly")
+                {
+                    strStartDate = dtToday.AddDays(-30).Year.ToString() + "-" + dtToday.AddDays(-30).Month.ToString() + "-" + dtToday.AddDays(-30).Day.ToString();
+                    strEndDate = dtToday.Year.ToString() + "-" + dtToday.Month.ToString() + "-" + dtToday.Day.ToString();
+                }
+                else //Daily
+                {
+                    strStartDate = dtToday.Year.ToString() + "-" + dtToday.Month.ToString() + "-" + dtToday.Day.ToString();
+                    strEndDate = dtToday.Year.ToString() + "-" + dtToday.Month.ToString() + "-" + dtToday.Day.ToString();
+                }
+
+                css.Append("<style>");
+                css.Append("td {padding:5px;text-align:center;font-weight:bold;text-align:conter;}");
+                css.Append("h1{color: black;}");
+                css.Append("</style>");
+
+                html.Append("<html>");
+                html.Append($"<head>{css}<title>" + strPeriod + " Sales</title></head>");
+                html.Append("<body>");
+                html.Append($"<h1>" + strPeriod + " Sales</h1>");
+
+                SqlDataReader reader;
+                SqlCommand cmd;
+                cmd = _cntDatabase.CreateCommand();
+                cmd.CommandText = "SELECT ProductName, TotalPrice, OrderDate FROM FullerIsp212332.Products JOIN FullerIsp212332.Invoices ON Products.ProductID = Invoices.ProductID WHERE OrderDate BETWEEN '" + strStartDate + "' AND '" + strEndDate + "'";
+                reader = cmd.ExecuteReader();
+
+                html.Append("<table>");
+                html.Append("<tr><td colspan=3><hr/></td></tr>");
+                html.Append($"<td>{"Product Name"}</td>");
+                html.Append($"<td>{"Total Price"}</td>");
+                html.Append($"<td>{"Order Date"}</td>");
+                html.Append("</tr>");
+                html.Append("<tr><td colspan=3><hr/></td></tr>");
+
+                while (reader.Read())
+                {
+                    html.Append($"<td>{reader.GetString(0)}</td>");
+                    html.Append($"<td>{reader.GetDecimal(1)}</td>");
+                    dblTotalSales += (double)reader.GetDecimal(1);
+                    html.Append($"<td>{reader.GetDateTime(2)}</td>");
+                    html.Append("</tr>");
+                }
+                html.Append("<tr><td colspan=3><hr/></td></tr>");
+                html.Append("</table>");
+                html.Append($"<h3>Total Sales: $" + dblTotalSales + " Sales</h3>");
+                html.Append("</body></html>");
+
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Cannot print report", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                html.Append("<html><body><h1>Error</h1></body></html>");
+            }
+
             return html;
         }
 
         public static StringBuilder GenerateManagerPurchaseReceipt(string strProductName, int intQuantity, double dblPrice)
         {
-            string strGetID = $"SELECT ProductID FROM FullerIsp212332.Products WHERE ProductName = '{strProductName}'";
-            SqlCommand cmdGetID = new SqlCommand(strGetID, _cntDatabase);
-            int intProductID = (int)cmdGetID.ExecuteScalar();
-
-            string strInsertQuery = $"INSERT INTO FullerIsp212332.ManagerPurchases VALUES({intProductID}, {intQuantity}, {dblPrice}, {dblPrice * (double)intQuantity})";
-            SqlCommand cmdInsertQuery = new SqlCommand(strInsertQuery, _cntDatabase);
-            cmdInsertQuery.ExecuteNonQuery();
-
             StringBuilder html = new StringBuilder();
             StringBuilder css = new StringBuilder();
 
-            css.Append("<style>");
-            css.Append("td {padding:5px;text-align:center;font-weight:bold;text-align:conter;}");
-            css.Append("h1{color: black;}");
-            css.Append("</style>");
-
-            html.Append("<html>");
-            html.Append($"<head>{css}<title>Manager Purchase Receipt</title></head>");
-            html.Append("<body>");
-            html.Append($"<h1>Manager Purchase Receipt</h1>");
-
-            html.Append("<table>");
-            html.Append("<tr><td colspan=5><hr/></td></tr>");
-            html.Append($"<td>{"Product Name"}</td>");
-            html.Append($"<td>{"Quantity"}</td>");
-            html.Append($"<td>{"Price Per Item"}</td>");
-            html.Append($"<td>{"Total Price"}</td>");
-            html.Append($"<td>{"Total (With Tax)"}</td>");
-            html.Append("</tr>");
-            html.Append("<tr><td colspan=5><hr/></td></tr>");
-
-            SqlDataReader reader;
-            SqlCommand cmd;
-            cmd = _cntDatabase.CreateCommand();
-            cmd.CommandText = "SELECT ProductName, QuantityPurchased, PricePerItem, TotalPrice FROM FullerIsp212332.Products JOIN FullerIsp212332.ManagerPurchases ON Products.ProductID = ManagerPurchases.ProductID";
-            reader = cmd.ExecuteReader();
-
-            double dblTotalCost = 0;
-            html.Append("<tr><td colspan=5><hr/></td></tr>");
-            while(reader.Read())
+            try
             {
-                html.Append("<tr><td colspan=5></td></tr>");
-                html.Append($"<td>{reader.GetString(0)}</td>");
-                html.Append($"<td>{reader.GetInt32(1)}</td>");
-                html.Append($"<td>${Math.Round(reader.GetDecimal(2), 2)}</td>");
-                html.Append($"<td>${Math.Round(reader.GetDecimal(3), 2)}</td>");
-                dblTotalCost += (double)reader.GetDecimal(3);
-                html.Append($"<td>${Math.Round((double)reader.GetDecimal(3) * 1.0825, 2)}</td>");
-                html.Append("<tr><td colspan=5></td></tr>");
-            }
-            html.Append("<tr><td colspan=5><hr/></td></tr>");
-            html.Append("</table>");
-            html.Append($"<h3>Total Price: ${Math.Round(dblTotalCost, 2)}, With Tax: ${Math.Round(dblTotalCost * 1.0825, 2)}");
-            html.Append("</body></html>");
+                string strGetID = $"SELECT ProductID FROM FullerIsp212332.Products WHERE ProductName = '{strProductName}'";
+                SqlCommand cmdGetID = new SqlCommand(strGetID, _cntDatabase);
+                int intProductID = (int)cmdGetID.ExecuteScalar();
 
-            reader.Close();
+                string strInsertQuery = $"INSERT INTO FullerIsp212332.ManagerPurchases VALUES({intProductID}, {intQuantity}, {dblPrice}, {dblPrice * (double)intQuantity})";
+                SqlCommand cmdInsertQuery = new SqlCommand(strInsertQuery, _cntDatabase);
+                cmdInsertQuery.ExecuteNonQuery();
+
+                css.Append("<style>");
+                css.Append("td {padding:5px;text-align:center;font-weight:bold;text-align:conter;}");
+                css.Append("h1{color: black;}");
+                css.Append("</style>");
+
+                html.Append("<html>");
+                html.Append($"<head>{css}<title>Manager Purchase Receipt</title></head>");
+                html.Append("<body>");
+                html.Append($"<h1>Manager Purchase Receipt</h1>");
+
+                html.Append("<table>");
+                html.Append("<tr><td colspan=5><hr/></td></tr>");
+                html.Append($"<td>{"Product Name"}</td>");
+                html.Append($"<td>{"Quantity"}</td>");
+                html.Append($"<td>{"Price Per Item"}</td>");
+                html.Append($"<td>{"Total Price"}</td>");
+                html.Append($"<td>{"Total (With Tax)"}</td>");
+                html.Append("</tr>");
+                html.Append("<tr><td colspan=5><hr/></td></tr>");
+
+                SqlDataReader reader;
+                SqlCommand cmd;
+                cmd = _cntDatabase.CreateCommand();
+                cmd.CommandText = "SELECT ProductName, QuantityPurchased, PricePerItem, TotalPrice FROM FullerIsp212332.Products JOIN FullerIsp212332.ManagerPurchases ON Products.ProductID = ManagerPurchases.ProductID";
+                reader = cmd.ExecuteReader();
+
+                double dblTotalCost = 0;
+                html.Append("<tr><td colspan=5><hr/></td></tr>");
+                while (reader.Read())
+                {
+                    html.Append("<tr><td colspan=5></td></tr>");
+                    html.Append($"<td>{reader.GetString(0)}</td>");
+                    html.Append($"<td>{reader.GetInt32(1)}</td>");
+                    html.Append($"<td>${Math.Round(reader.GetDecimal(2), 2)}</td>");
+                    html.Append($"<td>${Math.Round(reader.GetDecimal(3), 2)}</td>");
+                    dblTotalCost += (double)reader.GetDecimal(3);
+                    html.Append($"<td>${Math.Round((double)reader.GetDecimal(3) * 1.0825, 2)}</td>");
+                    html.Append("<tr><td colspan=5></td></tr>");
+                }
+                html.Append("<tr><td colspan=5><hr/></td></tr>");
+                html.Append("</table>");
+                html.Append($"<h3>Total Price: ${Math.Round(dblTotalCost, 2)}, With Tax: ${Math.Round(dblTotalCost * 1.0825, 2)}");
+                html.Append("</body></html>");
+
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Cannot print receipt", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                html.Append("<html><body><h1>Error</h1></body></html>");
+            }
+
             return html;
         }
 
@@ -974,44 +956,57 @@ namespace SP21_Final_Project
 
         public static string[] GetEmployeeInformation(string strCurrentUser)
         {
-            string[] arrEmployeeInfo = new string[5];
+            string[] arrEmployeeInfo = { "", "", "", "", "" };
 
-            string strGetFName = "SELECT FirstName FROM FullerIsp212332.Employees WHERE Username = '" + strCurrentUser + "'";
-            SqlCommand cmdGetFName = new SqlCommand(strGetFName, _cntDatabase);
-            arrEmployeeInfo[0] = (string)cmdGetFName.ExecuteScalar();
+            try
+            {
+                string strGetFName = "SELECT FirstName FROM FullerIsp212332.Employees WHERE Username = '" + strCurrentUser + "'";
+                SqlCommand cmdGetFName = new SqlCommand(strGetFName, _cntDatabase);
+                arrEmployeeInfo[0] = (string)cmdGetFName.ExecuteScalar();
 
-            string strGetLName = "SELECT LastName FROM FullerIsp212332.Employees WHERE Username = '" + strCurrentUser + "'";
-            SqlCommand cmdGetLName = new SqlCommand(strGetLName, _cntDatabase);
-            arrEmployeeInfo[1] = (string)cmdGetLName.ExecuteScalar();
+                string strGetLName = "SELECT LastName FROM FullerIsp212332.Employees WHERE Username = '" + strCurrentUser + "'";
+                SqlCommand cmdGetLName = new SqlCommand(strGetLName, _cntDatabase);
+                arrEmployeeInfo[1] = (string)cmdGetLName.ExecuteScalar();
 
-            string strGetAddress = "SELECT Address FROM FullerIsp212332.Employees WHERE Username = '" + strCurrentUser + "'";
-            SqlCommand cmdGetAddress = new SqlCommand(strGetAddress, _cntDatabase);
-            arrEmployeeInfo[2] = (string)cmdGetAddress.ExecuteScalar();
+                string strGetAddress = "SELECT Address FROM FullerIsp212332.Employees WHERE Username = '" + strCurrentUser + "'";
+                SqlCommand cmdGetAddress = new SqlCommand(strGetAddress, _cntDatabase);
+                arrEmployeeInfo[2] = (string)cmdGetAddress.ExecuteScalar();
 
-            arrEmployeeInfo[3] = strCurrentUser;
+                arrEmployeeInfo[3] = strCurrentUser;
 
-            string strGetPassword = "SELECT Password FROM FullerIsp212332.Employees WHERE Username = '" + strCurrentUser + "'";
-            SqlCommand cmdGetPasswords = new SqlCommand(strGetPassword, _cntDatabase);
-            arrEmployeeInfo[4] = (string)cmdGetPasswords.ExecuteScalar();
+                string strGetPassword = "SELECT Password FROM FullerIsp212332.Employees WHERE Username = '" + strCurrentUser + "'";
+                SqlCommand cmdGetPasswords = new SqlCommand(strGetPassword, _cntDatabase);
+                arrEmployeeInfo[4] = (string)cmdGetPasswords.ExecuteScalar();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Cannot retrieve employee information", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
             return arrEmployeeInfo;
         }
 
         public static void UpdateEmployeeInformation(string strCurrentUser, string strNewFName, string strNewLName, string strNewAddress, string strNewUsername, string strNewPassword)
         {
-            string strGetID = "SELECT EmployeeID FROM FullerIsp212332.Employees WHERE Username = '" + strCurrentUser + "'";
-            SqlCommand cmdGetID = new SqlCommand(strGetID, _cntDatabase);
-            int intEmployeeID = (int)cmdGetID.ExecuteScalar();
+            try
+            {
+                string strGetID = "SELECT EmployeeID FROM FullerIsp212332.Employees WHERE Username = '" + strCurrentUser + "'";
+                SqlCommand cmdGetID = new SqlCommand(strGetID, _cntDatabase);
+                int intEmployeeID = (int)cmdGetID.ExecuteScalar();
 
-            string strUpdate = "UPDATE FullerIsp212332.Employees SET FirstName = '" + strNewFName + "', Lastname = '" + strNewLName + "', Address = '" + strNewAddress + "', Username = '" + strNewUsername + "', Password = '" + strNewPassword + "' WHERE EmployeeID = " + intEmployeeID;
-            SqlCommand cmdUpdate = new SqlCommand(strUpdate, _cntDatabase);
-            cmdUpdate.ExecuteNonQuery();
+                string strUpdate = "UPDATE FullerIsp212332.Employees SET FirstName = '" + strNewFName + "', Lastname = '" + strNewLName + "', Address = '" + strNewAddress + "', Username = '" + strNewUsername + "', Password = '" + strNewPassword + "' WHERE EmployeeID = " + intEmployeeID;
+                SqlCommand cmdUpdate = new SqlCommand(strUpdate, _cntDatabase);
+                cmdUpdate.ExecuteNonQuery();
 
-            MessageBox.Show("Information Updated", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Information Updated", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Cannot update information", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
-        //ADD, UPDATE, DELETE SCHEDULES START---------------------------------------------------------------------------------------------------------------------------------------------
-        
+        //SCHEDULING START---------------------------------------------------------------------------------------------------------------------------------------------
         //Gets employee names so schedules can be addes, updated, and removed
         public static List<string[]> GetEmployeeNames()
         {
@@ -1039,6 +1034,8 @@ namespace SP21_Final_Project
             catch(Exception ex)
             {
                 MessageBox.Show("Cannot retrieve employee names.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                string[] arrEmpty = { "", "" };
+                lstNames.Add(arrEmpty);
             }
 
             return lstNames;
@@ -1068,6 +1065,7 @@ namespace SP21_Final_Project
             catch(Exception ex)
             {
                 MessageBox.Show("Cannot retrieve schedule dates.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                lstDates.Add("");
             }
 
             return lstDates;
@@ -1195,26 +1193,34 @@ namespace SP21_Final_Project
                 MessageBox.Show("Cannot update schedule", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        //ADD, UPDATE, DELETE SCHEDULES START---------------------------------------------------------------------------------------------------------------------------------------------
+        //SCHEDULING END---------------------------------------------------------------------------------------------------------------------------------------------
         
+        //REQUESTS START----------------------------------------------------------------------------------------------------------------------------------------------
         public static void MakeRequest(string strUsername, string strRequestType, string strRequest)
         {
-            string strGetID = "SELECT EmployeeID FROM FullerIsp212332.Employees WHERE Username ='" + strUsername + "'";
-            SqlCommand cmdGetID = new SqlCommand(strGetID, _cntDatabase);
-            int intEmployeeID = (int)cmdGetID.ExecuteScalar();
-
-            string strFullRequest = strRequestType + " " + strRequest;
-            if (strFullRequest.Length <= 300)
+            try
             {
-                string strInsertQuery = "INSERT INTO FullerIsp212332.Requests(EmployeeID, Request, Status) VALUES(" + intEmployeeID + ", '" + strFullRequest + "', 'Unread')";
-                SqlCommand cmdInsertQuery = new SqlCommand(strInsertQuery, _cntDatabase);
-                cmdInsertQuery.ExecuteNonQuery();
+                string strGetID = "SELECT EmployeeID FROM FullerIsp212332.Employees WHERE Username ='" + strUsername + "'";
+                SqlCommand cmdGetID = new SqlCommand(strGetID, _cntDatabase);
+                int intEmployeeID = (int)cmdGetID.ExecuteScalar();
 
-                MessageBox.Show("Request made.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                string strFullRequest = strRequestType + " " + strRequest;
+                if (strFullRequest.Length <= 300)
+                {
+                    string strInsertQuery = "INSERT INTO FullerIsp212332.Requests(EmployeeID, Request, Status) VALUES(" + intEmployeeID + ", '" + strFullRequest + "', 'Unread')";
+                    SqlCommand cmdInsertQuery = new SqlCommand(strInsertQuery, _cntDatabase);
+                    cmdInsertQuery.ExecuteNonQuery();
+
+                    MessageBox.Show("Request made.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Request too long.", "Input Invalid", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Request too long.", "Input Invalid", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error requesting change", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -1222,46 +1228,108 @@ namespace SP21_Final_Project
         {
             List<string[]> lstRequests = new List<string[]>();
 
-            SqlDataReader reader;
-            SqlCommand cmd;
-            cmd = _cntDatabase.CreateCommand();
-            cmd.CommandText = "SELECT * FROM FullerIsp212332.Requests";
-            reader = cmd.ExecuteReader();
-
-            int intListIndex = 0;
-            while (reader.Read())
+            try
             {
-                lstRequests.Add(new string[3]);
-                lstRequests[intListIndex][0] = reader.GetInt32(0).ToString();
-                lstRequests[intListIndex][1] = reader.GetString(2);
-                lstRequests[intListIndex][2] = reader.GetString(3);
-                intListIndex++;
+                SqlDataReader reader;
+                SqlCommand cmd;
+                cmd = _cntDatabase.CreateCommand();
+                cmd.CommandText = "SELECT * FROM FullerIsp212332.Requests";
+                reader = cmd.ExecuteReader();
+
+                int intListIndex = 0;
+                while (reader.Read())
+                {
+                    lstRequests.Add(new string[3]);
+                    lstRequests[intListIndex][0] = reader.GetInt32(0).ToString();
+                    lstRequests[intListIndex][1] = reader.GetString(2);
+                    lstRequests[intListIndex][2] = reader.GetString(3);
+                    intListIndex++;
+                }
+
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Cannot get requests", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                string[] arrEmpty = { "", "", "" };
+                lstRequests.Add(arrEmpty);
             }
 
-            reader.Close();
             return lstRequests;
         }
 
         public static void UpdateRequest(int intRequestID, string strNewStatus)
         {
-            string strUpdateQuery = "UPDATE FullerIsp212332.Requests SET Status = '" + strNewStatus + "' WHERE RequestID = " + intRequestID;
-            SqlCommand cmdUpdateQuery = new SqlCommand(strUpdateQuery, _cntDatabase);
-            cmdUpdateQuery.ExecuteNonQuery();
+            try
+            {
+                string strUpdateQuery = "UPDATE FullerIsp212332.Requests SET Status = '" + strNewStatus + "' WHERE RequestID = " + intRequestID;
+                SqlCommand cmdUpdateQuery = new SqlCommand(strUpdateQuery, _cntDatabase);
+                cmdUpdateQuery.ExecuteNonQuery();
 
-            MessageBox.Show("Response succesful.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Response succesful.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error updating request", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
+        //REQUESTS END----------------------------------------------------------------------------------------------------------------------------------------------
 
         public static void UpdatePassword(string strUsername, string strNewPassword)
         {
-            string strUpdateEmployee = $"UPDATE FullerIsp212332.Employees SET Password = '{strNewPassword}' WHERE Username = '{strUsername}'";
-            SqlCommand cmdUpdateEmployee = new SqlCommand(strUpdateEmployee, _cntDatabase);
-            cmdUpdateEmployee.ExecuteNonQuery();
+            try
+            {
+                string strUpdateEmployee = $"UPDATE FullerIsp212332.Employees SET Password = '{strNewPassword}' WHERE Username = '{strUsername}'";
+                SqlCommand cmdUpdateEmployee = new SqlCommand(strUpdateEmployee, _cntDatabase);
+                cmdUpdateEmployee.ExecuteNonQuery();
 
-            string strUpdateManager = $"UPDATE FullerIsp212332.Managers SET Password = '{strNewPassword}' WHERE Username = '{strUsername}'";
-            SqlCommand cmdUpdateManager = new SqlCommand(strUpdateManager, _cntDatabase);
-            cmdUpdateManager.ExecuteNonQuery();
+                string strUpdateManager = $"UPDATE FullerIsp212332.Managers SET Password = '{strNewPassword}' WHERE Username = '{strUsername}'";
+                SqlCommand cmdUpdateManager = new SqlCommand(strUpdateManager, _cntDatabase);
+                cmdUpdateManager.ExecuteNonQuery();
 
-            MessageBox.Show("Email sent.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Email sent.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error updating and sending password", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        public static bool ReduceProductQuantity(List<ProductPanel> lstProducts, List<int> lstQuantities)
+        {
+            List<int> lstNewQuantities = new List<int>();
+
+            try
+            {
+                for (int intCurrentItem = 0; intCurrentItem < lstProducts.Count; intCurrentItem++)
+                {
+                    string strGetOldQuantity = $"SELECT UnitsInStock FROM FullerIsp212332.Products WHERE ProductName = '{lstProducts[intCurrentItem].strProductName}'";
+                    SqlCommand cmdGetOldQuantity = new SqlCommand(strGetOldQuantity, _cntDatabase);
+                    int intOldQuantity = (int)cmdGetOldQuantity.ExecuteScalar();
+
+                    lstNewQuantities.Add(intOldQuantity - lstQuantities[intCurrentItem]);
+
+                    if (lstNewQuantities[intCurrentItem] < 0)
+                    {
+                        MessageBox.Show($"Not enough {lstProducts[intCurrentItem].strProductName} left in stock. Try reducing the quantity of your order", "Not Enough Stock", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    }
+                }
+
+                for (int intCurrentQuantity = 0; intCurrentQuantity < lstNewQuantities.Count; intCurrentQuantity++)
+                {
+                    string strSetQuantity = $"UPDATE FullerIsp212332.Products SET UnitsInStock = {lstNewQuantities[intCurrentQuantity]} WHERE ProductName = '{lstProducts[intCurrentQuantity].strProductName}'";
+                    SqlCommand cmdSetQuantity = new SqlCommand(strSetQuantity, _cntDatabase);
+                    cmdSetQuantity.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error purchasing", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            return true;
         }
     }
 }

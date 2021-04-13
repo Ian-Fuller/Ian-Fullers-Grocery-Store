@@ -24,13 +24,22 @@ namespace SP21_Final_Project
 
         private void frmUpdateEmployee_Load(object sender, EventArgs e)
         {
-            string[] arrInfo = DB.GetEmployeeInformation(frmLogin.strCurrentUser);
+            try
+            {
+                MaximizeBox = false;
 
-            tbxFirstName.Text = arrInfo[0];
-            tbxLastName.Text = arrInfo[1];
-            tbxAddress.Text = arrInfo[2];
-            tbxUsername.Text = arrInfo[3];
-            tbxPassword.Text = arrInfo[4];
+                string[] arrInfo = DB.GetEmployeeInformation(frmLogin.strCurrentUser);
+
+                tbxFirstName.Text = arrInfo[0];
+                tbxLastName.Text = arrInfo[1];
+                tbxAddress.Text = arrInfo[2];
+                tbxUsername.Text = arrInfo[3];
+                tbxPassword.Text = arrInfo[4];
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error retrieving data", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)

@@ -29,12 +29,15 @@ namespace SP21_Final_Project
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmScheduleRemove));
             this.mnuBar = new System.Windows.Forms.MenuStrip();
             this.mnuFile = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuClose = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuHelp = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuRemoveSchedule = new System.Windows.Forms.ToolStripMenuItem();
             this.lblWeek = new System.Windows.Forms.Label();
-            this.cbxWeek = new System.Windows.Forms.ComboBox();
-            this.cbxEmployee = new System.Windows.Forms.ComboBox();
+            this.cboWeek = new System.Windows.Forms.ComboBox();
+            this.cboEmployee = new System.Windows.Forms.ComboBox();
             this.lblFor = new System.Windows.Forms.Label();
             this.btnRemove = new System.Windows.Forms.Button();
             this.mnuBar.SuspendLayout();
@@ -43,7 +46,8 @@ namespace SP21_Final_Project
             // mnuBar
             // 
             this.mnuBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mnuFile});
+            this.mnuFile,
+            this.mnuHelp});
             this.mnuBar.Location = new System.Drawing.Point(0, 0);
             this.mnuBar.Name = "mnuBar";
             this.mnuBar.Size = new System.Drawing.Size(343, 24);
@@ -65,6 +69,21 @@ namespace SP21_Final_Project
             this.mnuClose.Text = "&Close";
             this.mnuClose.Click += new System.EventHandler(this.mnuClose_Click);
             // 
+            // mnuHelp
+            // 
+            this.mnuHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuRemoveSchedule});
+            this.mnuHelp.Name = "mnuHelp";
+            this.mnuHelp.Size = new System.Drawing.Size(44, 20);
+            this.mnuHelp.Text = "&Help";
+            // 
+            // mnuRemoveSchedule
+            // 
+            this.mnuRemoveSchedule.Name = "mnuRemoveSchedule";
+            this.mnuRemoveSchedule.Size = new System.Drawing.Size(168, 22);
+            this.mnuRemoveSchedule.Text = "&Remove Schedule";
+            this.mnuRemoveSchedule.Click += new System.EventHandler(this.mnuRemoveSchedule_Click);
+            // 
             // lblWeek
             // 
             this.lblWeek.AutoSize = true;
@@ -74,23 +93,23 @@ namespace SP21_Final_Project
             this.lblWeek.TabIndex = 41;
             this.lblWeek.Text = "Week:";
             // 
-            // cbxWeek
+            // cboWeek
             // 
-            this.cbxWeek.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbxWeek.FormattingEnabled = true;
-            this.cbxWeek.Location = new System.Drawing.Point(119, 54);
-            this.cbxWeek.Name = "cbxWeek";
-            this.cbxWeek.Size = new System.Drawing.Size(107, 21);
-            this.cbxWeek.TabIndex = 40;
+            this.cboWeek.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboWeek.FormattingEnabled = true;
+            this.cboWeek.Location = new System.Drawing.Point(119, 54);
+            this.cboWeek.Name = "cboWeek";
+            this.cboWeek.Size = new System.Drawing.Size(107, 21);
+            this.cboWeek.TabIndex = 40;
             // 
-            // cbxEmployee
+            // cboEmployee
             // 
-            this.cbxEmployee.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbxEmployee.FormattingEnabled = true;
-            this.cbxEmployee.Location = new System.Drawing.Point(119, 27);
-            this.cbxEmployee.Name = "cbxEmployee";
-            this.cbxEmployee.Size = new System.Drawing.Size(217, 21);
-            this.cbxEmployee.TabIndex = 39;
+            this.cboEmployee.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboEmployee.FormattingEnabled = true;
+            this.cboEmployee.Location = new System.Drawing.Point(119, 27);
+            this.cboEmployee.Name = "cboEmployee";
+            this.cboEmployee.Size = new System.Drawing.Size(217, 21);
+            this.cboEmployee.TabIndex = 39;
             // 
             // lblFor
             // 
@@ -118,11 +137,12 @@ namespace SP21_Final_Project
             this.ClientSize = new System.Drawing.Size(343, 123);
             this.Controls.Add(this.btnRemove);
             this.Controls.Add(this.lblWeek);
-            this.Controls.Add(this.cbxWeek);
-            this.Controls.Add(this.cbxEmployee);
+            this.Controls.Add(this.cboWeek);
+            this.Controls.Add(this.cboEmployee);
             this.Controls.Add(this.lblFor);
             this.Controls.Add(this.mnuBar);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.mnuBar;
             this.Name = "frmScheduleRemove";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -141,9 +161,11 @@ namespace SP21_Final_Project
         private System.Windows.Forms.ToolStripMenuItem mnuFile;
         private System.Windows.Forms.ToolStripMenuItem mnuClose;
         private System.Windows.Forms.Label lblWeek;
-        private System.Windows.Forms.ComboBox cbxWeek;
-        private System.Windows.Forms.ComboBox cbxEmployee;
+        private System.Windows.Forms.ComboBox cboWeek;
+        private System.Windows.Forms.ComboBox cboEmployee;
         private System.Windows.Forms.Label lblFor;
         private System.Windows.Forms.Button btnRemove;
+        private System.Windows.Forms.ToolStripMenuItem mnuHelp;
+        private System.Windows.Forms.ToolStripMenuItem mnuRemoveSchedule;
     }
 }

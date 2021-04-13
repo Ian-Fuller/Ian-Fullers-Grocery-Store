@@ -29,20 +29,24 @@ namespace SP21_Final_Project
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmReports));
             this.mnuBar = new System.Windows.Forms.MenuStrip();
             this.mnuFile = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuClose = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuHelp = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuReport = new System.Windows.Forms.ToolStripMenuItem();
             this.btnSalesReport = new System.Windows.Forms.Button();
             this.btnScheduleReport = new System.Windows.Forms.Button();
             this.btnInventoryReport = new System.Windows.Forms.Button();
-            this.cbxTimePeriod = new System.Windows.Forms.ComboBox();
+            this.cboTimePeriod = new System.Windows.Forms.ComboBox();
             this.mnuBar.SuspendLayout();
             this.SuspendLayout();
             // 
             // mnuBar
             // 
             this.mnuBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mnuFile});
+            this.mnuFile,
+            this.mnuHelp});
             this.mnuBar.Location = new System.Drawing.Point(0, 0);
             this.mnuBar.Name = "mnuBar";
             this.mnuBar.Size = new System.Drawing.Size(218, 24);
@@ -60,9 +64,24 @@ namespace SP21_Final_Project
             // mnuClose
             // 
             this.mnuClose.Name = "mnuClose";
-            this.mnuClose.Size = new System.Drawing.Size(180, 22);
+            this.mnuClose.Size = new System.Drawing.Size(103, 22);
             this.mnuClose.Text = "&Close";
             this.mnuClose.Click += new System.EventHandler(this.mnuClose_Click);
+            // 
+            // mnuHelp
+            // 
+            this.mnuHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuReport});
+            this.mnuHelp.Name = "mnuHelp";
+            this.mnuHelp.Size = new System.Drawing.Size(44, 20);
+            this.mnuHelp.Text = "&Help";
+            // 
+            // mnuReport
+            // 
+            this.mnuReport.Name = "mnuReport";
+            this.mnuReport.Size = new System.Drawing.Size(137, 22);
+            this.mnuReport.Text = "&Print Report";
+            this.mnuReport.Click += new System.EventHandler(this.mnuReport_Click);
             // 
             // btnSalesReport
             // 
@@ -94,25 +113,27 @@ namespace SP21_Final_Project
             this.btnInventoryReport.UseVisualStyleBackColor = true;
             this.btnInventoryReport.Click += new System.EventHandler(this.btnInventoryReport_Click);
             // 
-            // cbxTimePeriod
+            // cboTimePeriod
             // 
-            this.cbxTimePeriod.FormattingEnabled = true;
-            this.cbxTimePeriod.Location = new System.Drawing.Point(141, 30);
-            this.cbxTimePeriod.Name = "cbxTimePeriod";
-            this.cbxTimePeriod.Size = new System.Drawing.Size(62, 21);
-            this.cbxTimePeriod.TabIndex = 4;
+            this.cboTimePeriod.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboTimePeriod.FormattingEnabled = true;
+            this.cboTimePeriod.Location = new System.Drawing.Point(141, 30);
+            this.cboTimePeriod.Name = "cboTimePeriod";
+            this.cboTimePeriod.Size = new System.Drawing.Size(62, 21);
+            this.cboTimePeriod.TabIndex = 4;
             // 
             // frmReports
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(218, 125);
-            this.Controls.Add(this.cbxTimePeriod);
+            this.Controls.Add(this.cboTimePeriod);
             this.Controls.Add(this.btnInventoryReport);
             this.Controls.Add(this.btnScheduleReport);
             this.Controls.Add(this.btnSalesReport);
             this.Controls.Add(this.mnuBar);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.mnuBar;
             this.Name = "frmReports";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -133,6 +154,8 @@ namespace SP21_Final_Project
         private System.Windows.Forms.Button btnSalesReport;
         private System.Windows.Forms.Button btnScheduleReport;
         private System.Windows.Forms.Button btnInventoryReport;
-        private System.Windows.Forms.ComboBox cbxTimePeriod;
+        private System.Windows.Forms.ComboBox cboTimePeriod;
+        private System.Windows.Forms.ToolStripMenuItem mnuHelp;
+        private System.Windows.Forms.ToolStripMenuItem mnuReport;
     }
 }

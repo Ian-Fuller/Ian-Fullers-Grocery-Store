@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.btnPrevPage = new System.Windows.Forms.Button();
             this.btnNextPage = new System.Windows.Forms.Button();
             this.pnlSpecials = new System.Windows.Forms.Panel();
@@ -38,7 +39,12 @@
             this.mnuFile = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuExit = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuLogin = new System.Windows.Forms.ToolStripMenuItem();
-            this.shoppingCartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuShoppingCart = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuRefresh = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuHelp = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuProducts = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuSpecials = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuRefreshHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.pnlSpecials.SuspendLayout();
             this.mnuMenuBar.SuspendLayout();
             this.SuspendLayout();
@@ -110,7 +116,9 @@
             this.mnuMenuBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mnuFile,
             this.mnuLogin,
-            this.shoppingCartToolStripMenuItem});
+            this.mnuShoppingCart,
+            this.mnuRefresh,
+            this.mnuHelp});
             this.mnuMenuBar.Location = new System.Drawing.Point(0, 0);
             this.mnuMenuBar.Name = "mnuMenuBar";
             this.mnuMenuBar.Size = new System.Drawing.Size(784, 24);
@@ -139,12 +147,50 @@
             this.mnuLogin.Text = "&Login as staff";
             this.mnuLogin.Click += new System.EventHandler(this.mnuLogin_Click);
             // 
-            // shoppingCartToolStripMenuItem
+            // mnuShoppingCart
             // 
-            this.shoppingCartToolStripMenuItem.Name = "shoppingCartToolStripMenuItem";
-            this.shoppingCartToolStripMenuItem.Size = new System.Drawing.Size(95, 20);
-            this.shoppingCartToolStripMenuItem.Text = "&Shopping Cart";
-            this.shoppingCartToolStripMenuItem.Click += new System.EventHandler(this.shoppingCartToolStripMenuItem_Click);
+            this.mnuShoppingCart.Name = "mnuShoppingCart";
+            this.mnuShoppingCart.Size = new System.Drawing.Size(95, 20);
+            this.mnuShoppingCart.Text = "&Shopping Cart";
+            this.mnuShoppingCart.Click += new System.EventHandler(this.mnuShoppingCart_Click);
+            // 
+            // mnuRefresh
+            // 
+            this.mnuRefresh.Name = "mnuRefresh";
+            this.mnuRefresh.Size = new System.Drawing.Size(58, 20);
+            this.mnuRefresh.Text = "&Refresh";
+            this.mnuRefresh.Click += new System.EventHandler(this.mnuRefresh_Click);
+            // 
+            // mnuHelp
+            // 
+            this.mnuHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuProducts,
+            this.mnuSpecials,
+            this.mnuRefreshHelp});
+            this.mnuHelp.Name = "mnuHelp";
+            this.mnuHelp.Size = new System.Drawing.Size(44, 20);
+            this.mnuHelp.Text = "&Help";
+            // 
+            // mnuProducts
+            // 
+            this.mnuProducts.Name = "mnuProducts";
+            this.mnuProducts.Size = new System.Drawing.Size(121, 22);
+            this.mnuProducts.Text = "&Products";
+            this.mnuProducts.Click += new System.EventHandler(this.mnuProducts_Click);
+            // 
+            // mnuSpecials
+            // 
+            this.mnuSpecials.Name = "mnuSpecials";
+            this.mnuSpecials.Size = new System.Drawing.Size(121, 22);
+            this.mnuSpecials.Text = "&Specials";
+            this.mnuSpecials.Click += new System.EventHandler(this.mnuSpecials_Click);
+            // 
+            // mnuRefreshHelp
+            // 
+            this.mnuRefreshHelp.Name = "mnuRefreshHelp";
+            this.mnuRefreshHelp.Size = new System.Drawing.Size(121, 22);
+            this.mnuRefreshHelp.Text = "&Refresh";
+            this.mnuRefreshHelp.Click += new System.EventHandler(this.mnuRefreshHelp_Click);
             // 
             // frmMain
             // 
@@ -156,6 +202,7 @@
             this.Controls.Add(this.btnPrevPage);
             this.Controls.Add(this.mnuMenuBar);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.mnuMenuBar;
             this.Name = "frmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -183,7 +230,12 @@
         private System.Windows.Forms.ToolStripMenuItem mnuLogin;
         private System.Windows.Forms.Button btnUp;
         private System.Windows.Forms.Button btnDown;
-        private System.Windows.Forms.ToolStripMenuItem shoppingCartToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mnuShoppingCart;
+        private System.Windows.Forms.ToolStripMenuItem mnuHelp;
+        private System.Windows.Forms.ToolStripMenuItem mnuProducts;
+        private System.Windows.Forms.ToolStripMenuItem mnuSpecials;
+        private System.Windows.Forms.ToolStripMenuItem mnuRefresh;
+        private System.Windows.Forms.ToolStripMenuItem mnuRefreshHelp;
     }
 }
 

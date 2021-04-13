@@ -27,47 +27,77 @@ namespace SP21_Final_Project
 
         private void frmSpecialUpdate_Load(object sender, EventArgs e)
         {
-            for(int intCurrentSpecial = 0; intCurrentSpecial < frmMain.lstSpecials.Count; intCurrentSpecial++)
+            try
             {
-                lstNames.Add(frmMain.lstSpecials[intCurrentSpecial].strProductName);
-                lstDiscounts.Add(frmMain.lstSpecials[intCurrentSpecial].intDiscount);
-                cbxSpecials.Items.Add(lstNames[intCurrentSpecial] + ", -" + lstDiscounts[intCurrentSpecial] + "%");
-            }
+                MaximizeBox = false;
 
-            string[] arrColumns = new string[] { "Product", "PriceDiscounted", "ExtraDetails" };
-            for (int intCurrentColumn = 0; intCurrentColumn < arrColumns.Length; intCurrentColumn++)
-            {
-                cbxColumnName.Items.Add(arrColumns[intCurrentColumn]);
-            }
+                for (int intCurrentSpecial = 0; intCurrentSpecial < frmMain.lstSpecials.Count; intCurrentSpecial++)
+                {
+                    lstNames.Add(frmMain.lstSpecials[intCurrentSpecial].strProductName);
+                    lstDiscounts.Add(frmMain.lstSpecials[intCurrentSpecial].intDiscount);
+                    cboSpecials.Items.Add(lstNames[intCurrentSpecial] + ", -" + lstDiscounts[intCurrentSpecial] + "%");
+                }
 
-            for (int intCurrentPanel = 0; intCurrentPanel < frmMain.lstPanels.Count; intCurrentPanel++)
+                string[] arrColumns = new string[] { "Product", "PriceDiscounted", "ExtraDetails" };
+                for (int intCurrentColumn = 0; intCurrentColumn < arrColumns.Length; intCurrentColumn++)
+                {
+                    cboColumnName.Items.Add(arrColumns[intCurrentColumn]);
+                }
+
+                for (int intCurrentPanel = 0; intCurrentPanel < frmMain.lstPanels.Count; intCurrentPanel++)
+                {
+                    cboProduct.Items.Add(frmMain.lstPanels[intCurrentPanel].strProductName);
+                }
+            }
+            catch (Exception ex)
             {
-                cbxProduct.Items.Add(frmMain.lstPanels[intCurrentPanel].strProductName);
+                MessageBox.Show("Error retrieving data", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void cbxColumnName_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(cbxColumnName.Text == "Product")
+            try
             {
-                cbxProduct.Visible = true;
+                if (cboColumnName.Text == "Product")
+                {
+                    cboProduct.Visible = true;
+                }
+                else
+                {
+                    cboProduct.Visible = false;
+                }
             }
-            else
+            catch (Exception ex)
             {
-                cbxProduct.Visible = false;
+                MessageBox.Show("Error selecting", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            if(cbxColumnName.Text == "Product")
+            try
             {
-                DB.UpdateSpecial(lstNames[cbxSpecials.SelectedIndex], lstDiscounts[cbxSpecials.SelectedIndex], cbxColumnName.Text, cbxProduct.Text);
+                if (cboColumnName.Text == "Product")
+                {
+                    DB.UpdateSpecial(lstNames[cboSpecials.SelectedIndex], lstDiscounts[cboSpecials.SelectedIndex], cboColumnName.Text, cboProduct.Text);
+                    frmMain.FillRefreshPanelData();
+                }
+                else
+                {
+                    DB.UpdateSpecial(lstNames[cboSpecials.SelectedIndex], lstDiscounts[cboSpecials.SelectedIndex], cboColumnName.Text, tbxNewValue.Text);
+                    frmMain.FillRefreshPanelData();
+                }
             }
-            else
+            catch (Exception ex)
             {
-                DB.UpdateSpecial(lstNames[cbxSpecials.SelectedIndex], lstDiscounts[cbxSpecials.SelectedIndex], cbxColumnName.Text, tbxNewValue.Text);
+                MessageBox.Show("Error updating", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void mnuUpdateSpecial_Click(object sender, EventArgs e)
+        {
+            Help.HelpUpdateSpecial();
         }
     }
 }

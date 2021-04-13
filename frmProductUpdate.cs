@@ -28,16 +28,16 @@ namespace SP21_Final_Project
         {
             try
             {
-                OpenFileDialog openFile = new OpenFileDialog();
-                openFile.ValidateNames = true;
-                openFile.AddExtension = false;
-                openFile.Filter = "Image File|*.png|Image File|*.jpg";
-                openFile.Title = "File to Upload";
+                OpenFileDialog ofdImagePicker = new OpenFileDialog();
+                ofdImagePicker.ValidateNames = true;
+                ofdImagePicker.AddExtension = false;
+                ofdImagePicker.Filter = "Image File|*.png|Image File|*.jpg";
+                ofdImagePicker.Title = "File to Upload";
 
-                if (openFile.ShowDialog() == DialogResult.OK)
+                if (ofdImagePicker.ShowDialog() == DialogResult.OK)
                 {
-                    pbxProductImage.Image = new Bitmap(openFile.FileName);
-                    strFileName = openFile.FileName;
+                    pbxProductImage.Image = new Bitmap(ofdImagePicker.FileName);
+                    strFileName = ofdImagePicker.FileName;
                 }
             }
             catch (Exception ex)
@@ -48,44 +48,82 @@ namespace SP21_Final_Project
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            if(cbxColumnName.Text == "ProductImage")
+            try
             {
-                DB.UpdateProduct(cbxColumnName.Text, strFileName, cbxProduct.Text);
+                if(cboColumnName.Text == "ProductImage")
+                {
+                    DB.UpdateProduct(cboColumnName.Text, strFileName, cboProduct.Text);
+                }
+                else
+                {
+                    DB.UpdateProduct(cboColumnName.Text, tbxNewValue.Text, cboProduct.Text);
+                    frmMain.FillRefreshPanelData();
+                }
             }
-            else
+            catch (Exception ex)
             {
-                DB.UpdateProduct(cbxColumnName.Text, tbxNewValue.Text, cbxProduct.Text);
+                MessageBox.Show("Error updating product", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void frmProductUpdate_Load(object sender, EventArgs e)
         {
-            for (int intCurrentPanel = 0; intCurrentPanel < frmMain.lstPanels.Count; intCurrentPanel++)
+            try
             {
-                cbxProduct.Items.Add(frmMain.lstPanels[intCurrentPanel].strProductName);
-            }
+                MaximizeBox = false;
 
-            string[] arrColumns = new string[] { "ProductName", "Price", "Size", "UnitsInStock", "ProductImage" };
-            for(int intCurrentColumn = 0; intCurrentColumn < arrColumns.Length; intCurrentColumn++)
+                for (int intCurrentPanel = 0; intCurrentPanel < frmMain.lstPanels.Count; intCurrentPanel++)
+                {
+                    cboProduct.Items.Add(frmMain.lstPanels[intCurrentPanel].strProductName);
+                }
+
+                string[] arrColumns = new string[] { "ProductName", "Price", "Size", "UnitsInStock", "ProductImage" };
+                for (int intCurrentColumn = 0; intCurrentColumn < arrColumns.Length; intCurrentColumn++)
+                {
+                    cboColumnName.Items.Add(arrColumns[intCurrentColumn]);
+                }
+            }
+            catch (Exception ex)
             {
-                cbxColumnName.Items.Add(arrColumns[intCurrentColumn]);
+                MessageBox.Show("Error retrieving data", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void cbxColumnName_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(cbxColumnName.Text == "ProductImage")
+            try
             {
-                tbxNewValue.Visible = false;
-                pbxProductImage.Visible = true;
-                btnSelectImage.Visible = true;
+                if (cboColumnName.Text == "ProductImage")
+                {
+                    tbxNewValue.Visible = false;
+                    pbxProductImage.Visible = true;
+                    btnSelectImage.Visible = true;
+                }
+                else
+                {
+                    tbxNewValue.Visible = true;
+                    pbxProductImage.Visible = false;
+                    btnSelectImage.Visible = false;
+                }
+
+                if (cboColumnName.Text == "Price")
+                {
+                    lblTo.Text = "To: $";
+                }
+                else
+                {
+                    lblTo.Text = "To:";
+                }
             }
-            else
+            catch (Exception ex)
             {
-                tbxNewValue.Visible = true;
-                pbxProductImage.Visible = false;
-                btnSelectImage.Visible = false;
+                MessageBox.Show("Error changing column", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void mnuUpdateProduct_Click(object sender, EventArgs e)
+        {
+            Help.HelpUpdateProduct();
         }
     }
 }

@@ -22,21 +22,30 @@ namespace SP21_Final_Project
 
         private void frmShoppingCart_Load(object sender, EventArgs e)
         {
-            if (lstCart.Count > 0)
+            try
             {
-                for (int intCurrentItem = 0; intCurrentItem < lstCart.Count; intCurrentItem++)
-                {
-                    lbxItemsInCart.Items.Add(lstCart[intCurrentItem].strProductName + " x" + lstQuantities[intCurrentItem]);
-                }
+                MaximizeBox = false;
 
-                pbxProductImage.Image = lstCart[0].pbxProductImage.Image;
-                lblProductName.Text = lstCart[0].strProductName;
-                lblProductPrice.Text = lstCart[0].dblPrice.ToString();
-                lblAmountOrdered.Text = "x" + lstQuantities[0];
-                if(lstCart[0].GetDiscount() > 0)
+                if (lstCart.Count > 0)
                 {
-                    lblDiscount.Text = "-" + lstCart[0].GetDiscount() + "%";
+                    for (int intCurrentItem = 0; intCurrentItem < lstCart.Count; intCurrentItem++)
+                    {
+                        lbxItemsInCart.Items.Add(lstCart[intCurrentItem].strProductName + " x" + lstQuantities[intCurrentItem]);
+                    }
+
+                    pbxProductImage.Image = lstCart[0].pbxProductImage.Image;
+                    lblProductName.Text = lstCart[0].strProductName;
+                    lblProductPrice.Text = ProductPanel.FormatCurrency(lstCart[0].dblPrice);
+                    lblAmountOrdered.Text = "x" + lstQuantities[0];
+                    if (lstCart[0].GetDiscount() > 0)
+                    {
+                        lblDiscount.Text = "-" + lstCart[0].GetDiscount() + "%";
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error loading shopping cart", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -47,47 +56,78 @@ namespace SP21_Final_Project
 
         private void btnRemove_Click(object sender, EventArgs e)
         {
-            if (lbxItemsInCart.SelectedIndex >= 0)
+            try
             {
-                lstCart.RemoveAt(lbxItemsInCart.SelectedIndex);
-                lstQuantities.RemoveAt(lbxItemsInCart.SelectedIndex);
-                lbxItemsInCart.Items.RemoveAt(lbxItemsInCart.SelectedIndex);
+                if (lbxItemsInCart.SelectedIndex >= 0)
+                {
+                    lstCart.RemoveAt(lbxItemsInCart.SelectedIndex);
+                    lstQuantities.RemoveAt(lbxItemsInCart.SelectedIndex);
+                    lbxItemsInCart.Items.RemoveAt(lbxItemsInCart.SelectedIndex);
+                }
+                else
+                {
+                    MessageBox.Show("Select an item in the list before removing.", "Select an Item", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Select an item in the list before removing.", "Select an Item", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Error removing product", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void lbxItemsInCart_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (lbxItemsInCart.SelectedIndex >= 0)
+            try
             {
-                pbxProductImage.Image = lstCart[lbxItemsInCart.SelectedIndex].pbxProductImage.Image;
-                lblProductName.Text = lstCart[lbxItemsInCart.SelectedIndex].strProductName;
-                lblProductPrice.Text = lstCart[lbxItemsInCart.SelectedIndex].dblPrice.ToString();
-                lblAmountOrdered.Text = "x" + lstQuantities[lbxItemsInCart.SelectedIndex];
-                if (lstCart[lbxItemsInCart.SelectedIndex].GetDiscount() > 0)
+                if (lbxItemsInCart.SelectedIndex >= 0)
                 {
-                    lblDiscount.Text = "-" + lstCart[lbxItemsInCart.SelectedIndex].GetDiscount() + "%";
+                    pbxProductImage.Image = lstCart[lbxItemsInCart.SelectedIndex].pbxProductImage.Image;
+                    lblProductName.Text = lstCart[lbxItemsInCart.SelectedIndex].strProductName;
+                    lblProductPrice.Text = ProductPanel.FormatCurrency(lstCart[lbxItemsInCart.SelectedIndex].dblPrice);
+                    lblAmountOrdered.Text = "x" + lstQuantities[lbxItemsInCart.SelectedIndex];
+                    if (lstCart[lbxItemsInCart.SelectedIndex].GetDiscount() > 0)
+                    {
+                        lblDiscount.Text = "-" + lstCart[lbxItemsInCart.SelectedIndex].GetDiscount() + "%";
+                    }
+                    else
+                    {
+                        lblDiscount.Text = "";
+                    }
                 }
-                else
-                {
-                    lblDiscount.Text = "";
-                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error selecting product", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void btnPurchase_Click(object sender, EventArgs e)
         {
-            if (tbxCity.Text.Length <= 100 && tbxAddress.Text.Length <= 100)
+            try
             {
-                DB.CreateInvoice(tbxCity.Text, tbxAddress.Text, lstCart, lstQuantities);
+                if (tbxCity.Text.Length <= 100 && tbxAddress.Text.Length <= 100)
+                {
+                    if (DB.ReduceProductQuantity(lstCart, lstQuantities))
+                    {
+                        DB.CreateInvoice(tbxCity.Text, tbxAddress.Text, lstCart, lstQuantities);
+
+                        MessageBox.Show("Purchase successful.", "Purchase", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("City and address can only be 100 characters long.", "Error Making Purchase", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("City and address can only be 100 characters long.", "Error Making Purchase", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error making purchase", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void mnuShoppingCart_Click(object sender, EventArgs e)
+        {
+            Help.HelpShoppingCart();
         }
     }
 }

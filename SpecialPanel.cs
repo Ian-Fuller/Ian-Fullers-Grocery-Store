@@ -78,5 +78,10 @@ namespace SP21_Final_Project
         {
             return intDiscount;
         }
+
+        public void RemoveFromParent(Panel pnlSpecialsPanel)
+        {
+            pnlSpecialsPanel.Controls.Remove(pnlParentPanel);
+        }
     }
 }

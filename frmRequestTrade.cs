@@ -26,5 +26,10 @@ namespace SP21_Final_Project
         {
             DB.MakeRequest(frmLogin.strCurrentUser, "(Trade)", tbxRequest.Text);
         }
+
+        private void frmRequestTrade_Load(object sender, EventArgs e)
+        {
+            MaximizeBox = false;
+        }
     }
 }

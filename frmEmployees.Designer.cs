@@ -29,10 +29,16 @@ namespace SP21_Final_Project
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmEmployees));
             this.btnRequestTrade = new System.Windows.Forms.Button();
             this.mnuBar = new System.Windows.Forms.MenuStrip();
             this.mnuFile = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuClose = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuHelp = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuSchedulesPrinting = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuSpecials = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuDayOffAndTrade = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuChangeInformation = new System.Windows.Forms.ToolStripMenuItem();
             this.btnRequestDayOff = new System.Windows.Forms.Button();
             this.btnChangeInfo = new System.Windows.Forms.Button();
             this.dgvSchedule = new System.Windows.Forms.DataGridView();
@@ -40,7 +46,7 @@ namespace SP21_Final_Project
             this.lblTask = new System.Windows.Forms.Label();
             this.lblThisWeek = new System.Windows.Forms.Label();
             this.btnPrint = new System.Windows.Forms.Button();
-            this.cbxWeek = new System.Windows.Forms.ComboBox();
+            this.cboWeek = new System.Windows.Forms.ComboBox();
             this.btnPrevPage = new System.Windows.Forms.Button();
             this.btnNextPage = new System.Windows.Forms.Button();
             this.lblSpecials = new System.Windows.Forms.Label();
@@ -61,7 +67,8 @@ namespace SP21_Final_Project
             // mnuBar
             // 
             this.mnuBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mnuFile});
+            this.mnuFile,
+            this.mnuHelp});
             this.mnuBar.Location = new System.Drawing.Point(0, 0);
             this.mnuBar.Name = "mnuBar";
             this.mnuBar.Size = new System.Drawing.Size(964, 24);
@@ -82,6 +89,45 @@ namespace SP21_Final_Project
             this.mnuClose.Size = new System.Drawing.Size(103, 22);
             this.mnuClose.Text = "&Close";
             this.mnuClose.Click += new System.EventHandler(this.mnuClose_Click);
+            // 
+            // mnuHelp
+            // 
+            this.mnuHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuSchedulesPrinting,
+            this.mnuSpecials,
+            this.mnuDayOffAndTrade,
+            this.mnuChangeInformation});
+            this.mnuHelp.Name = "mnuHelp";
+            this.mnuHelp.Size = new System.Drawing.Size(44, 20);
+            this.mnuHelp.Text = "&Help";
+            // 
+            // mnuSchedulesPrinting
+            // 
+            this.mnuSchedulesPrinting.Name = "mnuSchedulesPrinting";
+            this.mnuSchedulesPrinting.Size = new System.Drawing.Size(258, 22);
+            this.mnuSchedulesPrinting.Text = "&Schedules and Schedule Printing";
+            this.mnuSchedulesPrinting.Click += new System.EventHandler(this.mnuSchedulesPrinting_Click);
+            // 
+            // mnuSpecials
+            // 
+            this.mnuSpecials.Name = "mnuSpecials";
+            this.mnuSpecials.Size = new System.Drawing.Size(258, 22);
+            this.mnuSpecials.Text = "&Specials";
+            this.mnuSpecials.Click += new System.EventHandler(this.mnuSpecials_Click);
+            // 
+            // mnuDayOffAndTrade
+            // 
+            this.mnuDayOffAndTrade.Name = "mnuDayOffAndTrade";
+            this.mnuDayOffAndTrade.Size = new System.Drawing.Size(258, 22);
+            this.mnuDayOffAndTrade.Text = "&Request Day Off and Request Trade";
+            this.mnuDayOffAndTrade.Click += new System.EventHandler(this.mnuDayOffAndTrade_Click);
+            // 
+            // mnuChangeInformation
+            // 
+            this.mnuChangeInformation.Name = "mnuChangeInformation";
+            this.mnuChangeInformation.Size = new System.Drawing.Size(258, 22);
+            this.mnuChangeInformation.Text = "&Change Information";
+            this.mnuChangeInformation.Click += new System.EventHandler(this.mnuChangeInformation_Click);
             // 
             // btnRequestDayOff
             // 
@@ -149,14 +195,15 @@ namespace SP21_Final_Project
             this.btnPrint.UseVisualStyleBackColor = true;
             this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
             // 
-            // cbxWeek
+            // cboWeek
             // 
-            this.cbxWeek.FormattingEnabled = true;
-            this.cbxWeek.Location = new System.Drawing.Point(314, 167);
-            this.cbxWeek.Name = "cbxWeek";
-            this.cbxWeek.Size = new System.Drawing.Size(121, 21);
-            this.cbxWeek.TabIndex = 9;
-            this.cbxWeek.SelectedIndexChanged += new System.EventHandler(this.cbxWeek_SelectedIndexChanged);
+            this.cboWeek.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboWeek.FormattingEnabled = true;
+            this.cboWeek.Location = new System.Drawing.Point(314, 167);
+            this.cboWeek.Name = "cboWeek";
+            this.cboWeek.Size = new System.Drawing.Size(121, 21);
+            this.cboWeek.TabIndex = 9;
+            this.cboWeek.SelectedIndexChanged += new System.EventHandler(this.cbxWeek_SelectedIndexChanged);
             // 
             // btnPrevPage
             // 
@@ -195,7 +242,7 @@ namespace SP21_Final_Project
             this.Controls.Add(this.lblSpecials);
             this.Controls.Add(this.btnNextPage);
             this.Controls.Add(this.btnPrevPage);
-            this.Controls.Add(this.cbxWeek);
+            this.Controls.Add(this.cboWeek);
             this.Controls.Add(this.btnPrint);
             this.Controls.Add(this.lblThisWeek);
             this.Controls.Add(this.lblTask);
@@ -205,6 +252,7 @@ namespace SP21_Final_Project
             this.Controls.Add(this.btnRequestDayOff);
             this.Controls.Add(this.btnRequestTrade);
             this.Controls.Add(this.mnuBar);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.mnuBar;
             this.Name = "frmEmployees";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -231,9 +279,14 @@ namespace SP21_Final_Project
         private System.Windows.Forms.Label lblTask;
         private System.Windows.Forms.Label lblThisWeek;
         private System.Windows.Forms.Button btnPrint;
-        private System.Windows.Forms.ComboBox cbxWeek;
+        private System.Windows.Forms.ComboBox cboWeek;
         private System.Windows.Forms.Button btnPrevPage;
         private System.Windows.Forms.Button btnNextPage;
         private System.Windows.Forms.Label lblSpecials;
+        private System.Windows.Forms.ToolStripMenuItem mnuHelp;
+        private System.Windows.Forms.ToolStripMenuItem mnuSchedulesPrinting;
+        private System.Windows.Forms.ToolStripMenuItem mnuSpecials;
+        private System.Windows.Forms.ToolStripMenuItem mnuDayOffAndTrade;
+        private System.Windows.Forms.ToolStripMenuItem mnuChangeInformation;
     }
 }

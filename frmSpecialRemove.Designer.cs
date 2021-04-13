@@ -29,12 +29,15 @@ namespace SP21_Final_Project
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmSpecialRemove));
             this.btnRemove = new System.Windows.Forms.Button();
-            this.cbxToRemove = new System.Windows.Forms.ComboBox();
+            this.cboToRemove = new System.Windows.Forms.ComboBox();
             this.lblRemove = new System.Windows.Forms.Label();
             this.mnuBar = new System.Windows.Forms.MenuStrip();
             this.mnuFile = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuClose = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuHelp = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuRemoveSpecial = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuBar.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -48,13 +51,14 @@ namespace SP21_Final_Project
             this.btnRemove.UseVisualStyleBackColor = true;
             this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
             // 
-            // cbxToRemove
+            // cboToRemove
             // 
-            this.cbxToRemove.FormattingEnabled = true;
-            this.cbxToRemove.Location = new System.Drawing.Point(12, 40);
-            this.cbxToRemove.Name = "cbxToRemove";
-            this.cbxToRemove.Size = new System.Drawing.Size(204, 21);
-            this.cbxToRemove.TabIndex = 5;
+            this.cboToRemove.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboToRemove.FormattingEnabled = true;
+            this.cboToRemove.Location = new System.Drawing.Point(12, 40);
+            this.cboToRemove.Name = "cboToRemove";
+            this.cboToRemove.Size = new System.Drawing.Size(204, 21);
+            this.cboToRemove.TabIndex = 5;
             // 
             // lblRemove
             // 
@@ -68,7 +72,8 @@ namespace SP21_Final_Project
             // mnuBar
             // 
             this.mnuBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mnuFile});
+            this.mnuFile,
+            this.mnuHelp});
             this.mnuBar.Location = new System.Drawing.Point(0, 0);
             this.mnuBar.Name = "mnuBar";
             this.mnuBar.Size = new System.Drawing.Size(232, 24);
@@ -86,9 +91,24 @@ namespace SP21_Final_Project
             // mnuClose
             // 
             this.mnuClose.Name = "mnuClose";
-            this.mnuClose.Size = new System.Drawing.Size(180, 22);
+            this.mnuClose.Size = new System.Drawing.Size(103, 22);
             this.mnuClose.Text = "&Close";
             this.mnuClose.Click += new System.EventHandler(this.mnuClose_Click);
+            // 
+            // mnuHelp
+            // 
+            this.mnuHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuRemoveSpecial});
+            this.mnuHelp.Name = "mnuHelp";
+            this.mnuHelp.Size = new System.Drawing.Size(44, 20);
+            this.mnuHelp.Text = "&Help";
+            // 
+            // mnuRemoveSpecial
+            // 
+            this.mnuRemoveSpecial.Name = "mnuRemoveSpecial";
+            this.mnuRemoveSpecial.Size = new System.Drawing.Size(157, 22);
+            this.mnuRemoveSpecial.Text = "&Remove Special";
+            this.mnuRemoveSpecial.Click += new System.EventHandler(this.mnuRemoveSpecial_Click);
             // 
             // frmSpecialRemove
             // 
@@ -96,10 +116,11 @@ namespace SP21_Final_Project
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(232, 106);
             this.Controls.Add(this.btnRemove);
-            this.Controls.Add(this.cbxToRemove);
+            this.Controls.Add(this.cboToRemove);
             this.Controls.Add(this.lblRemove);
             this.Controls.Add(this.mnuBar);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.mnuBar;
             this.Name = "frmSpecialRemove";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -115,10 +136,12 @@ namespace SP21_Final_Project
         #endregion
 
         private System.Windows.Forms.Button btnRemove;
-        private System.Windows.Forms.ComboBox cbxToRemove;
+        private System.Windows.Forms.ComboBox cboToRemove;
         private System.Windows.Forms.Label lblRemove;
         private System.Windows.Forms.MenuStrip mnuBar;
         private System.Windows.Forms.ToolStripMenuItem mnuFile;
         private System.Windows.Forms.ToolStripMenuItem mnuClose;
+        private System.Windows.Forms.ToolStripMenuItem mnuHelp;
+        private System.Windows.Forms.ToolStripMenuItem mnuRemoveSpecial;
     }
 }

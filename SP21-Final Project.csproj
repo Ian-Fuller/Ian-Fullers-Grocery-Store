@@ -191,6 +191,7 @@
     <Compile Include="frmUpdateEmployee.Designer.cs">
       <DependentUpon>frmUpdateEmployee.cs</DependentUpon>
     </Compile>
+    <Compile Include="Help.cs" />
     <Compile Include="ProductPanel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

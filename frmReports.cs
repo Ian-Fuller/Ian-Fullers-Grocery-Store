@@ -20,10 +20,19 @@ namespace SP21_Final_Project
 
         private void frmReports_Load(object sender, EventArgs e)
         {
-            string[] arrTimePeriods = new string[] { "Daily", "Weekly", "Monthly" };
-            for(int intCurrentPeriod = 0; intCurrentPeriod < arrTimePeriods.Length; intCurrentPeriod++)
+            try
             {
-                cbxTimePeriod.Items.Add(arrTimePeriods[intCurrentPeriod]);
+                MaximizeBox = false;
+
+                string[] arrTimePeriods = new string[] { "Daily", "Weekly", "Monthly" };
+                for (int intCurrentPeriod = 0; intCurrentPeriod < arrTimePeriods.Length; intCurrentPeriod++)
+                {
+                    cboTimePeriod.Items.Add(arrTimePeriods[intCurrentPeriod]);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error loading form", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -31,9 +40,9 @@ namespace SP21_Final_Project
         {
             try
             {
-                using (StreamWriter writer = new StreamWriter(strFileName))
+                using (StreamWriter swWriter = new StreamWriter(strFileName))
                 {
-                    writer.WriteLine(html);
+                    swWriter.WriteLine(html);
                 }
                 System.Diagnostics.Process.Start(@strFileName);
             }
@@ -41,16 +50,23 @@ namespace SP21_Final_Project
             {
                 MessageBox.Show("You don't have write permissions", "Error System Permissions", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            DateTime today = DateTime.Now;
-            using (StreamWriter wr = new StreamWriter($"{today.ToString("yyyy-MM-dd-HHmmss")} - " + strFileName))
+            try
             {
-                wr.WriteLine(html);
+                DateTime dtToday = DateTime.Now;
+                using (StreamWriter swWriter = new StreamWriter($"{dtToday.ToString("yyyy-MM-dd-HHmmss")} - " + strFileName))
+                {
+                    swWriter.WriteLine(html);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void btnSalesReport_Click(object sender, EventArgs e)
         {
-            PrintReport(DB.GenerateSalesReport(cbxTimePeriod.Text, DateTime.Now), cbxTimePeriod.Text + "SalesReport.html");
+            PrintReport(DB.GenerateSalesReport(cboTimePeriod.Text, DateTime.Now), cboTimePeriod.Text + "SalesReport.html");
         }
 
         private void btnScheduleReport_Click(object sender, EventArgs e)
@@ -66,6 +82,11 @@ namespace SP21_Final_Project
         private void mnuClose_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void mnuReport_Click(object sender, EventArgs e)
+        {
+            Help.HelpReport();
         }
     }
 }

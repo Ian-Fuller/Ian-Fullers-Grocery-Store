@@ -27,17 +27,32 @@ namespace SP21_Final_Project
 
         private void btnRemove_Click(object sender, EventArgs e)
         {
-            DB.RemoveSpecial(lstNames[cbxToRemove.SelectedIndex], lstDiscounts[cbxToRemove.SelectedIndex]);
+            DB.RemoveSpecial(lstNames[cboToRemove.SelectedIndex], lstDiscounts[cboToRemove.SelectedIndex]);
+            frmMain.FillRefreshPanelData();
         }
 
         private void frmSpecialRemove_Load(object sender, EventArgs e)
         {
-            for (int intCurrentSpecial = 0; intCurrentSpecial < frmMain.lstSpecials.Count; intCurrentSpecial++)
+            try
             {
-                lstNames.Add(frmMain.lstSpecials[intCurrentSpecial].strProductName);
-                lstDiscounts.Add(frmMain.lstSpecials[intCurrentSpecial].intDiscount);
-                cbxToRemove.Items.Add(lstNames[intCurrentSpecial] + ", -" + lstDiscounts[intCurrentSpecial] + "%");
+                MaximizeBox = false;
+
+                for (int intCurrentSpecial = 0; intCurrentSpecial < frmMain.lstSpecials.Count; intCurrentSpecial++)
+                {
+                    lstNames.Add(frmMain.lstSpecials[intCurrentSpecial].strProductName);
+                    lstDiscounts.Add(frmMain.lstSpecials[intCurrentSpecial].intDiscount);
+                    cboToRemove.Items.Add(lstNames[intCurrentSpecial] + ", -" + lstDiscounts[intCurrentSpecial] + "%");
+                }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error retrieving data", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void mnuRemoveSpecial_Click(object sender, EventArgs e)
+        {
+            Help.HelpRemoveSpecial();
         }
     }
 }

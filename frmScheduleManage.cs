@@ -25,30 +25,65 @@ namespace SP21_Final_Project
         private void frmSheduleManage_Load(object sender, EventArgs e)
         {
             DB.GetRequests(dgvSchedules);
+
+            MaximizeBox = false;
         }
 
         private void btnAddSchedule_Click(object sender, EventArgs e)
         {
-            frmScheduleAdd add = new frmScheduleAdd();
-            add.ShowDialog();
+            try
+            {
+                frmScheduleAdd add = new frmScheduleAdd();
+                add.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unable to open form", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnUpdateSchedule_Click(object sender, EventArgs e)
         {
-            frmScheduleUpdate update = new frmScheduleUpdate();
-            update.ShowDialog();
+            try
+            {
+                frmScheduleUpdate update = new frmScheduleUpdate();
+                update.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unable to open form", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnRemoveSchedule_Click(object sender, EventArgs e)
         {
-            frmScheduleRemove remove = new frmScheduleRemove();
-            remove.ShowDialog();
+            try
+            {
+                frmScheduleRemove remove = new frmScheduleRemove();
+                remove.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unable to open form", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnRespond_Click(object sender, EventArgs e)
         {
-            frmRespond respond = new frmRespond();
-            respond.ShowDialog();
+            try
+            {
+                frmRespond respond = new frmRespond();
+                respond.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unable to open form", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void mnuManageSchedules_Click(object sender, EventArgs e)
+        {
+            Help.HelpScheduleManage();
         }
     }
 }

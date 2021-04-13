@@ -24,44 +24,66 @@ namespace SP21_Final_Project
 
         private void frmSpecialAdd_Load(object sender, EventArgs e)
         {
-            for (int intCurrentPanel = 0; intCurrentPanel < frmMain.lstPanels.Count; intCurrentPanel++)
+            try
             {
-                cbxProducts.Items.Add(frmMain.lstPanels[intCurrentPanel].strProductName);
+                MaximizeBox = false;
+
+                for (int intCurrentPanel = 0; intCurrentPanel < frmMain.lstPanels.Count; intCurrentPanel++)
+                {
+                    cboProducts.Items.Add(frmMain.lstPanels[intCurrentPanel].strProductName);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error retrieving data", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void btnAddSpecial_Click(object sender, EventArgs e)
         {
-            bool bolDiscountValid = true;
-            bool bolExtraDetailsValid = true;
+            try
+            {
+                bool bolDiscountValid = true;
+                bool bolExtraDetailsValid = true;
 
-            if(!Int32.TryParse(tbxDiscount.Text, out int intDiscount))
-            {
-                MessageBox.Show("Input discount as integer format.", "Add Special Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                bolDiscountValid = false;
-            }
-            if(tbxExtraDetails.Text.Length > 50)
-            {
-                MessageBox.Show("Extra details can only be 50 characters long.", "Add Special Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                bolExtraDetailsValid = false;
-            }
-
-            if(intDiscount < 0)
-            {
-                intDiscount *= -1;
-            }
-
-            if (bolDiscountValid && bolExtraDetailsValid)
-            {
-                try
+                if (!Int32.TryParse(tbxDiscount.Text, out int intDiscount))
                 {
-                    DB.AddSpecial(cbxProducts.Text, intDiscount, tbxExtraDetails.Text);
+                    MessageBox.Show("Input discount as integer format.", "Add Special Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    bolDiscountValid = false;
                 }
-                catch (Exception ex)
+                if (tbxExtraDetails.Text.Length > 50)
                 {
-                    MessageBox.Show("Failed to add special.", "Add Special Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Extra details can only be 50 characters long.", "Add Special Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    bolExtraDetailsValid = false;
+                }
+
+                if (intDiscount < 0)
+                {
+                    intDiscount *= -1;
+                }
+
+                if (bolDiscountValid && bolExtraDetailsValid)
+                {
+                    try
+                    {
+                        DB.AddSpecial(cboProducts.Text, intDiscount, tbxExtraDetails.Text);
+                        frmMain.FillRefreshPanelData();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Failed to add special.", "Add Special Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error creating special", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void addSpecialToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Help.HelpAddSpecial();
         }
     }
 }

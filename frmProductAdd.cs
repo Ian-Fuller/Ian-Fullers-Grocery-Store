@@ -29,16 +29,16 @@ namespace SP21_Final_Project
         {
             try
             {
-                OpenFileDialog openFile = new OpenFileDialog();
-                openFile.ValidateNames = true;
-                openFile.AddExtension = false;
-                openFile.Filter = "Image File|*.png|Image File|*.jpg";
-                openFile.Title = "File to Upload";
+                OpenFileDialog ofdImagePicker = new OpenFileDialog();
+                ofdImagePicker.ValidateNames = true;
+                ofdImagePicker.AddExtension = false;
+                ofdImagePicker.Filter = "Image File|*.png|Image File|*.jpg";
+                ofdImagePicker.Title = "File to Upload";
 
-                if (openFile.ShowDialog() == DialogResult.OK)
+                if (ofdImagePicker.ShowDialog() == DialogResult.OK)
                 {
-                    pbxProductImage.Image = new Bitmap(openFile.FileName);
-                    arrBytes = File.ReadAllBytes(openFile.FileName);
+                    pbxProductImage.Image = new Bitmap(ofdImagePicker.FileName);
+                    arrBytes = File.ReadAllBytes(ofdImagePicker.FileName);
                 }
             }
             catch(Exception ex)
@@ -49,53 +49,61 @@ namespace SP21_Final_Project
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            bool bolNameValid = true;
-            bool bolPriceValid = true;
-            bool bolSizeValid = true;
-            bool bolStockValid = true;
-            bool bolHasImage = true;
-            bool bolWholesaleValid = true;
+            try
+            {
+                bool bolNameValid = true;
+                bool bolPriceValid = true;
+                bool bolSizeValid = true;
+                bool bolStockValid = true;
+                bool bolHasImage = true;
+                bool bolWholesaleValid = true;
 
-            if(tbxName.Text == "" || tbxPrice.Text == "" || tbxSize.Text =="" || tbxStock.Text == "")
-            {
-                MessageBox.Show("Please put data in all boxes.", "Error Adding Product", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+                if (tbxName.Text == "" || tbxPrice.Text == "" || tbxSize.Text == "" || tbxStock.Text == "")
+                {
+                    MessageBox.Show("Please put data in all boxes.", "Error Adding Product", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
 
-            if(tbxName.Text.Length > 50)
-            {
-                bolNameValid = false;
-                MessageBox.Show("Product name can only be 50 characters long.", "Error Adding Product", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            if(!Double.TryParse(tbxPrice.Text, out double dblPrice) && !tbxPrice.Text.Contains('-'))
-            {
-                bolPriceValid = false;
-                MessageBox.Show("Product price must be a positive decimal value.", "Error Adding Product", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            if (tbxSize.Text.Length > 20)
-            {
-                bolSizeValid = false;
-                MessageBox.Show("Product size can only be 20 characters long.", "Error Adding Product", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            if (!Int32.TryParse(tbxStock.Text, out int intStock))
-            {
-                bolStockValid = false;
-                MessageBox.Show("Product units in stock must be an integer value.", "Error Adding Product", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            if (pbxProductImage == null)
-            {
-                bolHasImage = false;
-                MessageBox.Show("Product must have an an image", "Error Adding Product", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            if (!Double.TryParse(tbxWholesalePrice.Text, out double dblWholesalePrice) && !tbxPrice.Text.Contains('-'))
-            {
-                bolWholesaleValid = false;
-                MessageBox.Show("Wholesale price must be a positive decimal value.", "Error Adding Product", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+                if (tbxName.Text.Length > 50)
+                {
+                    bolNameValid = false;
+                    MessageBox.Show("Product name can only be 50 characters long.", "Error Adding Product", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                if (!Double.TryParse(tbxPrice.Text, out double dblPrice) && !tbxPrice.Text.Contains('-'))
+                {
+                    bolPriceValid = false;
+                    MessageBox.Show("Product price must be a positive decimal value.", "Error Adding Product", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                if (tbxSize.Text.Length > 20)
+                {
+                    bolSizeValid = false;
+                    MessageBox.Show("Product size can only be 20 characters long.", "Error Adding Product", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                if (!Int32.TryParse(tbxStock.Text, out int intStock))
+                {
+                    bolStockValid = false;
+                    MessageBox.Show("Product units in stock must be an integer value.", "Error Adding Product", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                if (pbxProductImage == null)
+                {
+                    bolHasImage = false;
+                    MessageBox.Show("Product must have an an image", "Error Adding Product", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                if (!Double.TryParse(tbxWholesalePrice.Text, out double dblWholesalePrice) && !tbxPrice.Text.Contains('-'))
+                {
+                    bolWholesaleValid = false;
+                    MessageBox.Show("Wholesale price must be a positive decimal value.", "Error Adding Product", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
 
-            if (bolNameValid && bolPriceValid && bolSizeValid && bolStockValid && bolHasImage && bolWholesaleValid)
+                if (bolNameValid && bolPriceValid && bolSizeValid && bolStockValid && bolHasImage && bolWholesaleValid)
+                {
+                    DB.AddNewProduct(tbxName.Text, dblPrice, tbxSize.Text, intStock, arrBytes);
+                    frmMain.FillRefreshPanelData();
+                    PrintReport(DB.GenerateManagerPurchaseReceipt(tbxName.Text, intStock, dblPrice), "ManagerPurchaseReceipt.html");
+                }
+            }
+            catch (Exception ex)
             {
-                DB.AddNewProduct(tbxName.Text, dblPrice, tbxSize.Text, intStock, arrBytes);
-                PrintReport(DB.GenerateManagerPurchaseReceipt(tbxName.Text, intStock, dblPrice), "ManagerPurchaseReceipt.html");
+                MessageBox.Show("Error adding product", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -118,6 +126,16 @@ namespace SP21_Final_Project
             {
                 wr.WriteLine(html);
             }
+        }
+
+        private void mnuAddProduct_Click(object sender, EventArgs e)
+        {
+            Help.HelpAddProduct();
+        }
+
+        private void frmProductAdd_Load(object sender, EventArgs e)
+        {
+            MaximizeBox = false;
         }
     }
 }

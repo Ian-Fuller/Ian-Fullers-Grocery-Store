@@ -29,13 +29,16 @@ namespace SP21_Final_Project
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmProductUpdate));
             this.mnuBar = new System.Windows.Forms.MenuStrip();
             this.mnuFile = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuClose = new System.Windows.Forms.ToolStripMenuItem();
+            this.heloToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuUpdateProduct = new System.Windows.Forms.ToolStripMenuItem();
             this.lblProduct = new System.Windows.Forms.Label();
-            this.cbxProduct = new System.Windows.Forms.ComboBox();
+            this.cboProduct = new System.Windows.Forms.ComboBox();
             this.lblSet = new System.Windows.Forms.Label();
-            this.cbxColumnName = new System.Windows.Forms.ComboBox();
+            this.cboColumnName = new System.Windows.Forms.ComboBox();
             this.lblTo = new System.Windows.Forms.Label();
             this.tbxNewValue = new System.Windows.Forms.TextBox();
             this.btnUpdate = new System.Windows.Forms.Button();
@@ -48,7 +51,8 @@ namespace SP21_Final_Project
             // mnuBar
             // 
             this.mnuBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mnuFile});
+            this.mnuFile,
+            this.heloToolStripMenuItem});
             this.mnuBar.Location = new System.Drawing.Point(0, 0);
             this.mnuBar.Name = "mnuBar";
             this.mnuBar.Size = new System.Drawing.Size(322, 24);
@@ -66,9 +70,24 @@ namespace SP21_Final_Project
             // mnuClose
             // 
             this.mnuClose.Name = "mnuClose";
-            this.mnuClose.Size = new System.Drawing.Size(180, 22);
+            this.mnuClose.Size = new System.Drawing.Size(103, 22);
             this.mnuClose.Text = "&Close";
             this.mnuClose.Click += new System.EventHandler(this.mnuClose_Click);
+            // 
+            // heloToolStripMenuItem
+            // 
+            this.heloToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuUpdateProduct});
+            this.heloToolStripMenuItem.Name = "heloToolStripMenuItem";
+            this.heloToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.heloToolStripMenuItem.Text = "&Help";
+            // 
+            // mnuUpdateProduct
+            // 
+            this.mnuUpdateProduct.Name = "mnuUpdateProduct";
+            this.mnuUpdateProduct.Size = new System.Drawing.Size(157, 22);
+            this.mnuUpdateProduct.Text = "&Update Product";
+            this.mnuUpdateProduct.Click += new System.EventHandler(this.mnuUpdateProduct_Click);
             // 
             // lblProduct
             // 
@@ -79,13 +98,14 @@ namespace SP21_Final_Project
             this.lblProduct.TabIndex = 1;
             this.lblProduct.Text = "Product to update:";
             // 
-            // cbxProduct
+            // cboProduct
             // 
-            this.cbxProduct.FormattingEnabled = true;
-            this.cbxProduct.Location = new System.Drawing.Point(113, 31);
-            this.cbxProduct.Name = "cbxProduct";
-            this.cbxProduct.Size = new System.Drawing.Size(121, 21);
-            this.cbxProduct.TabIndex = 2;
+            this.cboProduct.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboProduct.FormattingEnabled = true;
+            this.cboProduct.Location = new System.Drawing.Point(113, 31);
+            this.cboProduct.Name = "cboProduct";
+            this.cboProduct.Size = new System.Drawing.Size(121, 21);
+            this.cboProduct.TabIndex = 2;
             // 
             // lblSet
             // 
@@ -96,27 +116,28 @@ namespace SP21_Final_Project
             this.lblSet.TabIndex = 3;
             this.lblSet.Text = "Set";
             // 
-            // cbxColumnName
+            // cboColumnName
             // 
-            this.cbxColumnName.FormattingEnabled = true;
-            this.cbxColumnName.Location = new System.Drawing.Point(42, 68);
-            this.cbxColumnName.Name = "cbxColumnName";
-            this.cbxColumnName.Size = new System.Drawing.Size(121, 21);
-            this.cbxColumnName.TabIndex = 4;
-            this.cbxColumnName.SelectedIndexChanged += new System.EventHandler(this.cbxColumnName_SelectedIndexChanged);
+            this.cboColumnName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboColumnName.FormattingEnabled = true;
+            this.cboColumnName.Location = new System.Drawing.Point(42, 68);
+            this.cboColumnName.Name = "cboColumnName";
+            this.cboColumnName.Size = new System.Drawing.Size(121, 21);
+            this.cboColumnName.TabIndex = 4;
+            this.cboColumnName.SelectedIndexChanged += new System.EventHandler(this.cbxColumnName_SelectedIndexChanged);
             // 
             // lblTo
             // 
             this.lblTo.AutoSize = true;
             this.lblTo.Location = new System.Drawing.Point(169, 71);
             this.lblTo.Name = "lblTo";
-            this.lblTo.Size = new System.Drawing.Size(20, 13);
+            this.lblTo.Size = new System.Drawing.Size(23, 13);
             this.lblTo.TabIndex = 5;
-            this.lblTo.Text = "To";
+            this.lblTo.Text = "To:";
             // 
             // tbxNewValue
             // 
-            this.tbxNewValue.Location = new System.Drawing.Point(195, 68);
+            this.tbxNewValue.Location = new System.Drawing.Point(199, 68);
             this.tbxNewValue.Name = "tbxNewValue";
             this.tbxNewValue.Size = new System.Drawing.Size(100, 20);
             this.tbxNewValue.TabIndex = 6;
@@ -133,7 +154,7 @@ namespace SP21_Final_Project
             // 
             // pbxProductImage
             // 
-            this.pbxProductImage.Location = new System.Drawing.Point(195, 95);
+            this.pbxProductImage.Location = new System.Drawing.Point(199, 95);
             this.pbxProductImage.Name = "pbxProductImage";
             this.pbxProductImage.Size = new System.Drawing.Size(100, 100);
             this.pbxProductImage.TabIndex = 8;
@@ -142,7 +163,7 @@ namespace SP21_Final_Project
             // 
             // btnSelectImage
             // 
-            this.btnSelectImage.Location = new System.Drawing.Point(195, 68);
+            this.btnSelectImage.Location = new System.Drawing.Point(199, 68);
             this.btnSelectImage.Name = "btnSelectImage";
             this.btnSelectImage.Size = new System.Drawing.Size(100, 23);
             this.btnSelectImage.TabIndex = 9;
@@ -161,12 +182,13 @@ namespace SP21_Final_Project
             this.Controls.Add(this.btnUpdate);
             this.Controls.Add(this.tbxNewValue);
             this.Controls.Add(this.lblTo);
-            this.Controls.Add(this.cbxColumnName);
+            this.Controls.Add(this.cboColumnName);
             this.Controls.Add(this.lblSet);
-            this.Controls.Add(this.cbxProduct);
+            this.Controls.Add(this.cboProduct);
             this.Controls.Add(this.lblProduct);
             this.Controls.Add(this.mnuBar);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.mnuBar;
             this.Name = "frmProductUpdate";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -186,13 +208,15 @@ namespace SP21_Final_Project
         private System.Windows.Forms.ToolStripMenuItem mnuFile;
         private System.Windows.Forms.ToolStripMenuItem mnuClose;
         private System.Windows.Forms.Label lblProduct;
-        private System.Windows.Forms.ComboBox cbxProduct;
+        private System.Windows.Forms.ComboBox cboProduct;
         private System.Windows.Forms.Label lblSet;
-        private System.Windows.Forms.ComboBox cbxColumnName;
+        private System.Windows.Forms.ComboBox cboColumnName;
         private System.Windows.Forms.Label lblTo;
         private System.Windows.Forms.TextBox tbxNewValue;
         private System.Windows.Forms.Button btnUpdate;
         private System.Windows.Forms.PictureBox pbxProductImage;
         private System.Windows.Forms.Button btnSelectImage;
+        private System.Windows.Forms.ToolStripMenuItem heloToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mnuUpdateProduct;
     }
 }

@@ -29,9 +29,12 @@ namespace SP21_Final_Project
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmManagers));
             this.mnuBar = new System.Windows.Forms.MenuStrip();
             this.mnuFile = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuClose = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuHelp = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuManagersMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.btnManageProducts = new System.Windows.Forms.Button();
             this.btnManageSpecials = new System.Windows.Forms.Button();
             this.btnEmployeeScheduling = new System.Windows.Forms.Button();
@@ -42,7 +45,8 @@ namespace SP21_Final_Project
             // mnuBar
             // 
             this.mnuBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mnuFile});
+            this.mnuFile,
+            this.mnuHelp});
             this.mnuBar.Location = new System.Drawing.Point(0, 0);
             this.mnuBar.Name = "mnuBar";
             this.mnuBar.Size = new System.Drawing.Size(219, 24);
@@ -63,6 +67,21 @@ namespace SP21_Final_Project
             this.mnuClose.Size = new System.Drawing.Size(103, 22);
             this.mnuClose.Text = "&Close";
             this.mnuClose.Click += new System.EventHandler(this.mnuClose_Click);
+            // 
+            // mnuHelp
+            // 
+            this.mnuHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuManagersMenu});
+            this.mnuHelp.Name = "mnuHelp";
+            this.mnuHelp.Size = new System.Drawing.Size(44, 20);
+            this.mnuHelp.Text = "&Help";
+            // 
+            // mnuManagersMenu
+            // 
+            this.mnuManagersMenu.Name = "mnuManagersMenu";
+            this.mnuManagersMenu.Size = new System.Drawing.Size(160, 22);
+            this.mnuManagersMenu.Text = "&Managers Menu";
+            this.mnuManagersMenu.Click += new System.EventHandler(this.mnuManagersMenu_Click);
             // 
             // btnManageProducts
             // 
@@ -114,10 +133,12 @@ namespace SP21_Final_Project
             this.Controls.Add(this.btnManageSpecials);
             this.Controls.Add(this.btnManageProducts);
             this.Controls.Add(this.mnuBar);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.mnuBar;
             this.Name = "frmManagers";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Managers Menu";
+            this.Load += new System.EventHandler(this.frmManagers_Load);
             this.mnuBar.ResumeLayout(false);
             this.mnuBar.PerformLayout();
             this.ResumeLayout(false);
@@ -134,5 +155,7 @@ namespace SP21_Final_Project
         private System.Windows.Forms.Button btnManageSpecials;
         private System.Windows.Forms.Button btnEmployeeScheduling;
         private System.Windows.Forms.Button btnPrintReports;
+        private System.Windows.Forms.ToolStripMenuItem mnuHelp;
+        private System.Windows.Forms.ToolStripMenuItem mnuManagersMenu;
     }
 }
