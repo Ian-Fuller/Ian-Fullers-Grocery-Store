@@ -32,6 +32,7 @@ namespace SP21_Final_Project
 
                 lstRequests = DB.GetRequests();
 
+                //Fills the first combo box with the requests
                 for (int intCurrentID = 0; intCurrentID < lstRequests.Count; intCurrentID++)
                 {
                     cboID.Items.Add(lstRequests[intCurrentID][0]);
@@ -40,6 +41,7 @@ namespace SP21_Final_Project
 
                 tbxRequest.Text = lstRequests[0][1];
 
+                //Fills the second combo box with responses
                 cboStatus.Items.Add("Unread");
                 cboStatus.Items.Add("Accepted");
                 cboStatus.Items.Add("Declined");
@@ -55,6 +57,7 @@ namespace SP21_Final_Project
         {
             try
             {
+                //fills the textbox and second combo box with new data when the first combo box is changed
                 tbxRequest.Text = lstRequests[cboID.SelectedIndex][1];
                 cboStatus.Text = lstRequests[cboID.SelectedIndex][2];
             }

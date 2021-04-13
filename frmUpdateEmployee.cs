@@ -28,8 +28,8 @@ namespace SP21_Final_Project
             {
                 MaximizeBox = false;
 
+                //Fills textboxes with employee's data
                 string[] arrInfo = DB.GetEmployeeInformation(frmLogin.strCurrentUser);
-
                 tbxFirstName.Text = arrInfo[0];
                 tbxLastName.Text = arrInfo[1];
                 tbxAddress.Text = arrInfo[2];

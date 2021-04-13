@@ -24,6 +24,7 @@ namespace SP21_Final_Project
             {
                 MaximizeBox = false;
 
+                //Fills combo box with time period options
                 string[] arrTimePeriods = new string[] { "Daily", "Weekly", "Monthly" };
                 for (int intCurrentPeriod = 0; intCurrentPeriod < arrTimePeriods.Length; intCurrentPeriod++)
                 {
@@ -36,6 +37,7 @@ namespace SP21_Final_Project
             }
         }
 
+        //Used to print the report onf the selected type
         private void PrintReport(StringBuilder html, string strFileName)
         {
             try

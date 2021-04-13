@@ -31,6 +31,7 @@ namespace SP21_Final_Project
             {
                 MaximizeBox = false;
 
+                //Fills the first combo box with the current specials
                 for (int intCurrentSpecial = 0; intCurrentSpecial < frmMain.lstSpecials.Count; intCurrentSpecial++)
                 {
                     lstNames.Add(frmMain.lstSpecials[intCurrentSpecial].strProductName);
@@ -38,12 +39,14 @@ namespace SP21_Final_Project
                     cboSpecials.Items.Add(lstNames[intCurrentSpecial] + ", -" + lstDiscounts[intCurrentSpecial] + "%");
                 }
 
+                //Fills the second combo box with the column names
                 string[] arrColumns = new string[] { "Product", "PriceDiscounted", "ExtraDetails" };
                 for (int intCurrentColumn = 0; intCurrentColumn < arrColumns.Length; intCurrentColumn++)
                 {
                     cboColumnName.Items.Add(arrColumns[intCurrentColumn]);
                 }
 
+                //If the product column is the one that is to be changed, this combo box will be filled with the list of products
                 for (int intCurrentPanel = 0; intCurrentPanel < frmMain.lstPanels.Count; intCurrentPanel++)
                 {
                     cboProduct.Items.Add(frmMain.lstPanels[intCurrentPanel].strProductName);
@@ -59,6 +62,7 @@ namespace SP21_Final_Project
         {
             try
             {
+                //Changes the type of input field based on the column that is selected
                 if (cboColumnName.Text == "Product")
                 {
                     cboProduct.Visible = true;

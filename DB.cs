@@ -739,7 +739,7 @@ namespace SP21_Final_Project
 
             return html;
         }
-
+        //Generates a report of all the employee schedules
         public static StringBuilder GenerateScheduleReport()
         {
             StringBuilder html = new StringBuilder();
@@ -806,7 +806,7 @@ namespace SP21_Final_Project
 
             return html;
         }
-
+        //Generates a report that adds all of the sales from the Invoices table
         public static StringBuilder GenerateSalesReport(string strPeriod, DateTime dtToday)
         {
             StringBuilder html = new StringBuilder();
@@ -881,7 +881,7 @@ namespace SP21_Final_Project
 
             return html;
         }
-
+        //Generates a report that totals the managers purchases
         public static StringBuilder GenerateManagerPurchaseReceipt(string strProductName, int intQuantity, double dblPrice)
         {
             StringBuilder html = new StringBuilder();
@@ -953,7 +953,7 @@ namespace SP21_Final_Project
         }
 
         //REPORTS END---------------------------------------------------------------------------------------------------------------------------------------------------------
-
+        //Fills the textboxes on frmUpdateEmployee so the employee knows what they are changing
         public static string[] GetEmployeeInformation(string strCurrentUser)
         {
             string[] arrEmployeeInfo = { "", "", "", "", "" };
@@ -985,7 +985,7 @@ namespace SP21_Final_Project
 
             return arrEmployeeInfo;
         }
-
+        //Updates the employee's information
         public static void UpdateEmployeeInformation(string strCurrentUser, string strNewFName, string strNewLName, string strNewAddress, string strNewUsername, string strNewPassword)
         {
             try
@@ -1171,7 +1171,7 @@ namespace SP21_Final_Project
                 MessageBox.Show("Cannot remove schedule", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
+        //Updates schedule
         public static void UpdateSchedule(string strFName, string strLName, string strSunday, string strMonday, string strTuesday, string strWednesday, string strThursday, string strFriday, string strSaturday, string strDate)
         {
             try
@@ -1196,6 +1196,7 @@ namespace SP21_Final_Project
         //SCHEDULING END---------------------------------------------------------------------------------------------------------------------------------------------
         
         //REQUESTS START----------------------------------------------------------------------------------------------------------------------------------------------
+        //Generates a request based on the type of request that was apssed in
         public static void MakeRequest(string strUsername, string strRequestType, string strRequest)
         {
             try
@@ -1223,7 +1224,7 @@ namespace SP21_Final_Project
                 MessageBox.Show("Error requesting change", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
+        //gets requests so managers can see them
         public static List<string[]> GetRequests()
         {
             List<string[]> lstRequests = new List<string[]>();
@@ -1257,7 +1258,7 @@ namespace SP21_Final_Project
 
             return lstRequests;
         }
-
+        //Updates a request's status when a manager responds to it
         public static void UpdateRequest(int intRequestID, string strNewStatus)
         {
             try
@@ -1274,7 +1275,7 @@ namespace SP21_Final_Project
             }
         }
         //REQUESTS END----------------------------------------------------------------------------------------------------------------------------------------------
-
+        //Updates the users password when they request a password recovery
         public static void UpdatePassword(string strUsername, string strNewPassword)
         {
             try
@@ -1294,7 +1295,7 @@ namespace SP21_Final_Project
                 MessageBox.Show("Error updating and sending password", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
+        //Requces the quantity of a product when the customer makes a purchase
         public static bool ReduceProductQuantity(List<ProductPanel> lstProducts, List<int> lstQuantities)
         {
             List<int> lstNewQuantities = new List<int>();

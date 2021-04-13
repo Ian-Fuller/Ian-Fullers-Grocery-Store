@@ -37,6 +37,7 @@ namespace SP21_Final_Project
             {
                 MaximizeBox = false;
 
+                //Fills the combo box with the current specials
                 for (int intCurrentSpecial = 0; intCurrentSpecial < frmMain.lstSpecials.Count; intCurrentSpecial++)
                 {
                     lstNames.Add(frmMain.lstSpecials[intCurrentSpecial].strProductName);

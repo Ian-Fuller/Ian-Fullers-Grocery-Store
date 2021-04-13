@@ -52,16 +52,17 @@ namespace SP21_Final_Project
             btnMoreInfo.Click += new EventHandler(btnMoreInfo_ClickSpecial);
         }
 
+        //Overrides ShowPanel to use a panel as the paramater
         public void ShowPanel(Panel pnlParent)
         {
             pnlParent.Controls.Add(pnlParentPanel);
         }
-
+        //Overrides HidePanel to use a panel as the paramater
         public void HidePanel(Panel pnlParent)
         {
             pnlParent.Controls.Remove(pnlParentPanel);
         }
-
+        //Overrides the other function to add extra info to it
         void btnMoreInfo_ClickSpecial(object sender, EventArgs e)
         {
             frmMoreInfo moreInfo = new frmMoreInfo(pbxProductImage.Image,
@@ -73,7 +74,7 @@ namespace SP21_Final_Project
                                                    "Extra details: " + strExtraDetails);
             moreInfo.ShowDialog();
         }
-
+        //Returns discount
         public override int GetDiscount()
         {
             return intDiscount;

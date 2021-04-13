@@ -22,6 +22,7 @@ namespace SP21_Final_Project
         {
             try
             {
+                //If proper input is entered, then an email will be generated and sent
                 if (tbxUsername.Text == "" || tbxEmailAddress.Text == "")
                 {
                     MessageBox.Show("Both fields must be filled.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);

@@ -28,6 +28,7 @@ namespace SP21_Final_Project
             {
                 MaximizeBox = false;
 
+                //Fills combo box with products
                 for (int intCurrentPanel = 0; intCurrentPanel < frmMain.lstPanels.Count; intCurrentPanel++)
                 {
                     cboProducts.Items.Add(frmMain.lstPanels[intCurrentPanel].strProductName);
@@ -43,6 +44,7 @@ namespace SP21_Final_Project
         {
             try
             {
+                //If both of these are still true by the time they get through the if statements, then the special will be created
                 bool bolDiscountValid = true;
                 bool bolExtraDetailsValid = true;
 

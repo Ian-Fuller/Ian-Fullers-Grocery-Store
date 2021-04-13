@@ -10,6 +10,7 @@ namespace SP21_Final_Project
 {
     class Help
     {
+        //Used to make generating new help files quicker
         public static StringBuilder HelpTemplate(string strHeader, string strBody)
         {
             try
@@ -42,6 +43,7 @@ namespace SP21_Final_Project
             }
         }
 
+        //Prints the help file
         public static void PrintHelp(StringBuilder html, string strFileName)
         {
             try

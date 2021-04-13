@@ -26,6 +26,7 @@ namespace SP21_Final_Project
             {
                 MaximizeBox = false;
 
+                //Fills the list box with the items in the cart
                 if (lstCart.Count > 0)
                 {
                     for (int intCurrentItem = 0; intCurrentItem < lstCart.Count; intCurrentItem++)
@@ -54,6 +55,7 @@ namespace SP21_Final_Project
             this.Close();
         }
 
+        //Removes item from cart
         private void btnRemove_Click(object sender, EventArgs e)
         {
             try
@@ -79,6 +81,7 @@ namespace SP21_Final_Project
         {
             try
             {
+                //Updates data displayed when selected product is changed
                 if (lbxItemsInCart.SelectedIndex >= 0)
                 {
                     pbxProductImage.Image = lstCart[lbxItemsInCart.SelectedIndex].pbxProductImage.Image;
@@ -105,7 +108,7 @@ namespace SP21_Final_Project
         {
             try
             {
-                if (tbxCity.Text.Length <= 100 && tbxAddress.Text.Length <= 100)
+                if (tbxCity.Text.Length <= 100 && tbxAddress.Text.Length <= 100) //Validates input
                 {
                     if (DB.ReduceProductQuantity(lstCart, lstQuantities))
                     {

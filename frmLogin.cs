@@ -23,7 +23,7 @@ namespace SP21_Final_Project
         {
             try
             {
-                if (tbxUsername.Text.Length <= 30 && tbxPassword.Text.Length <= 30)
+                if (tbxUsername.Text.Length <= 30 && tbxPassword.Text.Length <= 30) //Validates input
                 {
                     string strUserType = DB.Login(tbxUsername.Text, tbxPassword.Text);
                     if (strUserType == "Employee")

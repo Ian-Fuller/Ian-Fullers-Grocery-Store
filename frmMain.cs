@@ -85,6 +85,7 @@ namespace SP21_Final_Project
         {
             try
             {
+                //Clears lists and removes panels from the form
                 lstPanels.Clear();
                 for (int intCurrentGroup = 0; intCurrentGroup < lstPanelGroups.Count; intCurrentGroup++)
                 {

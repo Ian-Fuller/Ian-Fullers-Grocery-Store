@@ -24,6 +24,7 @@ namespace SP21_Final_Project
             {
                 MaximizeBox = false;
 
+                //Adds proucts of frmMain to the combo box
                 for (int intCurrentPanel = 0; intCurrentPanel < frmMain.lstPanels.Count; intCurrentPanel++)
                 {
                     cboToRemove.Items.Add(frmMain.lstPanels[intCurrentPanel].strProductName);

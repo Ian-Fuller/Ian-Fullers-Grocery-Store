@@ -26,12 +26,14 @@ namespace SP21_Final_Project
             {
                 MaximizeBox = false;
 
+                //Fills the first combo box with the names of the employees
                 lstEmployeeNames = DB.GetEmployeeNames();
                 for (int intCurrentName = 0; intCurrentName < lstEmployeeNames.Count; intCurrentName++)
                 {
                     cboEmployee.Items.Add(lstEmployeeNames[intCurrentName][0] + " " + lstEmployeeNames[intCurrentName][1]);
                 }
 
+                //Generates dates for the start (sunday) of this week, and next week
                 DateTime dtToday = DateTime.Now;
                 switch (DateTime.Now.DayOfWeek.ToString())
                 {
@@ -62,6 +64,7 @@ namespace SP21_Final_Project
                 arrDates[1] = $"{dtNextWeek.Year.ToString()}-{DB.FormatDayOrMonth(dtNextWeek.Month.ToString())}-{DB.FormatDayOrMonth(dtNextWeek.Day.ToString())}";
                 //strStartDate = "'" + today.Year.ToString() + "-" + FormatDayOrMonth(today.Month.ToString()) + "-" + FormatDayOrMonth(today.Day.ToString()) + "'";
 
+                //Fills the second combo box with the options for this week and next week
                 cboWeek.Items.Add($"This Week ({arrDates[0]})");
                 cboWeek.Items.Add($"Next Week ({arrDates[1]})");
             }
@@ -80,6 +83,7 @@ namespace SP21_Final_Project
         {
             try
             {
+                //Creates the schedule as long as none of the fields are left blank, and none of them are too long
                 if (cboEmployee.Text != "" && tbxSunday.Text != "" && tbxMonday.Text != "" && tbxTuesday.Text != "" && tbxWednesday.Text != "" && tbxThursday.Text != "" && tbxFriday.Text != "" && tbxSaturday.Text != "" && cboWeek.Text != "")
                 {
                     if (tbxSunday.Text.Length <= 100 && tbxMonday.Text.Length <= 100 && tbxTuesday.Text.Length <= 100 && tbxWednesday.Text.Length <= 100 && tbxThursday.Text.Length <= 100 && tbxFriday.Text.Length <= 100 && tbxSaturday.Text.Length <= 100)

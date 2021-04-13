@@ -93,20 +93,23 @@ namespace SP21_Final_Project
             pnlParentPanel.Controls.Add(btnAdd);
         }
 
+        //Sets the left and top position of the panel
         public void SetPosition(int intLeft, int intTop)
         {
             pnlParentPanel.Left = intLeft;
             pnlParentPanel.Top = intTop;
         }
+        //Adds the panels to the parent
         public void ShowPanel(Form frmParentForm)
         {
             frmParentForm.Controls.Add(pnlParentPanel);
         }
+        //Removes the panels from the parent
         public void HidePanel(Form frmParentForm)
         {
             frmParentForm.Controls.Remove(pnlParentPanel);
         }
-
+        //Creates a new frmMoreInfo based on the panel's information and hidden information
         public void btnMoreInfo_Click(object sender, EventArgs e)
         {
             frmMoreInfo moreInfo = new frmMoreInfo(pbxProductImage.Image,
@@ -117,6 +120,7 @@ namespace SP21_Final_Project
                                                    "Units in stock: " + intUnitsInStock);
             moreInfo.ShowDialog();
         }
+        //Adds the product to the cart
         public void btnAdd_Click(object sender, EventArgs e)
         {
             bool inCart = false;
@@ -136,23 +140,23 @@ namespace SP21_Final_Project
                 frmShoppingCart.lstQuantities.Add(1);
             }
         }
-
+        //This is more important for the SpecialPanel class, but I am inexperienced with polymorphism in C#
         public virtual int GetDiscount()
         {
             return 0;
         }
-
+        //Removes the buttons in case the product only needs to be shown
         public void SetButtonVisibility(bool bolOnOff)
         {
             btnAdd.Visible = bolOnOff;
             btnMoreInfo.Visible = bolOnOff;
         }
-
+        //Like the hide panel function, but gets rid of the panel
         public void RemoveFromParent(Form frmParentForm)
         {
             frmParentForm.Controls.Remove(pnlParentPanel);
         }
-
+        //Formats currency to $X.XX
         public static string FormatCurrency(double dblPrice)
         {
             try

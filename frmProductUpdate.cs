@@ -72,11 +72,13 @@ namespace SP21_Final_Project
             {
                 MaximizeBox = false;
 
+                //Fills first combo box with products from frmMain
                 for (int intCurrentPanel = 0; intCurrentPanel < frmMain.lstPanels.Count; intCurrentPanel++)
                 {
                     cboProduct.Items.Add(frmMain.lstPanels[intCurrentPanel].strProductName);
                 }
 
+                //Fills second combo box with the different columns that can be changed
                 string[] arrColumns = new string[] { "ProductName", "Price", "Size", "UnitsInStock", "ProductImage" };
                 for (int intCurrentColumn = 0; intCurrentColumn < arrColumns.Length; intCurrentColumn++)
                 {
@@ -93,6 +95,7 @@ namespace SP21_Final_Project
         {
             try
             {
+                //Refreshes the input area based on what column is selected
                 if (cboColumnName.Text == "ProductImage")
                 {
                     tbxNewValue.Visible = false;

@@ -51,6 +51,7 @@ namespace SP21_Final_Project
         {
             try
             {
+                //Goes through all of the input fields, and iff all of these remain true, then the input is valid
                 bool bolNameValid = true;
                 bool bolPriceValid = true;
                 bool bolSizeValid = true;
@@ -107,6 +108,7 @@ namespace SP21_Final_Project
             }
         }
 
+        //used for printing manager purchase receipt
         private void PrintReport(StringBuilder html, string strFileName)
         {
             try
