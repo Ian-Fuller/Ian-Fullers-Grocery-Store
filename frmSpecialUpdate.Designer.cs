@@ -52,7 +52,7 @@ namespace SP21_Final_Project
             this.cboSpecials.Location = new System.Drawing.Point(12, 27);
             this.cboSpecials.Name = "cboSpecials";
             this.cboSpecials.Size = new System.Drawing.Size(171, 21);
-            this.cboSpecials.TabIndex = 0;
+            this.cboSpecials.TabIndex = 1;
             // 
             // mnuBar
             // 
@@ -118,7 +118,7 @@ namespace SP21_Final_Project
             this.cboColumnName.Location = new System.Drawing.Point(41, 68);
             this.cboColumnName.Name = "cboColumnName";
             this.cboColumnName.Size = new System.Drawing.Size(121, 21);
-            this.cboColumnName.TabIndex = 11;
+            this.cboColumnName.TabIndex = 2;
             this.cboColumnName.SelectedIndexChanged += new System.EventHandler(this.cbxColumnName_SelectedIndexChanged);
             // 
             // lblSet
@@ -135,7 +135,7 @@ namespace SP21_Final_Project
             this.btnUpdate.Location = new System.Drawing.Point(86, 113);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(128, 43);
-            this.btnUpdate.TabIndex = 14;
+            this.btnUpdate.TabIndex = 4;
             this.btnUpdate.Text = "&Update Special";
             this.btnUpdate.UseVisualStyleBackColor = true;
             this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
@@ -147,7 +147,7 @@ namespace SP21_Final_Project
             this.cboProduct.Location = new System.Drawing.Point(194, 67);
             this.cboProduct.Name = "cboProduct";
             this.cboProduct.Size = new System.Drawing.Size(100, 21);
-            this.cboProduct.TabIndex = 15;
+            this.cboProduct.TabIndex = 3;
             this.cboProduct.Visible = false;
             // 
             // frmSpecialUpdate

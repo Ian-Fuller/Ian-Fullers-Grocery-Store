@@ -100,7 +100,7 @@ namespace SP21_Final_Project
             this.cboWeek.Location = new System.Drawing.Point(119, 54);
             this.cboWeek.Name = "cboWeek";
             this.cboWeek.Size = new System.Drawing.Size(107, 21);
-            this.cboWeek.TabIndex = 40;
+            this.cboWeek.TabIndex = 2;
             // 
             // cboEmployee
             // 
@@ -109,7 +109,7 @@ namespace SP21_Final_Project
             this.cboEmployee.Location = new System.Drawing.Point(119, 27);
             this.cboEmployee.Name = "cboEmployee";
             this.cboEmployee.Size = new System.Drawing.Size(217, 21);
-            this.cboEmployee.TabIndex = 39;
+            this.cboEmployee.TabIndex = 1;
             // 
             // lblFor
             // 
@@ -125,7 +125,7 @@ namespace SP21_Final_Project
             this.btnRemove.Location = new System.Drawing.Point(77, 87);
             this.btnRemove.Name = "btnRemove";
             this.btnRemove.Size = new System.Drawing.Size(171, 23);
-            this.btnRemove.TabIndex = 42;
+            this.btnRemove.TabIndex = 3;
             this.btnRemove.Text = "&Remove Schedule";
             this.btnRemove.UseVisualStyleBackColor = true;
             this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);

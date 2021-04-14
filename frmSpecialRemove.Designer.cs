@@ -46,7 +46,7 @@ namespace SP21_Final_Project
             this.btnRemove.Location = new System.Drawing.Point(12, 67);
             this.btnRemove.Name = "btnRemove";
             this.btnRemove.Size = new System.Drawing.Size(204, 23);
-            this.btnRemove.TabIndex = 6;
+            this.btnRemove.TabIndex = 2;
             this.btnRemove.Text = "&Remove";
             this.btnRemove.UseVisualStyleBackColor = true;
             this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
@@ -58,7 +58,7 @@ namespace SP21_Final_Project
             this.cboToRemove.Location = new System.Drawing.Point(12, 40);
             this.cboToRemove.Name = "cboToRemove";
             this.cboToRemove.Size = new System.Drawing.Size(204, 21);
-            this.cboToRemove.TabIndex = 5;
+            this.cboToRemove.TabIndex = 1;
             // 
             // lblRemove
             // 

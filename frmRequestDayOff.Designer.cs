@@ -78,14 +78,14 @@ namespace SP21_Final_Project
             this.tbxRequest.Location = new System.Drawing.Point(70, 27);
             this.tbxRequest.Name = "tbxRequest";
             this.tbxRequest.Size = new System.Drawing.Size(524, 20);
-            this.tbxRequest.TabIndex = 2;
+            this.tbxRequest.TabIndex = 1;
             // 
             // btnRequest
             // 
             this.btnRequest.Location = new System.Drawing.Point(70, 53);
             this.btnRequest.Name = "btnRequest";
             this.btnRequest.Size = new System.Drawing.Size(100, 35);
-            this.btnRequest.TabIndex = 3;
+            this.btnRequest.TabIndex = 2;
             this.btnRequest.Text = "&Request";
             this.btnRequest.UseVisualStyleBackColor = true;
             this.btnRequest.Click += new System.EventHandler(this.btnRequest_Click);

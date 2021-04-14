@@ -123,6 +123,7 @@ namespace SP21_Final_Project
             this.dgvSchedules.Name = "dgvSchedules";
             this.dgvSchedules.Size = new System.Drawing.Size(648, 394);
             this.dgvSchedules.TabIndex = 4;
+            this.dgvSchedules.TabStop = false;
             // 
             // lblRequests
             // 
@@ -138,7 +139,7 @@ namespace SP21_Final_Project
             this.btnRespond.Location = new System.Drawing.Point(13, 116);
             this.btnRespond.Name = "btnRespond";
             this.btnRespond.Size = new System.Drawing.Size(120, 23);
-            this.btnRespond.TabIndex = 6;
+            this.btnRespond.TabIndex = 4;
             this.btnRespond.Text = "&Respond to Requests";
             this.btnRespond.UseVisualStyleBackColor = true;
             this.btnRespond.Click += new System.EventHandler(this.btnRespond_Click);

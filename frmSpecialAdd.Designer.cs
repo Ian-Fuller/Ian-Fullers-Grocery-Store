@@ -52,7 +52,7 @@ namespace SP21_Final_Project
             this.cboProducts.Location = new System.Drawing.Point(81, 27);
             this.cboProducts.Name = "cboProducts";
             this.cboProducts.Size = new System.Drawing.Size(121, 21);
-            this.cboProducts.TabIndex = 0;
+            this.cboProducts.TabIndex = 1;
             // 
             // mnuBar
             // 
@@ -109,14 +109,14 @@ namespace SP21_Final_Project
             this.tbxDiscount.Location = new System.Drawing.Point(81, 55);
             this.tbxDiscount.Name = "tbxDiscount";
             this.tbxDiscount.Size = new System.Drawing.Size(121, 20);
-            this.tbxDiscount.TabIndex = 3;
+            this.tbxDiscount.TabIndex = 2;
             // 
             // tbxExtraDetails
             // 
             this.tbxExtraDetails.Location = new System.Drawing.Point(81, 81);
             this.tbxExtraDetails.Name = "tbxExtraDetails";
             this.tbxExtraDetails.Size = new System.Drawing.Size(121, 20);
-            this.tbxExtraDetails.TabIndex = 4;
+            this.tbxExtraDetails.TabIndex = 3;
             // 
             // lblDiscount
             // 
@@ -141,7 +141,7 @@ namespace SP21_Final_Project
             this.btnAddSpecial.Location = new System.Drawing.Point(9, 108);
             this.btnAddSpecial.Name = "btnAddSpecial";
             this.btnAddSpecial.Size = new System.Drawing.Size(192, 23);
-            this.btnAddSpecial.TabIndex = 7;
+            this.btnAddSpecial.TabIndex = 4;
             this.btnAddSpecial.Text = "&Add Special";
             this.btnAddSpecial.UseVisualStyleBackColor = true;
             this.btnAddSpecial.Click += new System.EventHandler(this.btnAddSpecial_Click);

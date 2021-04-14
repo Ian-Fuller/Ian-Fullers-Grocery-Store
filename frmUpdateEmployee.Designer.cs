@@ -157,7 +157,7 @@ namespace SP21_Final_Project
             this.btnUpdate.Location = new System.Drawing.Point(12, 161);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(216, 23);
-            this.btnUpdate.TabIndex = 11;
+            this.btnUpdate.TabIndex = 6;
             this.btnUpdate.Text = "&Update";
             this.btnUpdate.UseVisualStyleBackColor = true;
             this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);

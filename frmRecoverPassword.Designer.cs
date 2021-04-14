@@ -48,7 +48,7 @@ namespace SP21_Final_Project
             this.btnSendEmail.Location = new System.Drawing.Point(78, 79);
             this.btnSendEmail.Name = "btnSendEmail";
             this.btnSendEmail.Size = new System.Drawing.Size(75, 23);
-            this.btnSendEmail.TabIndex = 0;
+            this.btnSendEmail.TabIndex = 4;
             this.btnSendEmail.Text = "&Send Email";
             this.btnSendEmail.UseVisualStyleBackColor = true;
             this.btnSendEmail.Click += new System.EventHandler(this.btnSendEmail_Click);

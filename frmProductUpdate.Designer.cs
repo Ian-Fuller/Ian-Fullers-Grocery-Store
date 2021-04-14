@@ -105,7 +105,7 @@ namespace SP21_Final_Project
             this.cboProduct.Location = new System.Drawing.Point(113, 31);
             this.cboProduct.Name = "cboProduct";
             this.cboProduct.Size = new System.Drawing.Size(121, 21);
-            this.cboProduct.TabIndex = 2;
+            this.cboProduct.TabIndex = 1;
             // 
             // lblSet
             // 
@@ -123,7 +123,7 @@ namespace SP21_Final_Project
             this.cboColumnName.Location = new System.Drawing.Point(42, 68);
             this.cboColumnName.Name = "cboColumnName";
             this.cboColumnName.Size = new System.Drawing.Size(121, 21);
-            this.cboColumnName.TabIndex = 4;
+            this.cboColumnName.TabIndex = 2;
             this.cboColumnName.SelectedIndexChanged += new System.EventHandler(this.cbxColumnName_SelectedIndexChanged);
             // 
             // lblTo
@@ -140,14 +140,14 @@ namespace SP21_Final_Project
             this.tbxNewValue.Location = new System.Drawing.Point(199, 68);
             this.tbxNewValue.Name = "tbxNewValue";
             this.tbxNewValue.Size = new System.Drawing.Size(100, 20);
-            this.tbxNewValue.TabIndex = 6;
+            this.tbxNewValue.TabIndex = 3;
             // 
             // btnUpdate
             // 
             this.btnUpdate.Location = new System.Drawing.Point(77, 218);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(157, 57);
-            this.btnUpdate.TabIndex = 7;
+            this.btnUpdate.TabIndex = 4;
             this.btnUpdate.Text = "&Update Product";
             this.btnUpdate.UseVisualStyleBackColor = true;
             this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
@@ -166,7 +166,7 @@ namespace SP21_Final_Project
             this.btnSelectImage.Location = new System.Drawing.Point(199, 68);
             this.btnSelectImage.Name = "btnSelectImage";
             this.btnSelectImage.Size = new System.Drawing.Size(100, 23);
-            this.btnSelectImage.TabIndex = 9;
+            this.btnSelectImage.TabIndex = 3;
             this.btnSelectImage.Text = "&Select Image";
             this.btnSelectImage.UseVisualStyleBackColor = true;
             this.btnSelectImage.Visible = false;

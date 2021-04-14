@@ -114,56 +114,56 @@ namespace SP21_Final_Project
             this.cboEmployee.Location = new System.Drawing.Point(120, 33);
             this.cboEmployee.Name = "cboEmployee";
             this.cboEmployee.Size = new System.Drawing.Size(217, 21);
-            this.cboEmployee.TabIndex = 2;
+            this.cboEmployee.TabIndex = 1;
             // 
             // tbxSunday
             // 
             this.tbxSunday.Location = new System.Drawing.Point(120, 61);
             this.tbxSunday.Name = "tbxSunday";
             this.tbxSunday.Size = new System.Drawing.Size(217, 20);
-            this.tbxSunday.TabIndex = 3;
+            this.tbxSunday.TabIndex = 2;
             // 
             // tbxMonday
             // 
             this.tbxMonday.Location = new System.Drawing.Point(120, 87);
             this.tbxMonday.Name = "tbxMonday";
             this.tbxMonday.Size = new System.Drawing.Size(217, 20);
-            this.tbxMonday.TabIndex = 4;
+            this.tbxMonday.TabIndex = 3;
             // 
             // tbxTuesday
             // 
             this.tbxTuesday.Location = new System.Drawing.Point(120, 113);
             this.tbxTuesday.Name = "tbxTuesday";
             this.tbxTuesday.Size = new System.Drawing.Size(217, 20);
-            this.tbxTuesday.TabIndex = 5;
+            this.tbxTuesday.TabIndex = 4;
             // 
             // tbxWednesday
             // 
             this.tbxWednesday.Location = new System.Drawing.Point(120, 139);
             this.tbxWednesday.Name = "tbxWednesday";
             this.tbxWednesday.Size = new System.Drawing.Size(217, 20);
-            this.tbxWednesday.TabIndex = 6;
+            this.tbxWednesday.TabIndex = 5;
             // 
             // tbxThursday
             // 
             this.tbxThursday.Location = new System.Drawing.Point(120, 165);
             this.tbxThursday.Name = "tbxThursday";
             this.tbxThursday.Size = new System.Drawing.Size(217, 20);
-            this.tbxThursday.TabIndex = 7;
+            this.tbxThursday.TabIndex = 6;
             // 
             // tbxFriday
             // 
             this.tbxFriday.Location = new System.Drawing.Point(120, 191);
             this.tbxFriday.Name = "tbxFriday";
             this.tbxFriday.Size = new System.Drawing.Size(217, 20);
-            this.tbxFriday.TabIndex = 8;
+            this.tbxFriday.TabIndex = 7;
             // 
             // tbxSaturday
             // 
             this.tbxSaturday.Location = new System.Drawing.Point(120, 217);
             this.tbxSaturday.Name = "tbxSaturday";
             this.tbxSaturday.Size = new System.Drawing.Size(217, 20);
-            this.tbxSaturday.TabIndex = 9;
+            this.tbxSaturday.TabIndex = 8;
             // 
             // cboWeek
             // 
@@ -172,7 +172,7 @@ namespace SP21_Final_Project
             this.cboWeek.Location = new System.Drawing.Point(120, 243);
             this.cboWeek.Name = "cboWeek";
             this.cboWeek.Size = new System.Drawing.Size(148, 21);
-            this.cboWeek.TabIndex = 10;
+            this.cboWeek.TabIndex = 9;
             // 
             // lblSunday
             // 
@@ -251,7 +251,7 @@ namespace SP21_Final_Project
             this.btnCreateSchedule.Location = new System.Drawing.Point(76, 273);
             this.btnCreateSchedule.Name = "btnCreateSchedule";
             this.btnCreateSchedule.Size = new System.Drawing.Size(179, 23);
-            this.btnCreateSchedule.TabIndex = 19;
+            this.btnCreateSchedule.TabIndex = 10;
             this.btnCreateSchedule.Text = "&Create";
             this.btnCreateSchedule.UseVisualStyleBackColor = true;
             this.btnCreateSchedule.Click += new System.EventHandler(this.btnCreateSchedule_Click);

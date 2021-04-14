@@ -98,7 +98,7 @@ namespace SP21_Final_Project
             this.btnScheduleReport.Location = new System.Drawing.Point(13, 57);
             this.btnScheduleReport.Name = "btnScheduleReport";
             this.btnScheduleReport.Size = new System.Drawing.Size(124, 23);
-            this.btnScheduleReport.TabIndex = 2;
+            this.btnScheduleReport.TabIndex = 3;
             this.btnScheduleReport.Text = "&Employee Schedules";
             this.btnScheduleReport.UseVisualStyleBackColor = true;
             this.btnScheduleReport.Click += new System.EventHandler(this.btnScheduleReport_Click);
@@ -108,7 +108,7 @@ namespace SP21_Final_Project
             this.btnInventoryReport.Location = new System.Drawing.Point(13, 86);
             this.btnInventoryReport.Name = "btnInventoryReport";
             this.btnInventoryReport.Size = new System.Drawing.Size(124, 23);
-            this.btnInventoryReport.TabIndex = 3;
+            this.btnInventoryReport.TabIndex = 4;
             this.btnInventoryReport.Text = "&Current Inventory";
             this.btnInventoryReport.UseVisualStyleBackColor = true;
             this.btnInventoryReport.Click += new System.EventHandler(this.btnInventoryReport_Click);
@@ -120,7 +120,7 @@ namespace SP21_Final_Project
             this.cboTimePeriod.Location = new System.Drawing.Point(141, 30);
             this.cboTimePeriod.Name = "cboTimePeriod";
             this.cboTimePeriod.Size = new System.Drawing.Size(62, 21);
-            this.cboTimePeriod.TabIndex = 4;
+            this.cboTimePeriod.TabIndex = 2;
             // 
             // frmReports
             // 

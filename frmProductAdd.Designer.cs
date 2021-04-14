@@ -107,7 +107,7 @@ namespace SP21_Final_Project
             this.tbxName.Location = new System.Drawing.Point(93, 32);
             this.tbxName.Name = "tbxName";
             this.tbxName.Size = new System.Drawing.Size(121, 20);
-            this.tbxName.TabIndex = 2;
+            this.tbxName.TabIndex = 1;
             // 
             // lblPrice
             // 
@@ -141,28 +141,28 @@ namespace SP21_Final_Project
             this.tbxPrice.Location = new System.Drawing.Point(93, 63);
             this.tbxPrice.Name = "tbxPrice";
             this.tbxPrice.Size = new System.Drawing.Size(121, 20);
-            this.tbxPrice.TabIndex = 6;
+            this.tbxPrice.TabIndex = 2;
             // 
             // tbxSize
             // 
             this.tbxSize.Location = new System.Drawing.Point(93, 125);
             this.tbxSize.Name = "tbxSize";
             this.tbxSize.Size = new System.Drawing.Size(121, 20);
-            this.tbxSize.TabIndex = 7;
+            this.tbxSize.TabIndex = 4;
             // 
             // tbxStock
             // 
             this.tbxStock.Location = new System.Drawing.Point(93, 156);
             this.tbxStock.Name = "tbxStock";
             this.tbxStock.Size = new System.Drawing.Size(121, 20);
-            this.tbxStock.TabIndex = 8;
+            this.tbxStock.TabIndex = 5;
             // 
             // btnSelectImage
             // 
             this.btnSelectImage.Location = new System.Drawing.Point(220, 138);
             this.btnSelectImage.Name = "btnSelectImage";
             this.btnSelectImage.Size = new System.Drawing.Size(100, 20);
-            this.btnSelectImage.TabIndex = 9;
+            this.btnSelectImage.TabIndex = 6;
             this.btnSelectImage.Text = "&Select Image";
             this.btnSelectImage.UseVisualStyleBackColor = true;
             this.btnSelectImage.Click += new System.EventHandler(this.btnSelectImage_Click);
@@ -180,7 +180,7 @@ namespace SP21_Final_Project
             this.btnAdd.Location = new System.Drawing.Point(61, 191);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(212, 54);
-            this.btnAdd.TabIndex = 11;
+            this.btnAdd.TabIndex = 7;
             this.btnAdd.Text = "&Add to database";
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
@@ -190,7 +190,7 @@ namespace SP21_Final_Project
             this.tbxWholesalePrice.Location = new System.Drawing.Point(93, 94);
             this.tbxWholesalePrice.Name = "tbxWholesalePrice";
             this.tbxWholesalePrice.Size = new System.Drawing.Size(121, 20);
-            this.tbxWholesalePrice.TabIndex = 13;
+            this.tbxWholesalePrice.TabIndex = 3;
             // 
             // lblWholesalePrice
             // 

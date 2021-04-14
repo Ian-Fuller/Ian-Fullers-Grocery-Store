@@ -74,7 +74,7 @@ namespace SP21_Final_Project
             // mnuClose
             // 
             this.mnuClose.Name = "mnuClose";
-            this.mnuClose.Size = new System.Drawing.Size(103, 22);
+            this.mnuClose.Size = new System.Drawing.Size(180, 22);
             this.mnuClose.Text = "&Close";
             this.mnuClose.Click += new System.EventHandler(this.mnuClose_Click);
             // 
@@ -89,7 +89,7 @@ namespace SP21_Final_Project
             // mnuShoppingCart
             // 
             this.mnuShoppingCart.Name = "mnuShoppingCart";
-            this.mnuShoppingCart.Size = new System.Drawing.Size(150, 22);
+            this.mnuShoppingCart.Size = new System.Drawing.Size(180, 22);
             this.mnuShoppingCart.Text = "&Shopping Cart";
             this.mnuShoppingCart.Click += new System.EventHandler(this.mnuShoppingCart_Click);
             // 
@@ -125,7 +125,7 @@ namespace SP21_Final_Project
             this.tbxAddress.Location = new System.Drawing.Point(333, 78);
             this.tbxAddress.Name = "tbxAddress";
             this.tbxAddress.Size = new System.Drawing.Size(204, 20);
-            this.tbxAddress.TabIndex = 4;
+            this.tbxAddress.TabIndex = 3;
             // 
             // lblAddress
             // 
@@ -141,14 +141,14 @@ namespace SP21_Final_Project
             this.tbxCity.Location = new System.Drawing.Point(333, 52);
             this.tbxCity.Name = "tbxCity";
             this.tbxCity.Size = new System.Drawing.Size(204, 20);
-            this.tbxCity.TabIndex = 6;
+            this.tbxCity.TabIndex = 2;
             // 
             // btnPurchase
             // 
             this.btnPurchase.Location = new System.Drawing.Point(333, 104);
             this.btnPurchase.Name = "btnPurchase";
             this.btnPurchase.Size = new System.Drawing.Size(204, 23);
-            this.btnPurchase.TabIndex = 7;
+            this.btnPurchase.TabIndex = 4;
             this.btnPurchase.Text = "&Purchase";
             this.btnPurchase.UseVisualStyleBackColor = true;
             this.btnPurchase.Click += new System.EventHandler(this.btnPurchase_Click);
@@ -190,7 +190,7 @@ namespace SP21_Final_Project
             this.btnRemove.Location = new System.Drawing.Point(172, 214);
             this.btnRemove.Name = "btnRemove";
             this.btnRemove.Size = new System.Drawing.Size(97, 39);
-            this.btnRemove.TabIndex = 12;
+            this.btnRemove.TabIndex = 5;
             this.btnRemove.Text = "&Remove From Cart";
             this.btnRemove.UseVisualStyleBackColor = true;
             this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);

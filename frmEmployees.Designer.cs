@@ -59,7 +59,7 @@ namespace SP21_Final_Project
             this.btnRequestTrade.Location = new System.Drawing.Point(12, 27);
             this.btnRequestTrade.Name = "btnRequestTrade";
             this.btnRequestTrade.Size = new System.Drawing.Size(143, 23);
-            this.btnRequestTrade.TabIndex = 0;
+            this.btnRequestTrade.TabIndex = 1;
             this.btnRequestTrade.Text = "Request work day &trade";
             this.btnRequestTrade.UseVisualStyleBackColor = true;
             this.btnRequestTrade.Click += new System.EventHandler(this.btnRequestTrade_Click);
@@ -156,6 +156,7 @@ namespace SP21_Final_Project
             this.dgvSchedule.Name = "dgvSchedule";
             this.dgvSchedule.Size = new System.Drawing.Size(787, 83);
             this.dgvSchedule.TabIndex = 4;
+            this.dgvSchedule.TabStop = false;
             // 
             // lblToday
             // 
@@ -190,7 +191,7 @@ namespace SP21_Final_Project
             this.btnPrint.Location = new System.Drawing.Point(165, 166);
             this.btnPrint.Name = "btnPrint";
             this.btnPrint.Size = new System.Drawing.Size(143, 23);
-            this.btnPrint.TabIndex = 8;
+            this.btnPrint.TabIndex = 4;
             this.btnPrint.Text = "&Print Schedule";
             this.btnPrint.UseVisualStyleBackColor = true;
             this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
@@ -202,7 +203,7 @@ namespace SP21_Final_Project
             this.cboWeek.Location = new System.Drawing.Point(314, 167);
             this.cboWeek.Name = "cboWeek";
             this.cboWeek.Size = new System.Drawing.Size(121, 21);
-            this.cboWeek.TabIndex = 9;
+            this.cboWeek.TabIndex = 5;
             this.cboWeek.SelectedIndexChanged += new System.EventHandler(this.cbxWeek_SelectedIndexChanged);
             // 
             // btnPrevPage
@@ -210,7 +211,7 @@ namespace SP21_Final_Project
             this.btnPrevPage.Location = new System.Drawing.Point(165, 371);
             this.btnPrevPage.Name = "btnPrevPage";
             this.btnPrevPage.Size = new System.Drawing.Size(383, 20);
-            this.btnPrevPage.TabIndex = 11;
+            this.btnPrevPage.TabIndex = 6;
             this.btnPrevPage.Text = "&<";
             this.btnPrevPage.UseVisualStyleBackColor = true;
             this.btnPrevPage.Click += new System.EventHandler(this.btnPrevPage_Click);
@@ -220,7 +221,7 @@ namespace SP21_Final_Project
             this.btnNextPage.Location = new System.Drawing.Point(569, 371);
             this.btnNextPage.Name = "btnNextPage";
             this.btnNextPage.Size = new System.Drawing.Size(383, 20);
-            this.btnNextPage.TabIndex = 12;
+            this.btnNextPage.TabIndex = 7;
             this.btnNextPage.Text = "&>";
             this.btnNextPage.UseVisualStyleBackColor = true;
             this.btnNextPage.Click += new System.EventHandler(this.btnNextPage_Click);

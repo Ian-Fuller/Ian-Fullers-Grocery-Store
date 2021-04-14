@@ -44,7 +44,7 @@ namespace SP21_Final_Project
             this.btnRequest.Location = new System.Drawing.Point(64, 53);
             this.btnRequest.Name = "btnRequest";
             this.btnRequest.Size = new System.Drawing.Size(100, 35);
-            this.btnRequest.TabIndex = 7;
+            this.btnRequest.TabIndex = 2;
             this.btnRequest.Text = "&Request";
             this.btnRequest.UseVisualStyleBackColor = true;
             this.btnRequest.Click += new System.EventHandler(this.btnRequest_Click);
@@ -54,7 +54,7 @@ namespace SP21_Final_Project
             this.tbxRequest.Location = new System.Drawing.Point(64, 27);
             this.tbxRequest.Name = "tbxRequest";
             this.tbxRequest.Size = new System.Drawing.Size(524, 20);
-            this.tbxRequest.TabIndex = 6;
+            this.tbxRequest.TabIndex = 1;
             // 
             // lblRequest
             // 
@@ -99,8 +99,10 @@ namespace SP21_Final_Project
             this.Controls.Add(this.tbxRequest);
             this.Controls.Add(this.lblRequest);
             this.Controls.Add(this.mnuBar);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmRequestTrade";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Request Trade";
             this.Load += new System.EventHandler(this.frmRequestTrade_Load);
             this.mnuBar.ResumeLayout(false);

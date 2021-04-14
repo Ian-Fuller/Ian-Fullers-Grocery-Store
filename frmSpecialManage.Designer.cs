@@ -69,7 +69,7 @@ namespace SP21_Final_Project
             this.btnUpdateSpecial.Location = new System.Drawing.Point(12, 85);
             this.btnUpdateSpecial.Name = "btnUpdateSpecial";
             this.btnUpdateSpecial.Size = new System.Drawing.Size(206, 23);
-            this.btnUpdateSpecial.TabIndex = 9;
+            this.btnUpdateSpecial.TabIndex = 3;
             this.btnUpdateSpecial.Text = "&Update special";
             this.btnUpdateSpecial.UseVisualStyleBackColor = true;
             this.btnUpdateSpecial.Click += new System.EventHandler(this.btnUpdateSpecial_Click);
@@ -79,7 +79,7 @@ namespace SP21_Final_Project
             this.btnRemoveSpecial.Location = new System.Drawing.Point(12, 56);
             this.btnRemoveSpecial.Name = "btnRemoveSpecial";
             this.btnRemoveSpecial.Size = new System.Drawing.Size(206, 23);
-            this.btnRemoveSpecial.TabIndex = 8;
+            this.btnRemoveSpecial.TabIndex = 2;
             this.btnRemoveSpecial.Text = "&Remove special";
             this.btnRemoveSpecial.UseVisualStyleBackColor = true;
             this.btnRemoveSpecial.Click += new System.EventHandler(this.btnRemoveSpecial_Click);
@@ -89,7 +89,7 @@ namespace SP21_Final_Project
             this.btnAddNewSpecial.Location = new System.Drawing.Point(12, 27);
             this.btnAddNewSpecial.Name = "btnAddNewSpecial";
             this.btnAddNewSpecial.Size = new System.Drawing.Size(206, 23);
-            this.btnAddNewSpecial.TabIndex = 7;
+            this.btnAddNewSpecial.TabIndex = 1;
             this.btnAddNewSpecial.Text = "&Add new special";
             this.btnAddNewSpecial.UseVisualStyleBackColor = true;
             this.btnAddNewSpecial.Click += new System.EventHandler(this.btnAddNewSpecial_Click);

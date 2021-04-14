@@ -99,7 +99,7 @@ namespace SP21_Final_Project
                 {
                     DB.AddNewProduct(tbxName.Text, dblPrice, tbxSize.Text, intStock, arrBytes);
                     frmMain.FillRefreshPanelData();
-                    PrintReport(DB.GenerateManagerPurchaseReceipt(tbxName.Text, intStock, dblPrice), "ManagerPurchaseReceipt.html");
+                    PrintReport(DB.GenerateManagerPurchaseReceipt(tbxName.Text, intStock, dblWholesalePrice), "ManagerPurchaseReceipt.html");
                 }
             }
             catch (Exception ex)

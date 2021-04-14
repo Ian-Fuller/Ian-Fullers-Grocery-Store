@@ -265,6 +265,10 @@ namespace SP21_Final_Project
                 SqlCommand cmdRemoveSpecials = new SqlCommand(strRemoveSpecials, _cntDatabase);
                 cmdRemoveSpecials.ExecuteNonQuery();
 
+                string strRemovePurchases = "DELETE FROM FullerIsp212332.ManagerPurchases WHERE ProductID = " + intProductID;
+                SqlCommand cmdRemovePurchases = new SqlCommand(strRemovePurchases, _cntDatabase);
+                cmdRemovePurchases.ExecuteNonQuery();
+
                 string strRemoveProduct = "DELETE FROM FullerIsp212332.Products WHERE ProductID = " + intProductID;
                 SqlCommand cmdRemoveProduct = new SqlCommand(strRemoveProduct, _cntDatabase);
                 cmdRemoveProduct.ExecuteNonQuery();

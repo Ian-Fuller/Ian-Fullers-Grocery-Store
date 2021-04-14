@@ -102,7 +102,7 @@ namespace SP21_Final_Project
             this.cboID.Location = new System.Drawing.Point(108, 28);
             this.cboID.Name = "cboID";
             this.cboID.Size = new System.Drawing.Size(43, 21);
-            this.cboID.TabIndex = 2;
+            this.cboID.TabIndex = 1;
             this.cboID.SelectedIndexChanged += new System.EventHandler(this.cbxID_SelectedIndexChanged);
             // 
             // tbxRequest
@@ -110,7 +110,7 @@ namespace SP21_Final_Project
             this.tbxRequest.Location = new System.Drawing.Point(108, 55);
             this.tbxRequest.Name = "tbxRequest";
             this.tbxRequest.Size = new System.Drawing.Size(277, 20);
-            this.tbxRequest.TabIndex = 3;
+            this.tbxRequest.TabIndex = 2;
             // 
             // cboStatus
             // 
@@ -119,7 +119,7 @@ namespace SP21_Final_Project
             this.cboStatus.Location = new System.Drawing.Point(108, 81);
             this.cboStatus.Name = "cboStatus";
             this.cboStatus.Size = new System.Drawing.Size(92, 21);
-            this.cboStatus.TabIndex = 4;
+            this.cboStatus.TabIndex = 3;
             // 
             // lblRequest
             // 
@@ -144,7 +144,7 @@ namespace SP21_Final_Project
             this.btnRespond.Location = new System.Drawing.Point(108, 109);
             this.btnRespond.Name = "btnRespond";
             this.btnRespond.Size = new System.Drawing.Size(170, 23);
-            this.btnRespond.TabIndex = 7;
+            this.btnRespond.TabIndex = 4;
             this.btnRespond.Text = "&Respond";
             this.btnRespond.UseVisualStyleBackColor = true;
             this.btnRespond.Click += new System.EventHandler(this.btnRespond_Click);
