@@ -166,7 +166,14 @@ namespace SP21_Final_Project
             }
             catch(Exception ex)
             {
-                MessageBox.Show("Error refreshing data", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (ex.Message.Contains("index"))
+                {
+                    //Blank to ignore
+                }
+                else
+                {
+                    MessageBox.Show("Error refreshing data" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
