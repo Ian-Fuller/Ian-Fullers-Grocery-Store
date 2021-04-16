@@ -153,20 +153,17 @@ namespace SP21_Final_Project
         {
             try
             {
-                using (StreamWriter swWriter = new StreamWriter("Schedule.html"))
+                string strDesktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\";
+
+                using (StreamWriter swWriter = new StreamWriter(strDesktopPath + "Schedule.html"))
                 {
                     swWriter.WriteLine(html);
                 }
-                System.Diagnostics.Process.Start(@"Schedule.html");
+                System.Diagnostics.Process.Start(strDesktopPath + "Schedule.html");
             }
             catch (Exception ex)
             {
                 MessageBox.Show("You don't have write permissions", "Error System Permissions", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            DateTime dtToday = DateTime.Now;
-            using (StreamWriter swWriter = new StreamWriter($"{dtToday.ToString("yyyy-MM-dd-HHmmss")} - Schedule.html"))
-            {
-                swWriter.WriteLine(html);
             }
         }
 

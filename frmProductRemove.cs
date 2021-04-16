@@ -45,6 +45,13 @@ namespace SP21_Final_Project
         {
             DB.RemoveProduct(cboToRemove.Text);
             frmMain.FillRefreshPanelData();
+
+            //Refreshes combo box
+            cboToRemove.Items.Clear();
+            for (int intCurrentPanel = 0; intCurrentPanel < frmMain.lstPanels.Count; intCurrentPanel++)
+            {
+                cboToRemove.Items.Add(frmMain.lstPanels[intCurrentPanel].strProductName);
+            }
         }
 
         private void mnuRemoveProduct_Click(object sender, EventArgs e)

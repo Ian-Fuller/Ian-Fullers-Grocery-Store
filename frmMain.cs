@@ -2,8 +2,6 @@
 //Course: INEW 2332.10z1
 //Program purpose: Application that will allow the user to make purchases from a grocery store
 
-//improve comments
-//continue adding try/catch at frmProductManage
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

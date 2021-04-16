@@ -85,7 +85,14 @@ namespace SP21_Final_Project
             {
                 string strQuery = "SELECT COUNT(*) FROM FullerIsp212332." + strTable;
                 SqlCommand cmd = new SqlCommand(strQuery, _cntDatabase);
-                return (int)cmd.ExecuteScalar();
+                if (cmd.ExecuteScalar() == null)
+                {
+                    return 0;
+                }
+                else
+                {
+                    return (int)cmd.ExecuteScalar();
+                }
             }
             catch (SqlException ex)
             {
@@ -153,7 +160,7 @@ namespace SP21_Final_Project
         {
             try
             {
-                //Attempts to lig in as employee
+                //Attempts to log in as employee
                 string strEmployeeQuery = "SELECT Password FROM FullerIsp212332.Employees WHERE Username = '" + strUsername + "'";
                 SqlCommand employeeCommand = new SqlCommand(strEmployeeQuery, _cntDatabase);
                 if ((string)employeeCommand.ExecuteScalar() == strPassword)
@@ -161,7 +168,7 @@ namespace SP21_Final_Project
                     return "Employee";
                 }
 
-                //Attempts to lig in as manager
+                //Attempts to log in as manager
                 string strManagerQuery = "SELECT Password FROM FullerIsp212332.Managers WHERE Username = '" + strUsername + "'";
                 SqlCommand managerCommand = new SqlCommand(strManagerQuery, _cntDatabase);
                 if ((string)managerCommand.ExecuteScalar() == strPassword)
@@ -259,7 +266,16 @@ namespace SP21_Final_Project
             {
                 string strGetProductID = "SELECT ProductID FROM FullerIsp212332.Products WHERE ProductName = '" + strProductName + "'";
                 SqlCommand cmdGetProductID = new SqlCommand(strGetProductID, _cntDatabase);
-                int intProductID = (int)cmdGetProductID.ExecuteScalar();
+                int intProductID = 0;
+                if (cmdGetProductID.ExecuteScalar() == null)
+                {
+                    MessageBox.Show("Could not find product.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                else
+                {
+                    intProductID = (int)cmdGetProductID.ExecuteScalar();
+                }
 
                 string strRemoveSpecials = "DELETE FROM FullerIsp212332.Specials WHERE ProductID = " + intProductID;
                 SqlCommand cmdRemoveSpecials = new SqlCommand(strRemoveSpecials, _cntDatabase);
@@ -333,11 +349,29 @@ namespace SP21_Final_Project
                     {
                         string strGetOldQuantity = $"SELECT UnitsInStock FROM FullerIsp212332.Products WHERE ProductName = '{strProductName}'";
                         SqlCommand cmdGetOldQuantity = new SqlCommand(strGetOldQuantity, _cntDatabase);
-                        int intOldQuantity = (int)cmdGetOldQuantity.ExecuteScalar();
+                        int intOldQuantity = 0;
+                        if(cmdGetOldQuantity.ExecuteScalar() == null)
+                        {
+                            MessageBox.Show("Product not found", "Error Updating Product", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                        else
+                        {
+                            intOldQuantity = (int)cmdGetOldQuantity.ExecuteScalar();
+                        }
 
                         string strGetPrice = $"SELECT Price FROM FullerIsp212332.Products WHERE ProductName = '{strProductName}'";
                         SqlCommand cmdGetPrice = new SqlCommand(strGetPrice, _cntDatabase);
-                        double dblPrice = (double)(decimal)cmdGetPrice.ExecuteScalar();
+                        double dblPrice = 0;
+                        if (cmdGetPrice.ExecuteScalar() == null)
+                        {
+                            MessageBox.Show("Product not found", "Error Updating Product", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                        else
+                        {
+                            dblPrice = (double)(decimal)cmdGetPrice.ExecuteScalar();
+                        }
 
                         string strUpdateQuery = "UPDATE FullerIsp212332.Products SET " + strColumnName + " = " + intStock + " WHERE ProductName = '" + strProductName + "'";
                         SqlCommand cmdUpdateQuery = new SqlCommand(strUpdateQuery, _cntDatabase);
@@ -398,7 +432,16 @@ namespace SP21_Final_Project
             {
                 string strGetProductID = "SELECT ProductID FROM FullerIsp212332.Products WHERE ProductName = '" + strProductName + "'";
                 SqlCommand cmdGetProductID = new SqlCommand(strGetProductID, _cntDatabase);
-                int intProductID = (int)cmdGetProductID.ExecuteScalar();
+                int intProductID = 0;
+                if(cmdGetProductID.ExecuteScalar() == null)
+                {
+                    MessageBox.Show("Special not found", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                else
+                {
+                    intProductID = (int)cmdGetProductID.ExecuteScalar();
+                }
 
                 string strInsertCommand = "INSERT INTO FullerIsp212332.Specials VALUES(" + intProductID + ", " + intDiscount + ", '" + strExtraDetails + "')";
                 SqlCommand cmdInsertCommand = new SqlCommand(strInsertCommand, _cntDatabase);
@@ -418,7 +461,16 @@ namespace SP21_Final_Project
             {
                 string strGetOldProductID = "SELECT ProductID FROM FullerIsp212332.Products WHERE ProductName = '" + strName + "'";
                 SqlCommand cmdGetOldProductID = new SqlCommand(strGetOldProductID, _cntDatabase);
-                int intOldProductID = (int)cmdGetOldProductID.ExecuteScalar();
+                int intOldProductID = 0;
+                if (cmdGetOldProductID.ExecuteScalar() == null)
+                {
+                    MessageBox.Show("Special not found", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                else
+                {
+                    intOldProductID = (int)cmdGetOldProductID.ExecuteScalar();
+                }
 
                 string strDeleteQuery = "DELETE FROM FullerIsp212332.Specials WHERE ProductID = " + intOldProductID + " AND PriceDiscounted = " + intDiscount;
                 SqlCommand cmdDeleteQuery = new SqlCommand(strDeleteQuery, _cntDatabase);
@@ -440,11 +492,29 @@ namespace SP21_Final_Project
                 {
                     string strGetOldProductID = "SELECT ProductID FROM FullerIsp212332.Products WHERE ProductName = '" + strName + "'";
                     SqlCommand cmdGetOldProductID = new SqlCommand(strGetOldProductID, _cntDatabase);
-                    int intOldProductID = (int)cmdGetOldProductID.ExecuteScalar();
+                    int intOldProductID = 0;
+                    if (cmdGetOldProductID.ExecuteScalar() == null)
+                    {
+                        MessageBox.Show("Special not found", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                    else
+                    {
+                        intOldProductID = (int)cmdGetOldProductID.ExecuteScalar();
+                    }
 
                     string strGetNewProductID = "SELECT ProductID FROM FullerIsp212332.Products WHERE ProductName = '" + strNewValue + "'";
                     SqlCommand cmdGetNewProductID = new SqlCommand(strGetNewProductID, _cntDatabase);
-                    int intNewProductID = (int)cmdGetNewProductID.ExecuteScalar();
+                    int intNewProductID = 0;
+                    if (cmdGetNewProductID.ExecuteScalar() == null)
+                    {
+                        MessageBox.Show("Special not found", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                    else
+                    {
+                        intNewProductID = (int)cmdGetNewProductID.ExecuteScalar();
+                    }
 
                     string strUpdateQuery = "UPDATE FullerIsp212332.Specials SET ProductID = " + intNewProductID + " WHERE ProductID = " + intOldProductID + " AND PriceDiscounted = " + intDiscount;
                     SqlCommand cmdUpdateQuery = new SqlCommand(strUpdateQuery, _cntDatabase);
@@ -463,7 +533,16 @@ namespace SP21_Final_Project
 
                         string strGetOldProductID = "SELECT ProductID FROM FullerIsp212332.Products WHERE ProductName = '" + strName + "'";
                         SqlCommand cmdGetOldProductID = new SqlCommand(strGetOldProductID, _cntDatabase);
-                        int intOldProductID = (int)cmdGetOldProductID.ExecuteScalar();
+                        int intOldProductID = 0;
+                        if (cmdGetOldProductID.ExecuteScalar() == null)
+                        {
+                            MessageBox.Show("Special not found", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                        else
+                        {
+                            intOldProductID = (int)cmdGetOldProductID.ExecuteScalar();
+                        }
 
                         string strUpdateQuery = "UPDATE FullerIsp212332.Specials SET " + strColumnName + " = " + intNewDiscount + " WHERE ProductID = " + intOldProductID + " AND PriceDiscounted = " + intDiscount;
                         SqlCommand cmdUpdateQuery = new SqlCommand(strUpdateQuery, _cntDatabase);
@@ -482,7 +561,16 @@ namespace SP21_Final_Project
                     {
                         string strGetOldProductID = "SELECT ProductID FROM FullerIsp212332.Products WHERE ProductName = '" + strName + "'";
                         SqlCommand cmdGetOldProductID = new SqlCommand(strGetOldProductID, _cntDatabase);
-                        int intOldProductID = (int)cmdGetOldProductID.ExecuteScalar();
+                        int intOldProductID = 0;
+                        if (cmdGetOldProductID.ExecuteScalar() == null)
+                        {
+                            MessageBox.Show("Special not found", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                        else
+                        {
+                            intOldProductID = (int)cmdGetOldProductID.ExecuteScalar();
+                        }
 
                         string strUpdateQuery = "UPDATE FullerIsp212332.Specials SET " + strColumnName + " = '" + strNewValue + "' WHERE ProductID = " + intOldProductID + " AND PriceDiscounted = " + intDiscount;
                         SqlCommand cmdUpdateQuery = new SqlCommand(strUpdateQuery, _cntDatabase);
@@ -510,7 +598,16 @@ namespace SP21_Final_Project
             {
                 string strGetID = "SELECT EmployeeID FROM FullerIsp212332.Employees WHERE Username ='" + strUsername + "'";
                 SqlCommand cmdGetID = new SqlCommand(strGetID, _cntDatabase);
-                int intEmployeeID = (int)cmdGetID.ExecuteScalar();
+                int intEmployeeID = 0;
+                if (cmdGetID.ExecuteScalar() == null)
+                {
+                    MessageBox.Show("Schedule not found", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return "Not found";
+                }
+                else
+                {
+                    intEmployeeID = (int)cmdGetID.ExecuteScalar();
+                }
 
                 string strStartDate = "";
                 if (strWeek == "This Week")
@@ -895,7 +992,17 @@ namespace SP21_Final_Project
             {
                 string strGetID = $"SELECT ProductID FROM FullerIsp212332.Products WHERE ProductName = '{strProductName}'";
                 SqlCommand cmdGetID = new SqlCommand(strGetID, _cntDatabase);
-                int intProductID = (int)cmdGetID.ExecuteScalar();
+                int intProductID = 0;
+                if(cmdGetID.ExecuteScalar() == null)
+                {
+                    MessageBox.Show("Cannot print receipt", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    html.Append("<html><body><h1>Error</h1></body></html>");
+                    return html;
+                }
+                else
+                {
+                    intProductID = (int)cmdGetID.ExecuteScalar();
+                }
 
                 string strInsertQuery = $"INSERT INTO FullerIsp212332.ManagerPurchases VALUES({intProductID}, {intQuantity}, {dblPrice}, {dblPrice * (double)intQuantity})";
                 SqlCommand cmdInsertQuery = new SqlCommand(strInsertQuery, _cntDatabase);
@@ -966,7 +1073,15 @@ namespace SP21_Final_Project
             {
                 string strGetFName = "SELECT FirstName FROM FullerIsp212332.Employees WHERE Username = '" + strCurrentUser + "'";
                 SqlCommand cmdGetFName = new SqlCommand(strGetFName, _cntDatabase);
-                arrEmployeeInfo[0] = (string)cmdGetFName.ExecuteScalar();
+                if(cmdGetFName.ExecuteScalar() == null)
+                {
+                    MessageBox.Show("Employee not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return arrEmployeeInfo;
+                }
+                else
+                {
+                    arrEmployeeInfo[0] = (string)cmdGetFName.ExecuteScalar();
+                }
 
                 string strGetLName = "SELECT LastName FROM FullerIsp212332.Employees WHERE Username = '" + strCurrentUser + "'";
                 SqlCommand cmdGetLName = new SqlCommand(strGetLName, _cntDatabase);
@@ -996,7 +1111,16 @@ namespace SP21_Final_Project
             {
                 string strGetID = "SELECT EmployeeID FROM FullerIsp212332.Employees WHERE Username = '" + strCurrentUser + "'";
                 SqlCommand cmdGetID = new SqlCommand(strGetID, _cntDatabase);
-                int intEmployeeID = (int)cmdGetID.ExecuteScalar();
+                int intEmployeeID = 0;
+                if (cmdGetID.ExecuteScalar() == null)
+                {
+                    MessageBox.Show("Employee not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                else
+                {
+                    intEmployeeID = (int)cmdGetID.ExecuteScalar();
+                }
 
                 string strUpdate = "UPDATE FullerIsp212332.Employees SET FirstName = '" + strNewFName + "', Lastname = '" + strNewLName + "', Address = '" + strNewAddress + "', Username = '" + strNewUsername + "', Password = '" + strNewPassword + "' WHERE EmployeeID = " + intEmployeeID;
                 SqlCommand cmdUpdate = new SqlCommand(strUpdate, _cntDatabase);
@@ -1085,7 +1209,16 @@ namespace SP21_Final_Project
                 //Gets ID so schedule can be found with foreign key
                 string strGetID = $"SELECT EmployeeID FROM FullerIsp212332.Employees WHERE FirstName = '{strFName}' AND LastName = '{strLName}'";
                 SqlCommand cmdGetID = new SqlCommand(strGetID, _cntDatabase);
-                int intEmployeeID = (int)cmdGetID.ExecuteScalar();
+                int intEmployeeID = 0;
+                if (cmdGetID.ExecuteScalar() == null)
+                {
+                    MessageBox.Show("Schedule not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return arrTasks;
+                }
+                else
+                {
+                    intEmployeeID = (int)cmdGetID.ExecuteScalar();
+                }
 
                 SqlDataReader reader;
                 SqlCommand cmd;
@@ -1129,7 +1262,16 @@ namespace SP21_Final_Project
                 //Gets ID so schedule can be found with foreign key
                 string strGetID = $"SELECT EmployeeID FROM FullerIsp212332.Employees WHERE FirstName = '{strFName}' AND LastName = '{strLName}'";
                 SqlCommand cmdGetID = new SqlCommand(strGetID, _cntDatabase);
-                int intEmployeeID = (int)cmdGetID.ExecuteScalar();
+                int intEmployeeID = 0;
+                if (cmdGetID.ExecuteScalar() == null)
+                {
+                    MessageBox.Show("Employee not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                else
+                {
+                    intEmployeeID = (int)cmdGetID.ExecuteScalar();
+                }
 
                 //Cancels creation if the employee already has a schedule for the selected week
                 string strCheckForExistance = $"SELECT ScheduleID FROM FullerIsp212332.Schedules WHERE EmployeeID = {intEmployeeID} AND StartDate = '{strDate}'";
@@ -1161,7 +1303,16 @@ namespace SP21_Final_Project
                 //Gets ID from the employee's name so the schedule can be found
                 string strGetID = $"SELECT EmployeeID FROM FullerIsp212332.Employees WHERE FirstName = '{strFName}' AND LastName = '{strLName}'";
                 SqlCommand cmdGetID = new SqlCommand(strGetID, _cntDatabase);
-                int intEmployeeID = (int)cmdGetID.ExecuteScalar();
+                int intEmployeeID = 0;
+                if (cmdGetID.ExecuteScalar() == null)
+                {
+                    MessageBox.Show("Employee not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                else
+                {
+                    intEmployeeID = (int)cmdGetID.ExecuteScalar();
+                }
 
                 //Deletes the schedule
                 string strRemoveSchedule = $"DELETE FROM FullerIsp212332.Schedules WHERE EmployeeID = {intEmployeeID} AND StartDate = '{strDate}'";
@@ -1183,7 +1334,16 @@ namespace SP21_Final_Project
                 //Gets ID from the employee's name so the schedule can be found
                 string strGetID = $"SELECT EmployeeID FROM FullerIsp212332.Employees WHERE FirstName = '{strFName}' AND LastName = '{strLName}'";
                 SqlCommand cmdGetID = new SqlCommand(strGetID, _cntDatabase);
-                int intEmployeeID = (int)cmdGetID.ExecuteScalar();
+                int intEmployeeID = 0;
+                if (cmdGetID.ExecuteScalar() == null)
+                {
+                    MessageBox.Show("Employee not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                else
+                {
+                    intEmployeeID = (int)cmdGetID.ExecuteScalar();
+                }
 
                 //Updates the schedule
                 string strUpdateQuery = $"UPDATE FullerIsp212332.Schedules SET Sunday = '{strSunday}', Monday = '{strMonday}', Tuesday = '{strTuesday}', Wednesday = '{strWednesday}', Thursday = '{strThursday}', Friday = '{strFriday}', Saturday = '{strSaturday}' WHERE StartDate = '{strDate}' AND EmployeeID = {intEmployeeID}";
@@ -1207,7 +1367,16 @@ namespace SP21_Final_Project
             {
                 string strGetID = "SELECT EmployeeID FROM FullerIsp212332.Employees WHERE Username ='" + strUsername + "'";
                 SqlCommand cmdGetID = new SqlCommand(strGetID, _cntDatabase);
-                int intEmployeeID = (int)cmdGetID.ExecuteScalar();
+                int intEmployeeID = 0;
+                if (cmdGetID.ExecuteScalar() == null)
+                {
+                    MessageBox.Show("Employee not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                else
+                {
+                    intEmployeeID = (int)cmdGetID.ExecuteScalar();
+                }
 
                 string strFullRequest = strRequestType + " " + strRequest;
                 if (strFullRequest.Length <= 300)
@@ -1310,7 +1479,16 @@ namespace SP21_Final_Project
                 {
                     string strGetOldQuantity = $"SELECT UnitsInStock FROM FullerIsp212332.Products WHERE ProductName = '{lstProducts[intCurrentItem].strProductName}'";
                     SqlCommand cmdGetOldQuantity = new SqlCommand(strGetOldQuantity, _cntDatabase);
-                    int intOldQuantity = (int)cmdGetOldQuantity.ExecuteScalar();
+                    int intOldQuantity = 0;
+                    if (cmdGetOldQuantity.ExecuteScalar() == null)
+                    {
+                        MessageBox.Show("Product not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    }
+                    else
+                    {
+                        intOldQuantity = (int)cmdGetOldQuantity.ExecuteScalar();
+                    }
 
                     lstNewQuantities.Add(intOldQuantity - lstQuantities[intCurrentItem]);
 

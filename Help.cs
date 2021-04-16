@@ -48,27 +48,17 @@ namespace SP21_Final_Project
         {
             try
             {
-                using (StreamWriter swWriter = new StreamWriter(strFileName))
+                string strDesktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\";
+
+                using (StreamWriter swWriter = new StreamWriter(strDesktopPath + strFileName))
                 {
                     swWriter.WriteLine(html);
                 }
-                System.Diagnostics.Process.Start(@strFileName);
+                System.Diagnostics.Process.Start(strDesktopPath + strFileName);
             }
             catch (Exception ex)
             {
                 MessageBox.Show("You don't have write permissions", "Error System Permissions", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            try
-            {
-                DateTime dtToday = DateTime.Now;
-                using (StreamWriter swWriter = new StreamWriter($"{dtToday.ToString("yyyy-MM-dd-HHmmss")} - " + strFileName))
-                {
-                    swWriter.WriteLine(html);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

@@ -60,6 +60,26 @@ namespace SP21_Final_Project
                 if (cboEmployee.Text != "" && cboWeek.Text != "")
                 {
                     DB.RemoveSchedule(lstEmployeeNames[cboEmployee.SelectedIndex][0], lstEmployeeNames[cboEmployee.SelectedIndex][1], cboWeek.Text);
+
+                    //Refreshes employees
+                    lstEmployeeNames.Clear();
+                    lstEmployeeNames = DB.GetEmployeeNames();
+                    cboEmployee.Items.Clear();
+                    for (int intCurrentName = 0; intCurrentName < lstEmployeeNames.Count; intCurrentName++)
+                    {
+                        cboEmployee.Items.Add(lstEmployeeNames[intCurrentName][0] + " " + lstEmployeeNames[intCurrentName][1]);
+                    }
+                    cboEmployee.Text = (string)cboEmployee.Items[0];
+
+                    //Refreshes dates
+                    lstScheduleDates.Clear();
+                    lstScheduleDates = DB.GetScheduleDates();
+                    cboWeek.Items.Clear();
+                    for (int intCurrentDate = 0; intCurrentDate < lstScheduleDates.Count; intCurrentDate++)
+                    {
+                        cboWeek.Items.Add(lstScheduleDates[intCurrentDate]);
+                    }
+                    cboWeek.Text = (string)cboWeek.Items[0];
                 }
                 else
                 {

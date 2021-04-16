@@ -29,6 +29,18 @@ namespace SP21_Final_Project
         {
             DB.RemoveSpecial(lstNames[cboToRemove.SelectedIndex], lstDiscounts[cboToRemove.SelectedIndex]);
             frmMain.FillRefreshPanelData();
+
+            //Refreshes combo box
+            lstNames.Clear();
+            lstDiscounts.Clear();
+            for (int intCurrentSpecial = 0; intCurrentSpecial < frmMain.lstSpecials.Count; intCurrentSpecial++)
+            {
+                lstNames.Add(frmMain.lstSpecials[intCurrentSpecial].strProductName);
+                lstDiscounts.Add(frmMain.lstSpecials[intCurrentSpecial].intDiscount);
+                cboToRemove.Items.Add(lstNames[intCurrentSpecial] + ", -" + lstDiscounts[intCurrentSpecial] + "%");
+            }
+
+            cboToRemove.Text = lstNames[0] + ", -" + lstDiscounts[0] + "%";
         }
 
         private void frmSpecialRemove_Load(object sender, EventArgs e)
@@ -44,6 +56,8 @@ namespace SP21_Final_Project
                     lstDiscounts.Add(frmMain.lstSpecials[intCurrentSpecial].intDiscount);
                     cboToRemove.Items.Add(lstNames[intCurrentSpecial] + ", -" + lstDiscounts[intCurrentSpecial] + "%");
                 }
+
+                cboToRemove.Text = lstNames[0] + ", -" + lstDiscounts[0] + "%";
             }
             catch (Exception ex)
             {

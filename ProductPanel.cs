@@ -163,15 +163,22 @@ namespace SP21_Final_Project
             {
                 string strPrice = "$" + dblPrice.ToString();
                 string[] arrHalves = strPrice.Split('.');
-                if (arrHalves[1].Length < 2)
+                try
                 {
-                    strPrice += "0";
+                    if (arrHalves[1].Length < 2)
+                    {
+                        strPrice += "0";
+                    }
+                }
+                catch(Exception ex)
+                {
+                    strPrice += ".00";
                 }
                 return strPrice;
             }
             catch(Exception ex)
             {
-                MessageBox.Show("Error formatting currency", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error formatting currency" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return "$X.XX";
             }
         }
