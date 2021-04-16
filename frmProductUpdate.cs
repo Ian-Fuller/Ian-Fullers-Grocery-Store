@@ -53,6 +53,7 @@ namespace SP21_Final_Project
                 if(cboColumnName.Text == "ProductImage")
                 {
                     DB.UpdateProduct(cboColumnName.Text, strFileName, cboProduct.Text);
+                    frmMain.FillRefreshPanelData();
                 }
                 else
                 {
@@ -62,7 +63,14 @@ namespace SP21_Final_Project
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error updating product", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (ex.Message.Contains("\\"))
+                {
+                    //ignore
+                }
+                else
+                {
+                    MessageBox.Show("Error updating product", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 

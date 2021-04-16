@@ -52,7 +52,7 @@ namespace SP21_Final_Project
             }
             catch (Exception ex)
             {
-                MessageBox.Show("You don't have write permissions", "Error System Permissions", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("You don't have write permissions " + ex.Message, "Error System Permissions", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

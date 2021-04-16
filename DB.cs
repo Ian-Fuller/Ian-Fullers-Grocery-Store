@@ -382,11 +382,13 @@ namespace SP21_Final_Project
                         string strFileName = "ManagerPurchaseReceipt.html";
                         try
                         {
-                            using (StreamWriter swWriter = new StreamWriter(strFileName))
+                            string strDesktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\";
+
+                            using (StreamWriter swWriter = new StreamWriter(strDesktopPath + strFileName))
                             {
                                 swWriter.WriteLine(html);
                             }
-                            System.Diagnostics.Process.Start(@strFileName);
+                            System.Diagnostics.Process.Start(strDesktopPath + strFileName);
                         }
                         catch (Exception ex)
                         {
