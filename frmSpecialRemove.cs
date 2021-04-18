@@ -33,6 +33,7 @@ namespace SP21_Final_Project
             //Refreshes combo box
             lstNames.Clear();
             lstDiscounts.Clear();
+            cboToRemove.Items.Clear();
             for (int intCurrentSpecial = 0; intCurrentSpecial < frmMain.lstSpecials.Count; intCurrentSpecial++)
             {
                 lstNames.Add(frmMain.lstSpecials[intCurrentSpecial].strProductName);

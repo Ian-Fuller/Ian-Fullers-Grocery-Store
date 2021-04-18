@@ -1,7 +1,6 @@
 C:\Users\ianfu\Desktop\SP21-FullerI\SP21-FullerI\bin\Debug\SP21-Final Project.exe.config
 C:\Users\ianfu\Desktop\SP21-FullerI\SP21-FullerI\bin\Debug\SP21-Final Project.exe
 C:\Users\ianfu\Desktop\SP21-FullerI\SP21-FullerI\bin\Debug\SP21-Final Project.pdb
-C:\Users\ianfu\Desktop\SP21-FullerI\SP21-FullerI\obj\Debug\SP21-Final Project.csprojAssemblyReference.cache
 C:\Users\ianfu\Desktop\SP21-FullerI\SP21-FullerI\obj\Debug\SP21_Final_Project.Properties.Resources.resources
 C:\Users\ianfu\Desktop\SP21-FullerI\SP21-FullerI\obj\Debug\SP21-Final Project.csproj.GenerateResource.cache
 C:\Users\ianfu\Desktop\SP21-FullerI\SP21-FullerI\obj\Debug\SP21-Final Project.csproj.CoreCompileInputs.cache

@@ -445,7 +445,7 @@ namespace SP21_Final_Project
                     intProductID = (int)cmdGetProductID.ExecuteScalar();
                 }
 
-                string strInsertCommand = "INSERT INTO FullerIsp212332.Specials VALUES(" + intProductID + ", " + intDiscount + ", '" + strExtraDetails + "')";
+                string strInsertCommand = "INSERT INTO FullerIsp212332.Specials(ProductID, PriceDiscounted, ExtraDetails) VALUES(" + intProductID + ", " + intDiscount + ", '" + strExtraDetails + "')";
                 SqlCommand cmdInsertCommand = new SqlCommand(strInsertCommand, _cntDatabase);
                 cmdInsertCommand.ExecuteNonQuery();
 
