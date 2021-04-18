@@ -305,7 +305,7 @@ namespace SP21_Final_Project
                 {
                     if (strNewValue.Length <= 50)
                     {
-                        string strUpdateQuery = "UPDATE FullerIsp212332.Products SET " + strColumnName + " = " + strNewValue + " WHERE ProductName = '" + strProductName + "'";
+                        string strUpdateQuery = "UPDATE FullerIsp212332.Products SET " + strColumnName + " = '" + strNewValue + "' WHERE ProductName = '" + strProductName + "'";
                         SqlCommand cmdUpdateQuery = new SqlCommand(strUpdateQuery, _cntDatabase);
                         cmdUpdateQuery.ExecuteNonQuery();
                         MessageBox.Show("Product successfully updated.", "Product Updated", MessageBoxButtons.OK, MessageBoxIcon.Information);
