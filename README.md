@@ -29,44 +29,17 @@ Help System | Describe
 Report Methods | HTML Reports
 
 ### Core Technical Concepts/Inspiration
-
 - This project was created as a way to demonstrate software development skills
-###### ERD
+- 
+### ERD
 ![alt text](https://github.com/JamesFlippin/SP21-FullerI/blob/main/Images/FullerIan-FinalERD.png "ERD")
-
-### Getting Started/Requirements/Prerequisites/Dependencies
-Include any essential instructions for:
-- Getting your program
-- Installing your program
-- Configuring your program
-- Running your program
-
-###### Add Later
-### More Specific Topics
-- Versioning: Services, APIs, Systems
-- Common Error Messages/related details
-- Testing, validation, etc.
 
 ### Videos
 - URL for your Video Resume
 - URL for your Product Overview Video
 - URL for any other specific videos for this product
 
-###### Add Later
-### Contributing
-- Contributor Guidelines
-- Code Requirements
-- Format for commit messages
-- Thank you (name contributors)
-
-### TODO
-- Next steps
-  - Work on shopping cart form
-- Features planned
-  - Customers will be able to see the items in their cart, and purchase those items, which will create an invoice
-  - frmEmployees is still missing most of its features
-  - frmManagers is still missing most of its features
-- Known bugs (shortlist)
+### Installation
 
 ### Contact
 
