@@ -43,6 +43,7 @@ Report Methods | HTML Reports
 ### <a href="https://drive.google.com/file/d/1A0GP9qnA91eOtJ6fQHK-QRO6jd3Nm9co/view?usp=sharing" target="_blank">ZIP File Download</a>
 - Unzip the file after downloading
 - Double click "setup.exe" in the folder after unzipping to begin the installation
+- You may need to disable your firewall and anti-malware programs before installing
 
 ### Contact
 
