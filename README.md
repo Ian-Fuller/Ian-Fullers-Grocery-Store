@@ -33,6 +33,7 @@ Report Methods | HTML Reports
 
 ### Videos
 ### <a href="https://drive.google.com/file/d/1885L-WNyLzuLEOHMkE4tmd2cGCi6_ZJC/view?usp=sharing" target="_blank">For Prospective Customer</a>
+### <a href="https://drive.google.com/file/d/1RoBTkfhfMU82FGndeiDcQovbK4pYUTeX/view?usp=sharing" target="_blank">Video Resume</a>
 
 ### Installation
 ### <a href="https://drive.google.com/file/d/1A0GP9qnA91eOtJ6fQHK-QRO6jd3Nm9co/view?usp=sharing" target="_blank">ZIP File Download</a>
