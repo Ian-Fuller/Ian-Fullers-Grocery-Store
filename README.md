@@ -10,11 +10,8 @@ The application that the customer will use will display pages of products that t
 ### Project Introduction
 
 - This project is an application that a customer can use to make purcheses from a grocery store, and that managers and employees can use to operate the store.
-- The progam will likely by out-of-the-box user-friendly.
-- Nothing new or innovative is planned for this project currently, but this may change.
 - This program solves the problem of the customer having to go out in person to buy groceries.
-- The project is in the very early stages of development. The project has been planned out, but an actual program has not been made.
-- Screenshots and demo videos may be added later.
+- This program makes it easy for managers and employees to maintain a database of products without technical knowledge
 
 ### Development Environment
 
@@ -35,9 +32,7 @@ Report Methods | HTML Reports
 ![alt text](https://github.com/JamesFlippin/SP21-FullerI/blob/main/Images/FullerIan-FinalERD.png "ERD")
 
 ### Videos
-- URL for your Video Resume
-- URL for your Product Overview Video
-- URL for any other specific videos for this product
+### <a href="https://drive.google.com/file/d/1885L-WNyLzuLEOHMkE4tmd2cGCi6_ZJC/view?usp=sharing" target="_blank">For Prospective Customer</a>
 
 ### Installation
 ### <a href="https://drive.google.com/file/d/1A0GP9qnA91eOtJ6fQHK-QRO6jd3Nm9co/view?usp=sharing" target="_blank">ZIP File Download</a>
