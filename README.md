@@ -31,10 +31,9 @@ Report Methods | HTML Reports
 ### Core Technical Concepts/Inspiration
 
 - This project was created as a way to demonstrate software development skills
-###### Add Later
+###### ERD
 ![alt text](https://github.com/JamesFlippin/SP21-FullerI/blob/main/Images/FullerIan-FinalERD.png "ERD")
 
-###### ERD
 ### Getting Started/Requirements/Prerequisites/Dependencies
 Include any essential instructions for:
 - Getting your program
