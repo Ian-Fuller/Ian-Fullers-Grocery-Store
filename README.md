@@ -34,7 +34,7 @@ Report Methods | HTML Reports
 ###### Add Later
 ![alt text](https://github.com/JamesFlippin/SP21-FullerI/blob/main/Images/FullerIan-FinalERD.png "ERD")
 
-###### Add Later
+###### ERD
 ### Getting Started/Requirements/Prerequisites/Dependencies
 Include any essential instructions for:
 - Getting your program
