@@ -32,9 +32,7 @@ Report Methods | HTML Reports
 
 - This project was created as a way to demonstrate software development skills
 ###### Add Later
-- Frame your project for the potential user.
-- Compare/contrast your project with other, similar projects so the user knows how it is different from those projects.
-- Highlight the technical concepts that your project demonstrates or supports. Keep it very brief.
+![alt text](https://github.com/JamesFlippin/SP21-FullerI/blob/main/Images/FullerIan-FinalERD.png "ERD")
 
 ###### Add Later
 ### Getting Started/Requirements/Prerequisites/Dependencies
