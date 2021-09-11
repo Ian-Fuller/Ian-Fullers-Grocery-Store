@@ -30,3 +30,36 @@ C:\Users\ianfu\Desktop\SP21-FullerI\SP21-FullerI\obj\Debug\SP21_Final_Project.fr
 C:\Users\ianfu\Desktop\SP21-FullerI\SP21-FullerI\obj\Debug\SP21_Final_Project.frmRequestTrade.resources
 C:\Users\ianfu\Desktop\SP21-FullerI\SP21-FullerI\obj\Debug\SP21_Final_Project.frmRespond.resources
 C:\Users\ianfu\Desktop\SP21-FullerI\SP21-FullerI\obj\Debug\SP21_Final_Project.frmRecoverPassword.resources
+C:\Users\ianfu\Desktop\Ian-Fullers-Grocery-Store\bin\Debug\SP21-Final Project.exe.config
+C:\Users\ianfu\Desktop\Ian-Fullers-Grocery-Store\bin\Debug\SP21-Final Project.exe
+C:\Users\ianfu\Desktop\Ian-Fullers-Grocery-Store\bin\Debug\SP21-Final Project.pdb
+C:\Users\ianfu\Desktop\Ian-Fullers-Grocery-Store\obj\Debug\SP21-Final Project.csproj.AssemblyReference.cache
+C:\Users\ianfu\Desktop\Ian-Fullers-Grocery-Store\obj\Debug\SP21_Final_Project.frmEmployees.resources
+C:\Users\ianfu\Desktop\Ian-Fullers-Grocery-Store\obj\Debug\SP21_Final_Project.frmLogin.resources
+C:\Users\ianfu\Desktop\Ian-Fullers-Grocery-Store\obj\Debug\SP21_Final_Project.frmMain.resources
+C:\Users\ianfu\Desktop\Ian-Fullers-Grocery-Store\obj\Debug\SP21_Final_Project.frmManagers.resources
+C:\Users\ianfu\Desktop\Ian-Fullers-Grocery-Store\obj\Debug\SP21_Final_Project.frmMoreInfo.resources
+C:\Users\ianfu\Desktop\Ian-Fullers-Grocery-Store\obj\Debug\SP21_Final_Project.frmProductAdd.resources
+C:\Users\ianfu\Desktop\Ian-Fullers-Grocery-Store\obj\Debug\SP21_Final_Project.frmProductManage.resources
+C:\Users\ianfu\Desktop\Ian-Fullers-Grocery-Store\obj\Debug\SP21_Final_Project.frmProductRemove.resources
+C:\Users\ianfu\Desktop\Ian-Fullers-Grocery-Store\obj\Debug\SP21_Final_Project.frmProductUpdate.resources
+C:\Users\ianfu\Desktop\Ian-Fullers-Grocery-Store\obj\Debug\SP21_Final_Project.frmRecoverPassword.resources
+C:\Users\ianfu\Desktop\Ian-Fullers-Grocery-Store\obj\Debug\SP21_Final_Project.frmReports.resources
+C:\Users\ianfu\Desktop\Ian-Fullers-Grocery-Store\obj\Debug\SP21_Final_Project.frmRequestDayOff.resources
+C:\Users\ianfu\Desktop\Ian-Fullers-Grocery-Store\obj\Debug\SP21_Final_Project.frmRequestTrade.resources
+C:\Users\ianfu\Desktop\Ian-Fullers-Grocery-Store\obj\Debug\SP21_Final_Project.frmRespond.resources
+C:\Users\ianfu\Desktop\Ian-Fullers-Grocery-Store\obj\Debug\SP21_Final_Project.frmScheduleAdd.resources
+C:\Users\ianfu\Desktop\Ian-Fullers-Grocery-Store\obj\Debug\SP21_Final_Project.frmScheduleManage.resources
+C:\Users\ianfu\Desktop\Ian-Fullers-Grocery-Store\obj\Debug\SP21_Final_Project.frmScheduleRemove.resources
+C:\Users\ianfu\Desktop\Ian-Fullers-Grocery-Store\obj\Debug\SP21_Final_Project.frmScheduleUpdate.resources
+C:\Users\ianfu\Desktop\Ian-Fullers-Grocery-Store\obj\Debug\SP21_Final_Project.frmShoppingCart.resources
+C:\Users\ianfu\Desktop\Ian-Fullers-Grocery-Store\obj\Debug\SP21_Final_Project.frmSpecialAdd.resources
+C:\Users\ianfu\Desktop\Ian-Fullers-Grocery-Store\obj\Debug\SP21_Final_Project.frmSpecialManage.resources
+C:\Users\ianfu\Desktop\Ian-Fullers-Grocery-Store\obj\Debug\SP21_Final_Project.frmSpecialRemove.resources
+C:\Users\ianfu\Desktop\Ian-Fullers-Grocery-Store\obj\Debug\SP21_Final_Project.frmSpecialUpdate.resources
+C:\Users\ianfu\Desktop\Ian-Fullers-Grocery-Store\obj\Debug\SP21_Final_Project.frmUpdateEmployee.resources
+C:\Users\ianfu\Desktop\Ian-Fullers-Grocery-Store\obj\Debug\SP21_Final_Project.Properties.Resources.resources
+C:\Users\ianfu\Desktop\Ian-Fullers-Grocery-Store\obj\Debug\SP21-Final Project.csproj.GenerateResource.cache
+C:\Users\ianfu\Desktop\Ian-Fullers-Grocery-Store\obj\Debug\SP21-Final Project.csproj.CoreCompileInputs.cache
+C:\Users\ianfu\Desktop\Ian-Fullers-Grocery-Store\obj\Debug\SP21-Final Project.exe
+C:\Users\ianfu\Desktop\Ian-Fullers-Grocery-Store\obj\Debug\SP21-Final Project.pdb
