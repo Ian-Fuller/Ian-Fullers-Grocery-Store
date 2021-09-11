@@ -2,7 +2,7 @@
 //Course: INEW 2332.10z1
 //Program purpose: Application that will allow the user to make purchases from a grocery store
 
-//This class is used for database interaction m
+//This class is used for database interaction
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,9 +18,11 @@ namespace SP21_Final_Project
 {
     class DB
     {
-        //Connection string
-        private const string strConnection = @"Server = cstnt.tstc.edu; Database = inew2332sp21; User Id = FullerIsp212332; Password = 1756605";
-        private static SqlConnection _cntDatabase = new SqlConnection(strConnection);
+        //Database Connection
+        private static SqlConnection _cntDatabase = new SqlConnection("Data Source = (LocalDB)\\MSSQLLocalDB;" +
+                                                                      "AttachDbFilename = " + Application.StartupPath + "\\StoreDatabase.mdf;" +
+                                                                      "Integrated Security = True;" +
+                                                                      "Connection Timeout = 30");
 
         //Open/Close functions
         public static void OpenDatabase()

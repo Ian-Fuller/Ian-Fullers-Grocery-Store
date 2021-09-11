@@ -63,3 +63,5 @@ C:\Users\ianfu\Desktop\Ian-Fullers-Grocery-Store\obj\Debug\SP21-Final Project.cs
 C:\Users\ianfu\Desktop\Ian-Fullers-Grocery-Store\obj\Debug\SP21-Final Project.csproj.CoreCompileInputs.cache
 C:\Users\ianfu\Desktop\Ian-Fullers-Grocery-Store\obj\Debug\SP21-Final Project.exe
 C:\Users\ianfu\Desktop\Ian-Fullers-Grocery-Store\obj\Debug\SP21-Final Project.pdb
+C:\Users\ianfu\Desktop\Ian-Fullers-Grocery-Store\bin\Debug\StoreDatabase.mdf
+C:\Users\ianfu\Desktop\Ian-Fullers-Grocery-Store\bin\Debug\StoreDatabase_log.ldf
