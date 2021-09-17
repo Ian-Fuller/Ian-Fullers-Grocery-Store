@@ -1,7 +1,9 @@
 ![alt text](https://github.com/JamesFlippin/SP21-FullerI/blob/main/Images/GroceryStoreLogo64x64.png "My Logo")
 
 # **Ian's Grocery Store**
-Application that the customer can use to order groceries, and the employees and managers can use to operate the store.
+This project serves as a demonstration of my software development skills so that it may be used in a portfolio. The project was originally developed during my 5th semester at TSTC in which the project was the primary focus of the class for the entire semester, and I ended up receiving a grade of 85 (This was considered an A for some reason). Since then, the databases for the project had been deleted since they were hosted by TSTC, so I decided to continue working on the project so I could re-create the databases, and make some minor improvements so that it better reflects my software development skills as of now.
+
+This is an pplication that a customer can use to order groceries, and the employees and managers can use to operate the store.
 
 ## Detailed Description
 
@@ -19,10 +21,10 @@ Type | Description
 -----|-------------
 Language | C#
 Development Environment | Visual Studio 2019 Community Edition
-SQL Server Type | MS SQL or MySQL (whichever you used)
+SQL Server Type | Local Database (.mdf File) (MSSQL)
 Target Environment | Windows 10 Desktop
-Target Audience | Whatever your target audience is
-Help System | Describe
+Target Audience | Customers, employees, and managers of a grocery store. Could be used as a store for other types of products.
+Help System | HTML Files (To update later)
 Report Methods | HTML Reports
 
 ### Core Technical Concepts/Inspiration
