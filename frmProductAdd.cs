@@ -136,5 +136,15 @@ namespace SP21_Final_Project
         {
             MaximizeBox = false;
         }
+
+        private void btnClearAllFields_Click(object sender, EventArgs e)
+        {
+            tbxName.Text = "";
+            tbxPrice.Text = "";
+            tbxWholesalePrice.Text = "";
+            tbxSize.Text = "";
+            tbxStock.Text = "";
+            pbxProductImage.Image = null;
+        }
     }
 }

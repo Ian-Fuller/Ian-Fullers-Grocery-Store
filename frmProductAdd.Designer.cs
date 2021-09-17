@@ -48,6 +48,7 @@ namespace SP21_Final_Project
             this.btnAdd = new System.Windows.Forms.Button();
             this.tbxWholesalePrice = new System.Windows.Forms.TextBox();
             this.lblWholesalePrice = new System.Windows.Forms.Label();
+            this.btnClearAllFields = new System.Windows.Forms.Button();
             this.mnuBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxProductImage)).BeginInit();
             this.SuspendLayout();
@@ -59,7 +60,7 @@ namespace SP21_Final_Project
             this.mnuHelp});
             this.mnuBar.Location = new System.Drawing.Point(0, 0);
             this.mnuBar.Name = "mnuBar";
-            this.mnuBar.Size = new System.Drawing.Size(340, 24);
+            this.mnuBar.Size = new System.Drawing.Size(330, 24);
             this.mnuBar.TabIndex = 0;
             this.mnuBar.Text = "menuStrip1";
             // 
@@ -169,6 +170,7 @@ namespace SP21_Final_Project
             // 
             // pbxProductImage
             // 
+            this.pbxProductImage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pbxProductImage.Location = new System.Drawing.Point(220, 32);
             this.pbxProductImage.Name = "pbxProductImage";
             this.pbxProductImage.Size = new System.Drawing.Size(100, 100);
@@ -177,9 +179,9 @@ namespace SP21_Final_Project
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(61, 191);
+            this.btnAdd.Location = new System.Drawing.Point(6, 195);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(212, 54);
+            this.btnAdd.Size = new System.Drawing.Size(208, 54);
             this.btnAdd.TabIndex = 7;
             this.btnAdd.Text = "&Add to database";
             this.btnAdd.UseVisualStyleBackColor = true;
@@ -201,11 +203,22 @@ namespace SP21_Final_Project
             this.lblWholesalePrice.TabIndex = 12;
             this.lblWholesalePrice.Text = "WholesalePrice: $";
             // 
+            // btnClearAllFields
+            // 
+            this.btnClearAllFields.Location = new System.Drawing.Point(220, 195);
+            this.btnClearAllFields.Name = "btnClearAllFields";
+            this.btnClearAllFields.Size = new System.Drawing.Size(100, 54);
+            this.btnClearAllFields.TabIndex = 13;
+            this.btnClearAllFields.Text = "&Clear All Fields";
+            this.btnClearAllFields.UseVisualStyleBackColor = true;
+            this.btnClearAllFields.Click += new System.EventHandler(this.btnClearAllFields_Click);
+            // 
             // frmProductAdd
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(340, 261);
+            this.ClientSize = new System.Drawing.Size(330, 256);
+            this.Controls.Add(this.btnClearAllFields);
             this.Controls.Add(this.tbxWholesalePrice);
             this.Controls.Add(this.lblWholesalePrice);
             this.Controls.Add(this.btnAdd);
@@ -255,5 +268,6 @@ namespace SP21_Final_Project
         private System.Windows.Forms.Label lblWholesalePrice;
         private System.Windows.Forms.ToolStripMenuItem mnuHelp;
         private System.Windows.Forms.ToolStripMenuItem mnuAddProduct;
+        private System.Windows.Forms.Button btnClearAllFields;
     }
 }

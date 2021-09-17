@@ -85,7 +85,7 @@ namespace SP21_Final_Project
         {
             try
             {
-                string strQuery = "SELECT COUNT(*) FROM FullerIsp212332." + strTable;
+                string strQuery = "SELECT COUNT(*) FROM dbo." + strTable;
                 SqlCommand cmd = new SqlCommand(strQuery, _cntDatabase);
                 if (cmd.ExecuteScalar() == null)
                 {
@@ -111,7 +111,7 @@ namespace SP21_Final_Project
                 SqlDataReader reader;
                 SqlCommand cmd;
                 cmd = _cntDatabase.CreateCommand();
-                cmd.CommandText = "SELECT * FROM FullerIsp212332.Products";
+                cmd.CommandText = "SELECT * FROM dbo.Products";
                 reader = cmd.ExecuteReader();
 
                 while (reader.Read())
@@ -137,7 +137,7 @@ namespace SP21_Final_Project
                 SqlDataReader reader;
                 SqlCommand cmd;
                 cmd = _cntDatabase.CreateCommand();
-                cmd.CommandText = "SELECT Products.ProductID, ProductName, Price, Size, UnitsInStock, ProductImage, PriceDiscounted, ExtraDetails FROM FullerIsp212332.Products JOIN FullerIsp212332.Specials ON Products.ProductID = Specials.ProductID";
+                cmd.CommandText = "SELECT Products.ProductID, ProductName, Price, Size, UnitsInStock, ProductImage, PriceDiscounted, ExtraDetails FROM dbo.Products JOIN dbo.Specials ON Products.ProductID = Specials.ProductID";
                 reader = cmd.ExecuteReader();
 
                 while (reader.Read())
@@ -163,7 +163,7 @@ namespace SP21_Final_Project
             try
             {
                 //Attempts to log in as employee
-                string strEmployeeQuery = "SELECT Password FROM FullerIsp212332.Employees WHERE Username = '" + strUsername + "'";
+                string strEmployeeQuery = "SELECT Password FROM dbo.Employees WHERE Username = '" + strUsername + "'";
                 SqlCommand employeeCommand = new SqlCommand(strEmployeeQuery, _cntDatabase);
                 if ((string)employeeCommand.ExecuteScalar() == strPassword)
                 {
@@ -171,7 +171,7 @@ namespace SP21_Final_Project
                 }
 
                 //Attempts to log in as manager
-                string strManagerQuery = "SELECT Password FROM FullerIsp212332.Managers WHERE Username = '" + strUsername + "'";
+                string strManagerQuery = "SELECT Password FROM dbo.Managers WHERE Username = '" + strUsername + "'";
                 SqlCommand managerCommand = new SqlCommand(strManagerQuery, _cntDatabase);
                 if ((string)managerCommand.ExecuteScalar() == strPassword)
                 {
@@ -200,19 +200,19 @@ namespace SP21_Final_Project
                 }
                 else
                 {
-                    string strGetHighestID = "SELECT MAX(CustomerID) FROM FullerIsp212332.Customers";
+                    string strGetHighestID = "SELECT MAX(CustomerID) FROM dbo.Customers";
                     SqlCommand idCommand = new SqlCommand(strGetHighestID, _cntDatabase);
                     intNewID = (int)idCommand.ExecuteScalar() + 1;
                 }
 
-                string strInsert = "INSERT INTO FullerIsp212332.Customers(CustomerID, City, Address) VALUES(" + intNewID + ", '" + strCity + "', '" + strAddress + "')";
+                string strInsert = "INSERT INTO dbo.Customers(CustomerID, City, Address) VALUES(" + intNewID + ", '" + strCity + "', '" + strAddress + "')";
                 SqlCommand insertCommand = new SqlCommand(strInsert, _cntDatabase);
                 insertCommand.ExecuteNonQuery();
 
                 for (int intCurrentProduct = 0; intCurrentProduct < lstProducts.Count; intCurrentProduct++)
                 {
                     string strOrderDate = "'" + DateTime.Now.Year.ToString() + "-" + FormatDayOrMonth(DateTime.Now.Month.ToString()) + "-" + FormatDayOrMonth(DateTime.Now.Day.ToString()) + "'";
-                    string strNewInvoice = "INSERT INTO FullerIsp212332.Invoices(CustomerID, ProductID, Discount, Quantity, TotalPrice, OrderDate) VALUES(" + intNewID + ", " + lstProducts[intCurrentProduct].intProductID + ", " + lstProducts[intCurrentProduct].GetDiscount() + ", " + lstQuantities[intCurrentProduct] + ", " + (Math.Round(lstProducts[intCurrentProduct].dblPrice * (1f - (double)lstProducts[intCurrentProduct].GetDiscount() / 100f), 2)) * lstQuantities[intCurrentProduct] + ", " + strOrderDate + ")";
+                    string strNewInvoice = "INSERT INTO dbo.Invoices(CustomerID, ProductID, Discount, Quantity, TotalPrice, OrderDate) VALUES(" + intNewID + ", " + lstProducts[intCurrentProduct].intProductID + ", " + lstProducts[intCurrentProduct].GetDiscount() + ", " + lstQuantities[intCurrentProduct] + ", " + (Math.Round(lstProducts[intCurrentProduct].dblPrice * (1f - (double)lstProducts[intCurrentProduct].GetDiscount() / 100f), 2)) * lstQuantities[intCurrentProduct] + ", " + strOrderDate + ")";
                     SqlCommand invoiceCommand = new SqlCommand(strNewInvoice, _cntDatabase);
                     invoiceCommand.ExecuteNonQuery();
                 }
@@ -248,7 +248,7 @@ namespace SP21_Final_Project
         {
             try
             {
-                string strInsertQuery = $"INSERT INTO FullerIsp212332.Products(ProductName, Price, Size, UnitsInStock, ProductImage) VALUES('" + strName + "', " + dblPrice + ", '" + strSize + "', " + intStock + ", @Image)";
+                string strInsertQuery = $"INSERT INTO dbo.Products(ProductName, Price, Size, UnitsInStock, ProductImage) VALUES('" + strName + "', " + dblPrice + ", '" + strSize + "', " + intStock + ", @Image)";
                 SqlCommand cmdInsertCommand = new SqlCommand(strInsertQuery, _cntDatabase);
                 SqlParameter param = cmdInsertCommand.Parameters.AddWithValue("@Image", arrBytes);
                 param.DbType = System.Data.DbType.Binary;
@@ -266,7 +266,7 @@ namespace SP21_Final_Project
         {
             try
             {
-                string strGetProductID = "SELECT ProductID FROM FullerIsp212332.Products WHERE ProductName = '" + strProductName + "'";
+                string strGetProductID = "SELECT ProductID FROM dbo.Products WHERE ProductName = '" + strProductName + "'";
                 SqlCommand cmdGetProductID = new SqlCommand(strGetProductID, _cntDatabase);
                 int intProductID = 0;
                 if (cmdGetProductID.ExecuteScalar() == null)
@@ -279,15 +279,15 @@ namespace SP21_Final_Project
                     intProductID = (int)cmdGetProductID.ExecuteScalar();
                 }
 
-                string strRemoveSpecials = "DELETE FROM FullerIsp212332.Specials WHERE ProductID = " + intProductID;
+                string strRemoveSpecials = "DELETE FROM dbo.Specials WHERE ProductID = " + intProductID;
                 SqlCommand cmdRemoveSpecials = new SqlCommand(strRemoveSpecials, _cntDatabase);
                 cmdRemoveSpecials.ExecuteNonQuery();
 
-                string strRemovePurchases = "DELETE FROM FullerIsp212332.ManagerPurchases WHERE ProductID = " + intProductID;
+                string strRemovePurchases = "DELETE FROM dbo.ManagerPurchases WHERE ProductID = " + intProductID;
                 SqlCommand cmdRemovePurchases = new SqlCommand(strRemovePurchases, _cntDatabase);
                 cmdRemovePurchases.ExecuteNonQuery();
 
-                string strRemoveProduct = "DELETE FROM FullerIsp212332.Products WHERE ProductID = " + intProductID;
+                string strRemoveProduct = "DELETE FROM dbo.Products WHERE ProductID = " + intProductID;
                 SqlCommand cmdRemoveProduct = new SqlCommand(strRemoveProduct, _cntDatabase);
                 cmdRemoveProduct.ExecuteNonQuery();
 
@@ -307,7 +307,7 @@ namespace SP21_Final_Project
                 {
                     if (strNewValue.Length <= 50)
                     {
-                        string strUpdateQuery = "UPDATE FullerIsp212332.Products SET " + strColumnName + " = '" + strNewValue + "' WHERE ProductName = '" + strProductName + "'";
+                        string strUpdateQuery = "UPDATE dbo.Products SET " + strColumnName + " = '" + strNewValue + "' WHERE ProductName = '" + strProductName + "'";
                         SqlCommand cmdUpdateQuery = new SqlCommand(strUpdateQuery, _cntDatabase);
                         cmdUpdateQuery.ExecuteNonQuery();
                         MessageBox.Show("Product successfully updated.", "Product Updated", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -321,7 +321,7 @@ namespace SP21_Final_Project
                 {
                     if (Double.TryParse(strNewValue, out double dblPrice) && !strNewValue.Contains('-'))
                     {
-                        string strUpdateQuery = "UPDATE FullerIsp212332.Products SET " + strColumnName + " = " + dblPrice + " WHERE ProductName = '" + strProductName + "'";
+                        string strUpdateQuery = "UPDATE dbo.Products SET " + strColumnName + " = " + dblPrice + " WHERE ProductName = '" + strProductName + "'";
                         SqlCommand cmdUpdateQuery = new SqlCommand(strUpdateQuery, _cntDatabase);
                         cmdUpdateQuery.ExecuteNonQuery();
                         MessageBox.Show("Product successfully updated.", "Product Updated", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -335,7 +335,7 @@ namespace SP21_Final_Project
                 {
                     if (strNewValue.Length <= 20)
                     {
-                        string strUpdateQuery = "UPDATE FullerIsp212332.Products SET " + strColumnName + " = " + strNewValue + " WHERE ProductName = '" + strProductName + "'";
+                        string strUpdateQuery = "UPDATE dbo.Products SET " + strColumnName + " = " + strNewValue + " WHERE ProductName = '" + strProductName + "'";
                         SqlCommand cmdUpdateQuery = new SqlCommand(strUpdateQuery, _cntDatabase);
                         cmdUpdateQuery.ExecuteNonQuery();
                         MessageBox.Show("Product successfully updated.", "Product Updated", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -349,7 +349,7 @@ namespace SP21_Final_Project
                 {
                     if (Int32.TryParse(strNewValue, out int intStock))
                     {
-                        string strGetOldQuantity = $"SELECT UnitsInStock FROM FullerIsp212332.Products WHERE ProductName = '{strProductName}'";
+                        string strGetOldQuantity = $"SELECT UnitsInStock FROM dbo.Products WHERE ProductName = '{strProductName}'";
                         SqlCommand cmdGetOldQuantity = new SqlCommand(strGetOldQuantity, _cntDatabase);
                         int intOldQuantity = 0;
                         if(cmdGetOldQuantity.ExecuteScalar() == null)
@@ -362,7 +362,7 @@ namespace SP21_Final_Project
                             intOldQuantity = (int)cmdGetOldQuantity.ExecuteScalar();
                         }
 
-                        string strGetPrice = $"SELECT Price FROM FullerIsp212332.Products WHERE ProductName = '{strProductName}'";
+                        string strGetPrice = $"SELECT Price FROM dbo.Products WHERE ProductName = '{strProductName}'";
                         SqlCommand cmdGetPrice = new SqlCommand(strGetPrice, _cntDatabase);
                         double dblPrice = 0;
                         if (cmdGetPrice.ExecuteScalar() == null)
@@ -375,7 +375,7 @@ namespace SP21_Final_Project
                             dblPrice = (double)(decimal)cmdGetPrice.ExecuteScalar();
                         }
 
-                        string strUpdateQuery = "UPDATE FullerIsp212332.Products SET " + strColumnName + " = " + intStock + " WHERE ProductName = '" + strProductName + "'";
+                        string strUpdateQuery = "UPDATE dbo.Products SET " + strColumnName + " = " + intStock + " WHERE ProductName = '" + strProductName + "'";
                         SqlCommand cmdUpdateQuery = new SqlCommand(strUpdateQuery, _cntDatabase);
                         cmdUpdateQuery.ExecuteNonQuery();
 
@@ -412,7 +412,7 @@ namespace SP21_Final_Project
                 else if(strColumnName == "ProductImage")
                 {
                     byte[] arrBytes = File.ReadAllBytes(strNewValue);
-                    string strUpdateQuery = "UPDATE FullerIsp212332.Products SET " + strColumnName + " = @Image WHERE ProductName = '" + strProductName + "'";
+                    string strUpdateQuery = "UPDATE dbo.Products SET " + strColumnName + " = @Image WHERE ProductName = '" + strProductName + "'";
                     SqlCommand cmdUpdateQuery = new SqlCommand(strUpdateQuery, _cntDatabase);
                     SqlParameter param = cmdUpdateQuery.Parameters.AddWithValue("@Image", arrBytes);
                     param.DbType = System.Data.DbType.Binary;
@@ -434,7 +434,7 @@ namespace SP21_Final_Project
         {
             try
             {
-                string strGetProductID = "SELECT ProductID FROM FullerIsp212332.Products WHERE ProductName = '" + strProductName + "'";
+                string strGetProductID = "SELECT ProductID FROM dbo.Products WHERE ProductName = '" + strProductName + "'";
                 SqlCommand cmdGetProductID = new SqlCommand(strGetProductID, _cntDatabase);
                 int intProductID = 0;
                 if(cmdGetProductID.ExecuteScalar() == null)
@@ -447,7 +447,7 @@ namespace SP21_Final_Project
                     intProductID = (int)cmdGetProductID.ExecuteScalar();
                 }
 
-                string strInsertCommand = "INSERT INTO FullerIsp212332.Specials(ProductID, PriceDiscounted, ExtraDetails) VALUES(" + intProductID + ", " + intDiscount + ", '" + strExtraDetails + "')";
+                string strInsertCommand = "INSERT INTO dbo.Specials(ProductID, PriceDiscounted, ExtraDetails) VALUES(" + intProductID + ", " + intDiscount + ", '" + strExtraDetails + "')";
                 SqlCommand cmdInsertCommand = new SqlCommand(strInsertCommand, _cntDatabase);
                 cmdInsertCommand.ExecuteNonQuery();
 
@@ -463,7 +463,7 @@ namespace SP21_Final_Project
         {
             try
             {
-                string strGetOldProductID = "SELECT ProductID FROM FullerIsp212332.Products WHERE ProductName = '" + strName + "'";
+                string strGetOldProductID = "SELECT ProductID FROM dbo.Products WHERE ProductName = '" + strName + "'";
                 SqlCommand cmdGetOldProductID = new SqlCommand(strGetOldProductID, _cntDatabase);
                 int intOldProductID = 0;
                 if (cmdGetOldProductID.ExecuteScalar() == null)
@@ -476,7 +476,7 @@ namespace SP21_Final_Project
                     intOldProductID = (int)cmdGetOldProductID.ExecuteScalar();
                 }
 
-                string strDeleteQuery = "DELETE FROM FullerIsp212332.Specials WHERE ProductID = " + intOldProductID + " AND PriceDiscounted = " + intDiscount;
+                string strDeleteQuery = "DELETE FROM dbo.Specials WHERE ProductID = " + intOldProductID + " AND PriceDiscounted = " + intDiscount;
                 SqlCommand cmdDeleteQuery = new SqlCommand(strDeleteQuery, _cntDatabase);
                 cmdDeleteQuery.ExecuteNonQuery();
 
@@ -494,7 +494,7 @@ namespace SP21_Final_Project
             {
                 if (strColumnName == "Product")
                 {
-                    string strGetOldProductID = "SELECT ProductID FROM FullerIsp212332.Products WHERE ProductName = '" + strName + "'";
+                    string strGetOldProductID = "SELECT ProductID FROM dbo.Products WHERE ProductName = '" + strName + "'";
                     SqlCommand cmdGetOldProductID = new SqlCommand(strGetOldProductID, _cntDatabase);
                     int intOldProductID = 0;
                     if (cmdGetOldProductID.ExecuteScalar() == null)
@@ -507,7 +507,7 @@ namespace SP21_Final_Project
                         intOldProductID = (int)cmdGetOldProductID.ExecuteScalar();
                     }
 
-                    string strGetNewProductID = "SELECT ProductID FROM FullerIsp212332.Products WHERE ProductName = '" + strNewValue + "'";
+                    string strGetNewProductID = "SELECT ProductID FROM dbo.Products WHERE ProductName = '" + strNewValue + "'";
                     SqlCommand cmdGetNewProductID = new SqlCommand(strGetNewProductID, _cntDatabase);
                     int intNewProductID = 0;
                     if (cmdGetNewProductID.ExecuteScalar() == null)
@@ -520,7 +520,7 @@ namespace SP21_Final_Project
                         intNewProductID = (int)cmdGetNewProductID.ExecuteScalar();
                     }
 
-                    string strUpdateQuery = "UPDATE FullerIsp212332.Specials SET ProductID = " + intNewProductID + " WHERE ProductID = " + intOldProductID + " AND PriceDiscounted = " + intDiscount;
+                    string strUpdateQuery = "UPDATE dbo.Specials SET ProductID = " + intNewProductID + " WHERE ProductID = " + intOldProductID + " AND PriceDiscounted = " + intDiscount;
                     SqlCommand cmdUpdateQuery = new SqlCommand(strUpdateQuery, _cntDatabase);
                     cmdUpdateQuery.ExecuteNonQuery();
 
@@ -535,7 +535,7 @@ namespace SP21_Final_Project
                             intNewDiscount *= -1;
                         }
 
-                        string strGetOldProductID = "SELECT ProductID FROM FullerIsp212332.Products WHERE ProductName = '" + strName + "'";
+                        string strGetOldProductID = "SELECT ProductID FROM dbo.Products WHERE ProductName = '" + strName + "'";
                         SqlCommand cmdGetOldProductID = new SqlCommand(strGetOldProductID, _cntDatabase);
                         int intOldProductID = 0;
                         if (cmdGetOldProductID.ExecuteScalar() == null)
@@ -548,7 +548,7 @@ namespace SP21_Final_Project
                             intOldProductID = (int)cmdGetOldProductID.ExecuteScalar();
                         }
 
-                        string strUpdateQuery = "UPDATE FullerIsp212332.Specials SET " + strColumnName + " = " + intNewDiscount + " WHERE ProductID = " + intOldProductID + " AND PriceDiscounted = " + intDiscount;
+                        string strUpdateQuery = "UPDATE dbo.Specials SET " + strColumnName + " = " + intNewDiscount + " WHERE ProductID = " + intOldProductID + " AND PriceDiscounted = " + intDiscount;
                         SqlCommand cmdUpdateQuery = new SqlCommand(strUpdateQuery, _cntDatabase);
                         cmdUpdateQuery.ExecuteNonQuery();
 
@@ -563,7 +563,7 @@ namespace SP21_Final_Project
                 {
                     if (strNewValue.Length <= 50)
                     {
-                        string strGetOldProductID = "SELECT ProductID FROM FullerIsp212332.Products WHERE ProductName = '" + strName + "'";
+                        string strGetOldProductID = "SELECT ProductID FROM dbo.Products WHERE ProductName = '" + strName + "'";
                         SqlCommand cmdGetOldProductID = new SqlCommand(strGetOldProductID, _cntDatabase);
                         int intOldProductID = 0;
                         if (cmdGetOldProductID.ExecuteScalar() == null)
@@ -576,7 +576,7 @@ namespace SP21_Final_Project
                             intOldProductID = (int)cmdGetOldProductID.ExecuteScalar();
                         }
 
-                        string strUpdateQuery = "UPDATE FullerIsp212332.Specials SET " + strColumnName + " = '" + strNewValue + "' WHERE ProductID = " + intOldProductID + " AND PriceDiscounted = " + intDiscount;
+                        string strUpdateQuery = "UPDATE dbo.Specials SET " + strColumnName + " = '" + strNewValue + "' WHERE ProductID = " + intOldProductID + " AND PriceDiscounted = " + intDiscount;
                         SqlCommand cmdUpdateQuery = new SqlCommand(strUpdateQuery, _cntDatabase);
                         cmdUpdateQuery.ExecuteNonQuery();
 
@@ -600,7 +600,7 @@ namespace SP21_Final_Project
         {
             try
             {
-                string strGetID = "SELECT EmployeeID FROM FullerIsp212332.Employees WHERE Username ='" + strUsername + "'";
+                string strGetID = "SELECT EmployeeID FROM dbo.Employees WHERE Username ='" + strUsername + "'";
                 SqlCommand cmdGetID = new SqlCommand(strGetID, _cntDatabase);
                 int intEmployeeID = 0;
                 if (cmdGetID.ExecuteScalar() == null)
@@ -645,7 +645,7 @@ namespace SP21_Final_Project
 
                     strStartDate = "'" + dtTempDate.Year.ToString() + "-" + FormatDayOrMonth(dtTempDate.Month.ToString()) + "-" + FormatDayOrMonth(dtTempDate.Day.ToString()) + "'";
 
-                    string strGetSchedule = "SELECT Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday FROM FullerIsp212332.Schedules WHERE EmployeeID = " + intEmployeeID + " AND StartDate = " + strStartDate;
+                    string strGetSchedule = "SELECT Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday FROM dbo.Schedules WHERE EmployeeID = " + intEmployeeID + " AND StartDate = " + strStartDate;
                     SqlCommand cmdGetSchedule = new SqlCommand(strGetSchedule, _cntDatabase);
                     SqlDataAdapter sdaGetSchedule = new SqlDataAdapter();
                     DataTable dtbGetSchedule = new DataTable();
@@ -655,7 +655,7 @@ namespace SP21_Final_Project
                     dgvSchedule.DataSource = dtbGetSchedule;
 
                     string strToday = DateTime.Now.DayOfWeek.ToString();
-                    string strGetToday = "SELECT " + strToday + " FROM FullerIsp212332.Schedules WHERE EmployeeID = " + intEmployeeID;
+                    string strGetToday = "SELECT " + strToday + " FROM dbo.Schedules WHERE EmployeeID = " + intEmployeeID;
                     SqlCommand cmdGetToday = new SqlCommand(strGetToday, _cntDatabase);
                     return (string)cmdGetToday.ExecuteScalar();
                 }
@@ -692,7 +692,7 @@ namespace SP21_Final_Project
 
                     strStartDate = "'" + dtTempDate.Year.ToString() + "-" + FormatDayOrMonth(dtTempDate.Month.ToString()) + "-" + FormatDayOrMonth(dtTempDate.Day.ToString()) + "'";
 
-                    string strGetSchedule = "SELECT Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday FROM FullerIsp212332.Schedules WHERE EmployeeID = " + intEmployeeID + " AND StartDate = " + strStartDate;
+                    string strGetSchedule = "SELECT Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday FROM dbo.Schedules WHERE EmployeeID = " + intEmployeeID + " AND StartDate = " + strStartDate;
                     SqlCommand cmdGetSchedule = new SqlCommand(strGetSchedule, _cntDatabase);
                     SqlDataAdapter sdaGetSchedule = new SqlDataAdapter();
                     DataTable dtbGetSchedule = new DataTable();
@@ -702,7 +702,7 @@ namespace SP21_Final_Project
                     dgvSchedule.DataSource = dtbGetSchedule;
 
                     string strToday = DateTime.Now.DayOfWeek.ToString();
-                    string strGetToday = "SELECT " + strToday + " FROM FullerIsp212332.Schedules WHERE EmployeeID = " + intEmployeeID;
+                    string strGetToday = "SELECT " + strToday + " FROM dbo.Schedules WHERE EmployeeID = " + intEmployeeID;
                     SqlCommand cmdGetToday = new SqlCommand(strGetToday, _cntDatabase);
                     return (string)cmdGetToday.ExecuteScalar();
                 }
@@ -737,7 +737,7 @@ namespace SP21_Final_Project
 
                     strStartDate = "'" + dtTempDate.Year.ToString() + "-" + FormatDayOrMonth(dtTempDate.Month.ToString()) + "-" + FormatDayOrMonth(dtTempDate.Day.ToString()) + "'";
 
-                    string strGetSchedule = "SELECT Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday FROM FullerIsp212332.Schedules WHERE EmployeeID = " + intEmployeeID + " AND StartDate < " + strStartDate;
+                    string strGetSchedule = "SELECT Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday FROM dbo.Schedules WHERE EmployeeID = " + intEmployeeID + " AND StartDate < " + strStartDate;
                     SqlCommand cmdGetSchedule = new SqlCommand(strGetSchedule, _cntDatabase);
                     SqlDataAdapter sdaGetSchedule = new SqlDataAdapter();
                     DataTable dtbGetSchedule = new DataTable();
@@ -747,7 +747,7 @@ namespace SP21_Final_Project
                     dgvSchedule.DataSource = dtbGetSchedule;
 
                     string strToday = DateTime.Now.DayOfWeek.ToString();
-                    string strGetToday = "SELECT " + strToday + " FROM FullerIsp212332.Schedules WHERE EmployeeID = " + intEmployeeID;
+                    string strGetToday = "SELECT " + strToday + " FROM dbo.Schedules WHERE EmployeeID = " + intEmployeeID;
                     SqlCommand cmdGetToday = new SqlCommand(strGetToday, _cntDatabase);
                     return (string)cmdGetToday.ExecuteScalar();
                 }
@@ -770,7 +770,7 @@ namespace SP21_Final_Project
         {
             try
             {
-                string strGetRequests = "SELECT RequestID, FirstName, LastName, Request, Status FROM FullerIsp212332.Requests JOIN FullerIsp212332.Employees ON Requests.EmployeeID = Employees.EmployeeID";
+                string strGetRequests = "SELECT RequestID, FirstName, LastName, Request, Status FROM dbo.Requests JOIN dbo.Employees ON Requests.EmployeeID = Employees.EmployeeID";
                 SqlCommand cmdGetRequests = new SqlCommand(strGetRequests, _cntDatabase);
                 SqlDataAdapter sdaGetRequests = new SqlDataAdapter();
                 DataTable dtbGetRequests = new DataTable();
@@ -808,7 +808,7 @@ namespace SP21_Final_Project
                 SqlDataReader reader;
                 SqlCommand cmd;
                 cmd = _cntDatabase.CreateCommand();
-                cmd.CommandText = "SELECT ProductID, ProductName, Price, Size, UnitsInStock FROM FullerIsp212332.Products";
+                cmd.CommandText = "SELECT ProductID, ProductName, Price, Size, UnitsInStock FROM dbo.Products";
                 reader = cmd.ExecuteReader();
 
                 html.Append("<table>");
@@ -865,7 +865,7 @@ namespace SP21_Final_Project
                 SqlDataReader reader;
                 SqlCommand cmd;
                 cmd = _cntDatabase.CreateCommand();
-                cmd.CommandText = "SELECT Employees.EmployeeID, FirstName, LastName, Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday FROM FullerIsp212332.Employees JOIN FullerIsp212332.Schedules ON Employees.EmployeeID = Schedules.EmployeeID";
+                cmd.CommandText = "SELECT Employees.EmployeeID, FirstName, LastName, Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday FROM dbo.Employees JOIN dbo.Schedules ON Employees.EmployeeID = Schedules.EmployeeID";
                 reader = cmd.ExecuteReader();
 
                 html.Append("<table>");
@@ -952,7 +952,7 @@ namespace SP21_Final_Project
                 SqlDataReader reader;
                 SqlCommand cmd;
                 cmd = _cntDatabase.CreateCommand();
-                cmd.CommandText = "SELECT ProductName, TotalPrice, OrderDate FROM FullerIsp212332.Products JOIN FullerIsp212332.Invoices ON Products.ProductID = Invoices.ProductID WHERE OrderDate BETWEEN '" + strStartDate + "' AND '" + strEndDate + "'";
+                cmd.CommandText = "SELECT ProductName, TotalPrice, OrderDate FROM dbo.Products JOIN dbo.Invoices ON Products.ProductID = Invoices.ProductID WHERE OrderDate BETWEEN '" + strStartDate + "' AND '" + strEndDate + "'";
                 reader = cmd.ExecuteReader();
 
                 html.Append("<table>");
@@ -994,7 +994,7 @@ namespace SP21_Final_Project
 
             try
             {
-                string strGetID = $"SELECT ProductID FROM FullerIsp212332.Products WHERE ProductName = '{strProductName}'";
+                string strGetID = $"SELECT ProductID FROM dbo.Products WHERE ProductName = '{strProductName}'";
                 SqlCommand cmdGetID = new SqlCommand(strGetID, _cntDatabase);
                 int intProductID = 0;
                 if(cmdGetID.ExecuteScalar() == null)
@@ -1008,7 +1008,7 @@ namespace SP21_Final_Project
                     intProductID = (int)cmdGetID.ExecuteScalar();
                 }
 
-                string strInsertQuery = $"INSERT INTO FullerIsp212332.ManagerPurchases VALUES({intProductID}, {intQuantity}, {dblPrice}, {dblPrice * (double)intQuantity})";
+                string strInsertQuery = $"INSERT INTO dbo.ManagerPurchases VALUES({intProductID}, {intQuantity}, {dblPrice}, {dblPrice * (double)intQuantity})";
                 SqlCommand cmdInsertQuery = new SqlCommand(strInsertQuery, _cntDatabase);
                 cmdInsertQuery.ExecuteNonQuery();
 
@@ -1035,7 +1035,7 @@ namespace SP21_Final_Project
                 SqlDataReader reader;
                 SqlCommand cmd;
                 cmd = _cntDatabase.CreateCommand();
-                cmd.CommandText = "SELECT ProductName, QuantityPurchased, PricePerItem, TotalPrice FROM FullerIsp212332.Products JOIN FullerIsp212332.ManagerPurchases ON Products.ProductID = ManagerPurchases.ProductID";
+                cmd.CommandText = "SELECT ProductName, QuantityPurchased, PricePerItem, TotalPrice FROM dbo.Products JOIN dbo.ManagerPurchases ON Products.ProductID = ManagerPurchases.ProductID";
                 reader = cmd.ExecuteReader();
 
                 double dblTotalCost = 0;
@@ -1075,7 +1075,7 @@ namespace SP21_Final_Project
 
             try
             {
-                string strGetFName = "SELECT FirstName FROM FullerIsp212332.Employees WHERE Username = '" + strCurrentUser + "'";
+                string strGetFName = "SELECT FirstName FROM dbo.Employees WHERE Username = '" + strCurrentUser + "'";
                 SqlCommand cmdGetFName = new SqlCommand(strGetFName, _cntDatabase);
                 if(cmdGetFName.ExecuteScalar() == null)
                 {
@@ -1087,17 +1087,17 @@ namespace SP21_Final_Project
                     arrEmployeeInfo[0] = (string)cmdGetFName.ExecuteScalar();
                 }
 
-                string strGetLName = "SELECT LastName FROM FullerIsp212332.Employees WHERE Username = '" + strCurrentUser + "'";
+                string strGetLName = "SELECT LastName FROM dbo.Employees WHERE Username = '" + strCurrentUser + "'";
                 SqlCommand cmdGetLName = new SqlCommand(strGetLName, _cntDatabase);
                 arrEmployeeInfo[1] = (string)cmdGetLName.ExecuteScalar();
 
-                string strGetAddress = "SELECT Address FROM FullerIsp212332.Employees WHERE Username = '" + strCurrentUser + "'";
+                string strGetAddress = "SELECT Address FROM dbo.Employees WHERE Username = '" + strCurrentUser + "'";
                 SqlCommand cmdGetAddress = new SqlCommand(strGetAddress, _cntDatabase);
                 arrEmployeeInfo[2] = (string)cmdGetAddress.ExecuteScalar();
 
                 arrEmployeeInfo[3] = strCurrentUser;
 
-                string strGetPassword = "SELECT Password FROM FullerIsp212332.Employees WHERE Username = '" + strCurrentUser + "'";
+                string strGetPassword = "SELECT Password FROM dbo.Employees WHERE Username = '" + strCurrentUser + "'";
                 SqlCommand cmdGetPasswords = new SqlCommand(strGetPassword, _cntDatabase);
                 arrEmployeeInfo[4] = (string)cmdGetPasswords.ExecuteScalar();
             }
@@ -1113,7 +1113,7 @@ namespace SP21_Final_Project
         {
             try
             {
-                string strGetID = "SELECT EmployeeID FROM FullerIsp212332.Employees WHERE Username = '" + strCurrentUser + "'";
+                string strGetID = "SELECT EmployeeID FROM dbo.Employees WHERE Username = '" + strCurrentUser + "'";
                 SqlCommand cmdGetID = new SqlCommand(strGetID, _cntDatabase);
                 int intEmployeeID = 0;
                 if (cmdGetID.ExecuteScalar() == null)
@@ -1126,7 +1126,7 @@ namespace SP21_Final_Project
                     intEmployeeID = (int)cmdGetID.ExecuteScalar();
                 }
 
-                string strUpdate = "UPDATE FullerIsp212332.Employees SET FirstName = '" + strNewFName + "', Lastname = '" + strNewLName + "', Address = '" + strNewAddress + "', Username = '" + strNewUsername + "', Password = '" + strNewPassword + "' WHERE EmployeeID = " + intEmployeeID;
+                string strUpdate = "UPDATE dbo.Employees SET FirstName = '" + strNewFName + "', Lastname = '" + strNewLName + "', Address = '" + strNewAddress + "', Username = '" + strNewUsername + "', Password = '" + strNewPassword + "' WHERE EmployeeID = " + intEmployeeID;
                 SqlCommand cmdUpdate = new SqlCommand(strUpdate, _cntDatabase);
                 cmdUpdate.ExecuteNonQuery();
 
@@ -1149,7 +1149,7 @@ namespace SP21_Final_Project
                 SqlDataReader reader;
                 SqlCommand cmd;
                 cmd = _cntDatabase.CreateCommand();
-                cmd.CommandText = "SELECT * FROM FullerIsp212332.Employees";
+                cmd.CommandText = "SELECT * FROM dbo.Employees";
                 reader = cmd.ExecuteReader();
 
                 int intListIndex = 0;
@@ -1183,7 +1183,7 @@ namespace SP21_Final_Project
                 SqlDataReader reader;
                 SqlCommand cmd;
                 cmd = _cntDatabase.CreateCommand();
-                cmd.CommandText = "SELECT DISTINCT StartDate FROM FullerIsp212332.Schedules";
+                cmd.CommandText = "SELECT DISTINCT StartDate FROM dbo.Schedules";
                 reader = cmd.ExecuteReader();
 
                 //Formats the date and puts it into the list
@@ -1211,7 +1211,7 @@ namespace SP21_Final_Project
             try
             {
                 //Gets ID so schedule can be found with foreign key
-                string strGetID = $"SELECT EmployeeID FROM FullerIsp212332.Employees WHERE FirstName = '{strFName}' AND LastName = '{strLName}'";
+                string strGetID = $"SELECT EmployeeID FROM dbo.Employees WHERE FirstName = '{strFName}' AND LastName = '{strLName}'";
                 SqlCommand cmdGetID = new SqlCommand(strGetID, _cntDatabase);
                 int intEmployeeID = 0;
                 if (cmdGetID.ExecuteScalar() == null)
@@ -1227,7 +1227,7 @@ namespace SP21_Final_Project
                 SqlDataReader reader;
                 SqlCommand cmd;
                 cmd = _cntDatabase.CreateCommand();
-                cmd.CommandText = $"SELECT * FROM FullerIsp212332.Schedules WHERE EmployeeID = {intEmployeeID} AND StartDate = '{strDate}'";
+                cmd.CommandText = $"SELECT * FROM dbo.Schedules WHERE EmployeeID = {intEmployeeID} AND StartDate = '{strDate}'";
                 reader = cmd.ExecuteReader();
 
                 try
@@ -1264,7 +1264,7 @@ namespace SP21_Final_Project
             try
             {
                 //Gets ID so schedule can be found with foreign key
-                string strGetID = $"SELECT EmployeeID FROM FullerIsp212332.Employees WHERE FirstName = '{strFName}' AND LastName = '{strLName}'";
+                string strGetID = $"SELECT EmployeeID FROM dbo.Employees WHERE FirstName = '{strFName}' AND LastName = '{strLName}'";
                 SqlCommand cmdGetID = new SqlCommand(strGetID, _cntDatabase);
                 int intEmployeeID = 0;
                 if (cmdGetID.ExecuteScalar() == null)
@@ -1278,7 +1278,7 @@ namespace SP21_Final_Project
                 }
 
                 //Cancels creation if the employee already has a schedule for the selected week
-                string strCheckForExistance = $"SELECT ScheduleID FROM FullerIsp212332.Schedules WHERE EmployeeID = {intEmployeeID} AND StartDate = '{strDate}'";
+                string strCheckForExistance = $"SELECT ScheduleID FROM dbo.Schedules WHERE EmployeeID = {intEmployeeID} AND StartDate = '{strDate}'";
                 SqlCommand cmdCheckForExistance = new SqlCommand(strCheckForExistance, _cntDatabase);
                 if(cmdCheckForExistance.ExecuteScalar() != null)
                 {
@@ -1287,7 +1287,7 @@ namespace SP21_Final_Project
                 }
 
                 //Creates the schedule
-                string strInsertSchedule = $"INSERT INTO FullerIsp212332.Schedules VALUES({intEmployeeID}, '{strSunday}', '{strMonday}', '{strTuesday}', '{strWednesday}', '{strThursday}', '{strFriday}', '{strSaturday}', '{strDate}')";
+                string strInsertSchedule = $"INSERT INTO dbo.Schedules VALUES({intEmployeeID}, '{strSunday}', '{strMonday}', '{strTuesday}', '{strWednesday}', '{strThursday}', '{strFriday}', '{strSaturday}', '{strDate}')";
                 SqlCommand cmdInsertSchedule = new SqlCommand(strInsertSchedule, _cntDatabase);
                 cmdInsertSchedule.ExecuteNonQuery();
 
@@ -1305,7 +1305,7 @@ namespace SP21_Final_Project
             try
             {
                 //Gets ID from the employee's name so the schedule can be found
-                string strGetID = $"SELECT EmployeeID FROM FullerIsp212332.Employees WHERE FirstName = '{strFName}' AND LastName = '{strLName}'";
+                string strGetID = $"SELECT EmployeeID FROM dbo.Employees WHERE FirstName = '{strFName}' AND LastName = '{strLName}'";
                 SqlCommand cmdGetID = new SqlCommand(strGetID, _cntDatabase);
                 int intEmployeeID = 0;
                 if (cmdGetID.ExecuteScalar() == null)
@@ -1319,7 +1319,7 @@ namespace SP21_Final_Project
                 }
 
                 //Deletes the schedule
-                string strRemoveSchedule = $"DELETE FROM FullerIsp212332.Schedules WHERE EmployeeID = {intEmployeeID} AND StartDate = '{strDate}'";
+                string strRemoveSchedule = $"DELETE FROM dbo.Schedules WHERE EmployeeID = {intEmployeeID} AND StartDate = '{strDate}'";
                 SqlCommand cmdRemoveSchedule = new SqlCommand(strRemoveSchedule, _cntDatabase);
                 cmdRemoveSchedule.ExecuteNonQuery();
 
@@ -1336,7 +1336,7 @@ namespace SP21_Final_Project
             try
             {
                 //Gets ID from the employee's name so the schedule can be found
-                string strGetID = $"SELECT EmployeeID FROM FullerIsp212332.Employees WHERE FirstName = '{strFName}' AND LastName = '{strLName}'";
+                string strGetID = $"SELECT EmployeeID FROM dbo.Employees WHERE FirstName = '{strFName}' AND LastName = '{strLName}'";
                 SqlCommand cmdGetID = new SqlCommand(strGetID, _cntDatabase);
                 int intEmployeeID = 0;
                 if (cmdGetID.ExecuteScalar() == null)
@@ -1350,7 +1350,7 @@ namespace SP21_Final_Project
                 }
 
                 //Updates the schedule
-                string strUpdateQuery = $"UPDATE FullerIsp212332.Schedules SET Sunday = '{strSunday}', Monday = '{strMonday}', Tuesday = '{strTuesday}', Wednesday = '{strWednesday}', Thursday = '{strThursday}', Friday = '{strFriday}', Saturday = '{strSaturday}' WHERE StartDate = '{strDate}' AND EmployeeID = {intEmployeeID}";
+                string strUpdateQuery = $"UPDATE dbo.Schedules SET Sunday = '{strSunday}', Monday = '{strMonday}', Tuesday = '{strTuesday}', Wednesday = '{strWednesday}', Thursday = '{strThursday}', Friday = '{strFriday}', Saturday = '{strSaturday}' WHERE StartDate = '{strDate}' AND EmployeeID = {intEmployeeID}";
                 SqlCommand cmdUpdateQuery = new SqlCommand(strUpdateQuery, _cntDatabase);
                 cmdUpdateQuery.ExecuteNonQuery();
 
@@ -1369,7 +1369,7 @@ namespace SP21_Final_Project
         {
             try
             {
-                string strGetID = "SELECT EmployeeID FROM FullerIsp212332.Employees WHERE Username ='" + strUsername + "'";
+                string strGetID = "SELECT EmployeeID FROM dbo.Employees WHERE Username ='" + strUsername + "'";
                 SqlCommand cmdGetID = new SqlCommand(strGetID, _cntDatabase);
                 int intEmployeeID = 0;
                 if (cmdGetID.ExecuteScalar() == null)
@@ -1385,7 +1385,7 @@ namespace SP21_Final_Project
                 string strFullRequest = strRequestType + " " + strRequest;
                 if (strFullRequest.Length <= 300)
                 {
-                    string strInsertQuery = "INSERT INTO FullerIsp212332.Requests(EmployeeID, Request, Status) VALUES(" + intEmployeeID + ", '" + strFullRequest + "', 'Unread')";
+                    string strInsertQuery = "INSERT INTO dbo.Requests(EmployeeID, Request, Status) VALUES(" + intEmployeeID + ", '" + strFullRequest + "', 'Unread')";
                     SqlCommand cmdInsertQuery = new SqlCommand(strInsertQuery, _cntDatabase);
                     cmdInsertQuery.ExecuteNonQuery();
 
@@ -1411,7 +1411,7 @@ namespace SP21_Final_Project
                 SqlDataReader reader;
                 SqlCommand cmd;
                 cmd = _cntDatabase.CreateCommand();
-                cmd.CommandText = "SELECT * FROM FullerIsp212332.Requests";
+                cmd.CommandText = "SELECT * FROM dbo.Requests";
                 reader = cmd.ExecuteReader();
 
                 int intListIndex = 0;
@@ -1440,7 +1440,7 @@ namespace SP21_Final_Project
         {
             try
             {
-                string strUpdateQuery = "UPDATE FullerIsp212332.Requests SET Status = '" + strNewStatus + "' WHERE RequestID = " + intRequestID;
+                string strUpdateQuery = "UPDATE dbo.Requests SET Status = '" + strNewStatus + "' WHERE RequestID = " + intRequestID;
                 SqlCommand cmdUpdateQuery = new SqlCommand(strUpdateQuery, _cntDatabase);
                 cmdUpdateQuery.ExecuteNonQuery();
 
@@ -1457,11 +1457,11 @@ namespace SP21_Final_Project
         {
             try
             {
-                string strUpdateEmployee = $"UPDATE FullerIsp212332.Employees SET Password = '{strNewPassword}' WHERE Username = '{strUsername}'";
+                string strUpdateEmployee = $"UPDATE dbo.Employees SET Password = '{strNewPassword}' WHERE Username = '{strUsername}'";
                 SqlCommand cmdUpdateEmployee = new SqlCommand(strUpdateEmployee, _cntDatabase);
                 cmdUpdateEmployee.ExecuteNonQuery();
 
-                string strUpdateManager = $"UPDATE FullerIsp212332.Managers SET Password = '{strNewPassword}' WHERE Username = '{strUsername}'";
+                string strUpdateManager = $"UPDATE dbo.Managers SET Password = '{strNewPassword}' WHERE Username = '{strUsername}'";
                 SqlCommand cmdUpdateManager = new SqlCommand(strUpdateManager, _cntDatabase);
                 cmdUpdateManager.ExecuteNonQuery();
 
@@ -1481,7 +1481,7 @@ namespace SP21_Final_Project
             {
                 for (int intCurrentItem = 0; intCurrentItem < lstProducts.Count; intCurrentItem++)
                 {
-                    string strGetOldQuantity = $"SELECT UnitsInStock FROM FullerIsp212332.Products WHERE ProductName = '{lstProducts[intCurrentItem].strProductName}'";
+                    string strGetOldQuantity = $"SELECT UnitsInStock FROM dbo.Products WHERE ProductName = '{lstProducts[intCurrentItem].strProductName}'";
                     SqlCommand cmdGetOldQuantity = new SqlCommand(strGetOldQuantity, _cntDatabase);
                     int intOldQuantity = 0;
                     if (cmdGetOldQuantity.ExecuteScalar() == null)
@@ -1505,7 +1505,7 @@ namespace SP21_Final_Project
 
                 for (int intCurrentQuantity = 0; intCurrentQuantity < lstNewQuantities.Count; intCurrentQuantity++)
                 {
-                    string strSetQuantity = $"UPDATE FullerIsp212332.Products SET UnitsInStock = {lstNewQuantities[intCurrentQuantity]} WHERE ProductName = '{lstProducts[intCurrentQuantity].strProductName}'";
+                    string strSetQuantity = $"UPDATE dbo.Products SET UnitsInStock = {lstNewQuantities[intCurrentQuantity]} WHERE ProductName = '{lstProducts[intCurrentQuantity].strProductName}'";
                     SqlCommand cmdSetQuantity = new SqlCommand(strSetQuantity, _cntDatabase);
                     cmdSetQuantity.ExecuteNonQuery();
                 }
