@@ -26,6 +26,8 @@ namespace SP21_Final_Project
         {
             try
             {
+                FormCloser.lstOpenedForms.Add(this);
+
                 MaximizeBox = false;
 
                 //Fills textboxes with employee's data
@@ -45,6 +47,11 @@ namespace SP21_Final_Project
         private void btnUpdate_Click(object sender, EventArgs e)
         {
             DB.UpdateEmployeeInformation(frmLogin.strCurrentUser, tbxFirstName.Text, tbxLastName.Text, tbxAddress.Text, tbxUsername.Text, tbxPassword.Text);
+        }
+
+        private void mnuReturn_Click(object sender, EventArgs e)
+        {
+            FormCloser.returnToMain();
         }
     }
 }

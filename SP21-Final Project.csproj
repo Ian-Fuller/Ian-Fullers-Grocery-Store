@@ -65,6 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DB.cs" />
+    <Compile Include="FormCloser.cs" />
     <Compile Include="frmEmployees.cs">
       <SubType>Form</SubType>
     </Compile>

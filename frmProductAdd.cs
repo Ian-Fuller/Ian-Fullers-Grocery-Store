@@ -135,6 +135,8 @@ namespace SP21_Final_Project
         private void frmProductAdd_Load(object sender, EventArgs e)
         {
             MaximizeBox = false;
+
+            FormCloser.lstOpenedForms.Add(this);
         }
 
         private void btnClearAllFields_Click(object sender, EventArgs e)
@@ -145,6 +147,11 @@ namespace SP21_Final_Project
             tbxSize.Text = "";
             tbxStock.Text = "";
             pbxProductImage.Image = null;
+        }
+
+        private void mnuReturn_Click(object sender, EventArgs e)
+        {
+            FormCloser.returnToMain();
         }
     }
 }

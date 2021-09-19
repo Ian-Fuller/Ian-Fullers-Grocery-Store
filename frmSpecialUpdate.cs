@@ -29,6 +29,8 @@ namespace SP21_Final_Project
         {
             try
             {
+                FormCloser.lstOpenedForms.Add(this);
+
                 MaximizeBox = false;
 
                 //Fills the first combo box with the current specials
@@ -102,6 +104,11 @@ namespace SP21_Final_Project
         private void mnuUpdateSpecial_Click(object sender, EventArgs e)
         {
             Help.HelpUpdateSpecial();
+        }
+
+        private void mnuReturn_Click(object sender, EventArgs e)
+        {
+            FormCloser.returnToMain();
         }
     }
 }

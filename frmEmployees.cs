@@ -40,6 +40,8 @@ namespace SP21_Final_Project
         {
             try
             {
+                FormCloser.lstOpenedForms.Add(this);
+
                 MaximizeBox = false;
 
                 //Fills combo box with options
@@ -300,6 +302,11 @@ namespace SP21_Final_Project
         private void mnuChangeInformation_Click(object sender, EventArgs e)
         {
             Help.HelpChangeInformation();
+        }
+
+        private void mnuReturn_Click(object sender, EventArgs e)
+        {
+            FormCloser.returnToMain();
         }
     }
 }

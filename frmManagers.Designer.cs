@@ -33,6 +33,7 @@ namespace SP21_Final_Project
             this.mnuBar = new System.Windows.Forms.MenuStrip();
             this.mnuFile = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuClose = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuReturn = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuManagersMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.btnManageProducts = new System.Windows.Forms.Button();
@@ -56,7 +57,8 @@ namespace SP21_Final_Project
             // mnuFile
             // 
             this.mnuFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mnuClose});
+            this.mnuClose,
+            this.mnuReturn});
             this.mnuFile.Name = "mnuFile";
             this.mnuFile.Size = new System.Drawing.Size(37, 20);
             this.mnuFile.Text = "&File";
@@ -64,9 +66,16 @@ namespace SP21_Final_Project
             // mnuClose
             // 
             this.mnuClose.Name = "mnuClose";
-            this.mnuClose.Size = new System.Drawing.Size(103, 22);
+            this.mnuClose.Size = new System.Drawing.Size(180, 22);
             this.mnuClose.Text = "&Close";
             this.mnuClose.Click += new System.EventHandler(this.mnuClose_Click);
+            // 
+            // mnuReturn
+            // 
+            this.mnuReturn.Name = "mnuReturn";
+            this.mnuReturn.Size = new System.Drawing.Size(180, 22);
+            this.mnuReturn.Text = "Return to &Main";
+            this.mnuReturn.Click += new System.EventHandler(this.mnuReturn_Click);
             // 
             // mnuHelp
             // 
@@ -157,5 +166,6 @@ namespace SP21_Final_Project
         private System.Windows.Forms.Button btnPrintReports;
         private System.Windows.Forms.ToolStripMenuItem mnuHelp;
         private System.Windows.Forms.ToolStripMenuItem mnuManagersMenu;
+        private System.Windows.Forms.ToolStripMenuItem mnuReturn;
     }
 }

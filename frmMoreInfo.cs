@@ -35,6 +35,23 @@ namespace SP21_Final_Project
         private void frmMoreInfo_Load(object sender, EventArgs e)
         {
             MaximizeBox = false;
+
+            FormCloser.lstOpenedForms.Add(this);
+        }
+
+        private void mnuADDLATER_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void mnuClose2_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void mnuReturn2_Click(object sender, EventArgs e)
+        {
+            FormCloser.returnToMain();
         }
     }
 }

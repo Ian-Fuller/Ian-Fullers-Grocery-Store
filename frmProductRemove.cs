@@ -22,6 +22,8 @@ namespace SP21_Final_Project
         {
             try
             {
+                FormCloser.lstOpenedForms.Add(this);
+
                 MaximizeBox = false;
 
                 //Adds proucts of frmMain to the combo box
@@ -57,6 +59,11 @@ namespace SP21_Final_Project
         private void mnuRemoveProduct_Click(object sender, EventArgs e)
         {
             Help.HelpRemoveProduct();
+        }
+
+        private void mnuReturn_Click(object sender, EventArgs e)
+        {
+            FormCloser.returnToMain();
         }
     }
 }

@@ -44,6 +44,7 @@ namespace SP21_Final_Project
             this.lblUsername = new System.Windows.Forms.Label();
             this.lblPassword = new System.Windows.Forms.Label();
             this.btnUpdate = new System.Windows.Forms.Button();
+            this.mnuReturn = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuBar.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -60,7 +61,8 @@ namespace SP21_Final_Project
             // mnuFile
             // 
             this.mnuFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mnuClose});
+            this.mnuClose,
+            this.mnuReturn});
             this.mnuFile.Name = "mnuFile";
             this.mnuFile.Size = new System.Drawing.Size(37, 20);
             this.mnuFile.Text = "&File";
@@ -68,7 +70,7 @@ namespace SP21_Final_Project
             // mnuClose
             // 
             this.mnuClose.Name = "mnuClose";
-            this.mnuClose.Size = new System.Drawing.Size(103, 22);
+            this.mnuClose.Size = new System.Drawing.Size(180, 22);
             this.mnuClose.Text = "&Close";
             this.mnuClose.Click += new System.EventHandler(this.mnuClose_Click);
             // 
@@ -162,6 +164,13 @@ namespace SP21_Final_Project
             this.btnUpdate.UseVisualStyleBackColor = true;
             this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
+            // mnuReturn
+            // 
+            this.mnuReturn.Name = "mnuReturn";
+            this.mnuReturn.Size = new System.Drawing.Size(180, 22);
+            this.mnuReturn.Text = "Return to &Main";
+            this.mnuReturn.Click += new System.EventHandler(this.mnuReturn_Click);
+            // 
             // frmUpdateEmployee
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -209,5 +218,6 @@ namespace SP21_Final_Project
         private System.Windows.Forms.Label lblUsername;
         private System.Windows.Forms.Label lblPassword;
         private System.Windows.Forms.Button btnUpdate;
+        private System.Windows.Forms.ToolStripMenuItem mnuReturn;
     }
 }

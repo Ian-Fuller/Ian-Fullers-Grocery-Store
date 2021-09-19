@@ -26,6 +26,8 @@ namespace SP21_Final_Project
         {
             try
             {
+                FormCloser.lstOpenedForms.Add(this);
+
                 MaximizeBox = false;
 
                 //Fills combo box with products
@@ -86,6 +88,11 @@ namespace SP21_Final_Project
         private void addSpecialToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Help.HelpAddSpecial();
+        }
+
+        private void mnuReturn_Click(object sender, EventArgs e)
+        {
+            FormCloser.returnToMain();
         }
     }
 }

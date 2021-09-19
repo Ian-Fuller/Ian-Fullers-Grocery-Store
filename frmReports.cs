@@ -22,6 +22,8 @@ namespace SP21_Final_Project
         {
             try
             {
+                FormCloser.lstOpenedForms.Add(this);
+
                 MaximizeBox = false;
 
                 //Fills combo box with time period options
@@ -79,6 +81,11 @@ namespace SP21_Final_Project
         private void mnuReport_Click(object sender, EventArgs e)
         {
             Help.HelpReport();
+        }
+
+        private void mnuReturn_Click(object sender, EventArgs e)
+        {
+            FormCloser.returnToMain();
         }
     }
 }

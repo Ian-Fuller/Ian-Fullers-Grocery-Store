@@ -24,6 +24,8 @@ namespace SP21_Final_Project
 
         private void frmSheduleManage_Load(object sender, EventArgs e)
         {
+            FormCloser.lstOpenedForms.Add(this);
+
             DB.GetRequests(dgvSchedules);
 
             MaximizeBox = false;
@@ -84,6 +86,11 @@ namespace SP21_Final_Project
         private void mnuManageSchedules_Click(object sender, EventArgs e)
         {
             Help.HelpScheduleManage();
+        }
+
+        private void mnuReturn_Click(object sender, EventArgs e)
+        {
+            FormCloser.returnToMain();
         }
     }
 }

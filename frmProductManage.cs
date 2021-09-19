@@ -64,6 +64,13 @@ namespace SP21_Final_Project
         private void frmProductManage_Load(object sender, EventArgs e)
         {
             MaximizeBox = false;
+
+            FormCloser.lstOpenedForms.Add(this);
+        }
+
+        private void mnuReturn_Click(object sender, EventArgs e)
+        {
+            FormCloser.returnToMain();
         }
     }
 }

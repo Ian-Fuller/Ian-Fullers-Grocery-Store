@@ -69,7 +69,14 @@ namespace SP21_Final_Project
 
         private void frmRecoverPassword_Load(object sender, EventArgs e)
         {
+            FormCloser.lstOpenedForms.Add(this);
+
             MaximizeBox = false;
+        }
+
+        private void mnuReturn_Click(object sender, EventArgs e)
+        {
+            FormCloser.returnToMain();
         }
     }
 }

@@ -24,6 +24,8 @@ namespace SP21_Final_Project
         {
             try
             {
+                FormCloser.lstOpenedForms.Add(this);
+
                 MaximizeBox = false;
 
                 //Fills the first combo box with the names of the employees
@@ -109,6 +111,11 @@ namespace SP21_Final_Project
         private void mnuCreateSchedules_Click(object sender, EventArgs e)
         {
             Help.HelpScheduleAdd();
+        }
+
+        private void mnuReturn_Click(object sender, EventArgs e)
+        {
+            FormCloser.returnToMain();
         }
     }
 }

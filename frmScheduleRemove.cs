@@ -29,6 +29,8 @@ namespace SP21_Final_Project
         {
             try
             {
+                FormCloser.lstOpenedForms.Add(this);
+
                 MaximizeBox = false;
 
                 //Puts employee FirstName and LastName into combo box
@@ -95,6 +97,11 @@ namespace SP21_Final_Project
         private void mnuRemoveSchedule_Click(object sender, EventArgs e)
         {
             Help.HelpScheduleRemove();
+        }
+
+        private void mnuReturn_Click(object sender, EventArgs e)
+        {
+            FormCloser.returnToMain();
         }
     }
 }

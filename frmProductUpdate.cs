@@ -78,6 +78,8 @@ namespace SP21_Final_Project
         {
             try
             {
+                FormCloser.lstOpenedForms.Add(this);
+
                 MaximizeBox = false;
 
                 //Fills first combo box with products from frmMain
@@ -135,6 +137,11 @@ namespace SP21_Final_Project
         private void mnuUpdateProduct_Click(object sender, EventArgs e)
         {
             Help.HelpUpdateProduct();
+        }
+
+        private void mnuReturn_Click(object sender, EventArgs e)
+        {
+            FormCloser.returnToMain();
         }
     }
 }

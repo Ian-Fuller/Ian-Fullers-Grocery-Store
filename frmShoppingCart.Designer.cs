@@ -48,6 +48,7 @@ namespace SP21_Final_Project
             this.lblAmountOrdered = new System.Windows.Forms.Label();
             this.btnRemove = new System.Windows.Forms.Button();
             this.lblDiscount = new System.Windows.Forms.Label();
+            this.mnuReturn = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxProductImage)).BeginInit();
             this.SuspendLayout();
@@ -66,7 +67,8 @@ namespace SP21_Final_Project
             // mnuFile
             // 
             this.mnuFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mnuClose});
+            this.mnuClose,
+            this.mnuReturn});
             this.mnuFile.Name = "mnuFile";
             this.mnuFile.Size = new System.Drawing.Size(37, 20);
             this.mnuFile.Text = "&File";
@@ -89,7 +91,7 @@ namespace SP21_Final_Project
             // mnuShoppingCart
             // 
             this.mnuShoppingCart.Name = "mnuShoppingCart";
-            this.mnuShoppingCart.Size = new System.Drawing.Size(180, 22);
+            this.mnuShoppingCart.Size = new System.Drawing.Size(150, 22);
             this.mnuShoppingCart.Text = "&Shopping Cart";
             this.mnuShoppingCart.Click += new System.EventHandler(this.mnuShoppingCart_Click);
             // 
@@ -203,6 +205,13 @@ namespace SP21_Final_Project
             this.lblDiscount.Size = new System.Drawing.Size(0, 13);
             this.lblDiscount.TabIndex = 13;
             // 
+            // mnuReturn
+            // 
+            this.mnuReturn.Name = "mnuReturn";
+            this.mnuReturn.Size = new System.Drawing.Size(180, 22);
+            this.mnuReturn.Text = "Return to &Main";
+            this.mnuReturn.Click += new System.EventHandler(this.mnuReturn_Click);
+            // 
             // frmShoppingCart
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -257,5 +266,6 @@ namespace SP21_Final_Project
         private System.Windows.Forms.Label lblDiscount;
         private System.Windows.Forms.ToolStripMenuItem mnuHelp;
         private System.Windows.Forms.ToolStripMenuItem mnuShoppingCart;
+        private System.Windows.Forms.ToolStripMenuItem mnuReturn;
     }
 }

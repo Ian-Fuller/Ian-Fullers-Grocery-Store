@@ -54,6 +54,7 @@ namespace SP21_Final_Project
             this.lblSaturday = new System.Windows.Forms.Label();
             this.lblWeek = new System.Windows.Forms.Label();
             this.btnCreateSchedule = new System.Windows.Forms.Button();
+            this.mnuReturn = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuBar.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -71,7 +72,8 @@ namespace SP21_Final_Project
             // mnuFile
             // 
             this.mnuFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mnuClose});
+            this.mnuClose,
+            this.mnuReturn});
             this.mnuFile.Name = "mnuFile";
             this.mnuFile.Size = new System.Drawing.Size(37, 20);
             this.mnuFile.Text = "&File";
@@ -79,7 +81,7 @@ namespace SP21_Final_Project
             // mnuClose
             // 
             this.mnuClose.Name = "mnuClose";
-            this.mnuClose.Size = new System.Drawing.Size(103, 22);
+            this.mnuClose.Size = new System.Drawing.Size(180, 22);
             this.mnuClose.Text = "&Close";
             this.mnuClose.Click += new System.EventHandler(this.mnuClose_Click);
             // 
@@ -256,6 +258,13 @@ namespace SP21_Final_Project
             this.btnCreateSchedule.UseVisualStyleBackColor = true;
             this.btnCreateSchedule.Click += new System.EventHandler(this.btnCreateSchedule_Click);
             // 
+            // mnuReturn
+            // 
+            this.mnuReturn.Name = "mnuReturn";
+            this.mnuReturn.Size = new System.Drawing.Size(180, 22);
+            this.mnuReturn.Text = "Return to &Main";
+            this.mnuReturn.Click += new System.EventHandler(this.mnuReturn_Click);
+            // 
             // frmScheduleAdd
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -321,5 +330,6 @@ namespace SP21_Final_Project
         private System.Windows.Forms.Button btnCreateSchedule;
         private System.Windows.Forms.ToolStripMenuItem mnuHelp;
         private System.Windows.Forms.ToolStripMenuItem mnuCreateSchedules;
+        private System.Windows.Forms.ToolStripMenuItem mnuReturn;
     }
 }

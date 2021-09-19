@@ -28,6 +28,8 @@ namespace SP21_Final_Project
         {
             try
             {
+                FormCloser.lstOpenedForms.Add(this);
+
                 MaximizeBox = false;
 
                 lstRequests = DB.GetRequests();
@@ -76,6 +78,11 @@ namespace SP21_Final_Project
         private void mnuRespond_Click(object sender, EventArgs e)
         {
             Help.HelpRespond();
+        }
+
+        private void mnuReturn_Click(object sender, EventArgs e)
+        {
+            FormCloser.returnToMain();
         }
     }
 }

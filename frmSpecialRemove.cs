@@ -48,6 +48,8 @@ namespace SP21_Final_Project
         {
             try
             {
+                FormCloser.lstOpenedForms.Add(this);
+
                 MaximizeBox = false;
 
                 //Fills the combo box with the current specials
@@ -69,6 +71,11 @@ namespace SP21_Final_Project
         private void mnuRemoveSpecial_Click(object sender, EventArgs e)
         {
             Help.HelpRemoveSpecial();
+        }
+
+        private void mnuReturn_Click(object sender, EventArgs e)
+        {
+            FormCloser.returnToMain();
         }
     }
 }

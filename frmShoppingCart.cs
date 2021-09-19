@@ -24,6 +24,8 @@ namespace SP21_Final_Project
         {
             try
             {
+                FormCloser.lstOpenedForms.Add(this);
+
                 MaximizeBox = false;
 
                 //Fills the list box with the items in the cart
@@ -131,6 +133,11 @@ namespace SP21_Final_Project
         private void mnuShoppingCart_Click(object sender, EventArgs e)
         {
             Help.HelpShoppingCart();
+        }
+
+        private void mnuReturn_Click(object sender, EventArgs e)
+        {
+            FormCloser.returnToMain();
         }
     }
 }
