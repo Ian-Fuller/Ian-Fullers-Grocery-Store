@@ -145,7 +145,7 @@ namespace SP21_Final_Project
                     long lngLength = reader.GetBytes(5, 0, null, 0, 0); //Gets length of bytes in field
                     byte[] arrBuffer = new byte[lngLength]; //Makes a buffer based on that length
                     reader.GetBytes(5, 0, arrBuffer, 0, (int)lngLength); //Reads the bytes into the array
-                    lstPanels.Add(new SpecialPanel(reader.GetInt32(0), reader.GetString(1), (double)reader.GetDecimal(2), reader.GetString(3), reader.GetInt32(4), arrBuffer, 0, 0, reader.GetInt32(6), reader.GetString(7)));
+                    lstPanels.Add(new SpecialPanel(reader.GetInt32(0), reader.GetString(1), (double)reader.GetDecimal(2), reader.GetString(3), reader.GetInt32(4), arrBuffer, 0, 0, (int)reader.GetDecimal(6), reader.GetString(7)));
                 }
 
                 reader.Close();
@@ -1295,7 +1295,7 @@ namespace SP21_Final_Project
             }
             catch(Exception ex)
             {
-                MessageBox.Show("Cannot add schedule", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Cannot add schedule" + " " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
