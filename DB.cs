@@ -3,6 +3,7 @@
 //Program purpose: Application that will allow the user to make purchases from a grocery store
 
 //This class is used for database interaction
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
