@@ -30,9 +30,13 @@ C:\Users\ianfu\Desktop\SP21-FullerI\SP21-FullerI\obj\Release\SP21-Final Project.
 C:\Users\ianfu\Desktop\SP21-FullerI\SP21-FullerI\obj\Release\SP21-Final Project.csproj.CoreCompileInputs.cache
 C:\Users\ianfu\Desktop\SP21-FullerI\SP21-FullerI\obj\Release\SP21-Final Project.exe
 C:\Users\ianfu\Desktop\SP21-FullerI\SP21-FullerI\obj\Release\SP21-Final Project.pdb
+C:\Users\ianfu\Desktop\Ian-Fullers-Grocery-Store\bin\Release\StoreDatabase.mdf
+C:\Users\ianfu\Desktop\Ian-Fullers-Grocery-Store\bin\Release\StoreDatabase_log.ldf
 C:\Users\ianfu\Desktop\Ian-Fullers-Grocery-Store\bin\Release\SP21-Final Project.exe.config
 C:\Users\ianfu\Desktop\Ian-Fullers-Grocery-Store\bin\Release\SP21-Final Project.exe
 C:\Users\ianfu\Desktop\Ian-Fullers-Grocery-Store\bin\Release\SP21-Final Project.pdb
+C:\Users\ianfu\Desktop\Ian-Fullers-Grocery-Store\obj\Release\SP21-Final Project.csproj.AssemblyReference.cache
+C:\Users\ianfu\Desktop\Ian-Fullers-Grocery-Store\obj\Release\SP21-Final Project.csproj.SuggestedBindingRedirects.cache
 C:\Users\ianfu\Desktop\Ian-Fullers-Grocery-Store\obj\Release\SP21_Final_Project.frmEmployees.resources
 C:\Users\ianfu\Desktop\Ian-Fullers-Grocery-Store\obj\Release\SP21_Final_Project.frmLogin.resources
 C:\Users\ianfu\Desktop\Ian-Fullers-Grocery-Store\obj\Release\SP21_Final_Project.frmMain.resources

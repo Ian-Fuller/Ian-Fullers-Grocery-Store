@@ -20,8 +20,10 @@ namespace SP21_Final_Project
     class DB
     {
         //Database Connection
+        //DEBUG:    "AttachDbFilename = " + Application.StartupPath + "\\StoreDatabase.mdf;";
+        //RELEASE:  "AttachDbFilename = " + "C:\\ProgramData" + "\\Ian's Grocery Store\\StoreDatabase.mdf;";
         private static SqlConnection _cntDatabase = new SqlConnection("Data Source = (LocalDB)\\MSSQLLocalDB;" +
-                                                                      "AttachDbFilename = " + Application.StartupPath + "\\StoreDatabase.mdf;" +
+                                                                      "AttachDbFilename = " + "C:\\ProgramData" + "\\Ian's Grocery Store\\StoreDatabase.mdf;" +
                                                                       "Integrated Security = True;" +
                                                                       "Connection Timeout = 30");
 

@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30804.86
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32505.173
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SP21-Final Project", "SP21-Final Project.csproj", "{F70EBD24-52AE-435B-B376-4356C2B95D57}"
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Ian's Grocery Store", "..\Ian's Grocery Store\Ian's Grocery Store.vdproj", "{EB8D1EA2-14F0-4CDE-9457-17410E2620A9}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "IGS_Installer", "IGS_Installer\IGS_Installer.vdproj", "{91EFDD49-8419-4A3E-B9A4-BE1A2251F413}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,6 +21,8 @@ Global
 		{F70EBD24-52AE-435B-B376-4356C2B95D57}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EB8D1EA2-14F0-4CDE-9457-17410E2620A9}.Debug|Any CPU.ActiveCfg = Debug
 		{EB8D1EA2-14F0-4CDE-9457-17410E2620A9}.Release|Any CPU.ActiveCfg = Release
+		{91EFDD49-8419-4A3E-B9A4-BE1A2251F413}.Debug|Any CPU.ActiveCfg = Debug
+		{91EFDD49-8419-4A3E-B9A4-BE1A2251F413}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
