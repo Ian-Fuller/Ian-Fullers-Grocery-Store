@@ -20,8 +20,8 @@ namespace SP21_Final_Project
     class DB
     {
         //Database Connection
-        //DEBUG:    "AttachDbFilename = " + Application.StartupPath + "\\StoreDatabase.mdf;";
-        //RELEASE:  "AttachDbFilename = " + "C:\\ProgramData" + "\\Ian's Grocery Store\\StoreDatabase.mdf;";
+        //DEBUG:    "AttachDbFilename = " + Application.StartupPath + "\\StoreDatabase.mdf;" +
+        //RELEASE:  "AttachDbFilename = " + "C:\\ProgramData" + "\\Ian's Grocery Store\\StoreDatabase.mdf;" +
         private static SqlConnection _cntDatabase = new SqlConnection("Data Source = (LocalDB)\\MSSQLLocalDB;" +
                                                                       "AttachDbFilename = " + "C:\\ProgramData" + "\\Ian's Grocery Store\\StoreDatabase.mdf;" +
                                                                       "Integrated Security = True;" +
@@ -222,7 +222,22 @@ namespace SP21_Final_Project
             }
             catch(Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error Making Purchase", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (!ex.ToString().Contains("read-only"))
+                {
+                    MessageBox.Show(ex.Message, "Error Making Purchase", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    DialogResult response = MessageBox.Show(
+                                    "The current user does not have permission to edit the database. Click \"OK\" to get instructions on how to fix the problem.",
+                                    "Failed to add product",
+                                    MessageBoxButtons.YesNo,
+                                    MessageBoxIcon.Error);
+                    if (response == DialogResult.Yes)
+                    {
+                        Help.HelpDatabasePermissions();
+                    }
+                }
             }
         }
 
@@ -261,7 +276,22 @@ namespace SP21_Final_Project
             }
             catch (SqlException ex)
             {
-                ShowSQLException(ex, "Failed to add product");
+                if (!ex.ToString().Contains("read-only"))
+                {
+                    ShowSQLException(ex, "Failed to add product");
+                }
+                else
+                {
+                    DialogResult response = MessageBox.Show(
+                                    "The current user does not have permission to edit the database. Click \"OK\" to get instructions on how to fix the problem.",
+                                    "Failed to add product",
+                                    MessageBoxButtons.YesNo,
+                                    MessageBoxIcon.Error);
+                    if (response == DialogResult.Yes)
+                    {
+                        Help.HelpDatabasePermissions();
+                    }
+                }
             }
         }
         //Removes product from products table
@@ -298,7 +328,22 @@ namespace SP21_Final_Project
             }
             catch (SqlException ex)
             {
-                ShowSQLException(ex, "Failed to remove product");
+                if (!ex.ToString().Contains("read-only"))
+                {
+                    ShowSQLException(ex, "Failed to remove product");
+                }
+                else
+                {
+                    DialogResult response = MessageBox.Show(
+                                    "The current user does not have permission to edit the database. Click \"OK\" to get instructions on how to fix the problem.",
+                                    "Failed to add product",
+                                    MessageBoxButtons.YesNo,
+                                    MessageBoxIcon.Error);
+                    if (response == DialogResult.Yes)
+                    {
+                        Help.HelpDatabasePermissions();
+                    }
+                }
             }
         }
         //Updates product value by column name passed in
@@ -425,7 +470,22 @@ namespace SP21_Final_Project
             }
             catch (SqlException ex)
             {
-                ShowSQLException(ex, "Failed to update product");
+                if (!ex.ToString().Contains("read-only"))
+                {
+                    ShowSQLException(ex, "Failed to update product");
+                }
+                else
+                {
+                    DialogResult response = MessageBox.Show(
+                                    "The current user does not have permission to edit the database. Click \"OK\" to get instructions on how to fix the problem.",
+                                    "Failed to add product",
+                                    MessageBoxButtons.YesNo,
+                                    MessageBoxIcon.Error);
+                    if (response == DialogResult.Yes)
+                    {
+                        Help.HelpDatabasePermissions();
+                    }
+                }
             }
         }
 
@@ -458,7 +518,22 @@ namespace SP21_Final_Project
             }
             catch(Exception ex)
             {
-                MessageBox.Show("Error adding special", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (!ex.ToString().Contains("read-only"))
+                {
+                    MessageBox.Show("Error adding special", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    DialogResult response = MessageBox.Show(
+                                    "The current user does not have permission to edit the database. Click \"OK\" to get instructions on how to fix the problem.",
+                                    "Failed to add product",
+                                    MessageBoxButtons.YesNo,
+                                    MessageBoxIcon.Error);
+                    if (response == DialogResult.Yes)
+                    {
+                        Help.HelpDatabasePermissions();
+                    }
+                }
             }
         }
         //remove special
@@ -487,7 +562,22 @@ namespace SP21_Final_Project
             }
             catch (SqlException ex)
             {
-                ShowSQLException(ex, "Failed to remove special");
+                if (!ex.ToString().Contains("read-only"))
+                {
+                    ShowSQLException(ex, "Failed to remove special");
+                }
+                else
+                {
+                    DialogResult response = MessageBox.Show(
+                                    "The current user does not have permission to edit the database. Click \"OK\" to get instructions on how to fix the problem.",
+                                    "Failed to add product",
+                                    MessageBoxButtons.YesNo,
+                                    MessageBoxIcon.Error);
+                    if (response == DialogResult.Yes)
+                    {
+                        Help.HelpDatabasePermissions();
+                    }
+                }
             }
         }
         //Updates special value by column name passed in
@@ -593,7 +683,22 @@ namespace SP21_Final_Project
             }
             catch (SqlException ex)
             {
-                ShowSQLException(ex, "Failed to update special");
+                if (!ex.ToString().Contains("read-only"))
+                {
+                    ShowSQLException(ex, "Failed to update special");
+                }
+                else
+                {
+                    DialogResult response = MessageBox.Show(
+                                    "The current user does not have permission to edit the database. Click \"OK\" to get instructions on how to fix the problem.",
+                                    "Failed to add product",
+                                    MessageBoxButtons.YesNo,
+                                    MessageBoxIcon.Error);
+                    if (response == DialogResult.Yes)
+                    {
+                        Help.HelpDatabasePermissions();
+                    }
+                }
             }
         }
 
@@ -1137,7 +1242,22 @@ namespace SP21_Final_Project
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Cannot update information", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (!ex.ToString().Contains("read-only"))
+                {
+                    MessageBox.Show("Cannot update information", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    DialogResult response = MessageBox.Show(
+                                    "The current user does not have permission to edit the database. Click \"OK\" to get instructions on how to fix the problem.",
+                                    "Failed to add product",
+                                    MessageBoxButtons.YesNo,
+                                    MessageBoxIcon.Error);
+                    if (response == DialogResult.Yes)
+                    {
+                        Help.HelpDatabasePermissions();
+                    }
+                }
             }
         }
 
@@ -1298,7 +1418,22 @@ namespace SP21_Final_Project
             }
             catch(Exception ex)
             {
-                MessageBox.Show("Cannot add schedule" + " " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (!ex.ToString().Contains("read-only"))
+                {
+                    MessageBox.Show("Cannot add schedule" + " " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    DialogResult response = MessageBox.Show(
+                                    "The current user does not have permission to edit the database. Click \"OK\" to get instructions on how to fix the problem.",
+                                    "Failed to add product",
+                                    MessageBoxButtons.YesNo,
+                                    MessageBoxIcon.Error);
+                    if (response == DialogResult.Yes)
+                    {
+                        Help.HelpDatabasePermissions();
+                    }
+                }
             }
         }
 
@@ -1330,7 +1465,22 @@ namespace SP21_Final_Project
             }
             catch(Exception ex)
             {
-                MessageBox.Show("Cannot remove schedule", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (!ex.ToString().Contains("read-only"))
+                {
+                    MessageBox.Show("Cannot remove schedule", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    DialogResult response = MessageBox.Show(
+                                    "The current user does not have permission to edit the database. Click \"OK\" to get instructions on how to fix the problem.",
+                                    "Failed to add product",
+                                    MessageBoxButtons.YesNo,
+                                    MessageBoxIcon.Error);
+                    if (response == DialogResult.Yes)
+                    {
+                        Help.HelpDatabasePermissions();
+                    }
+                }
             }
         }
         //Updates schedule
@@ -1361,7 +1511,22 @@ namespace SP21_Final_Project
             }
             catch(Exception ex)
             {
-                MessageBox.Show("Cannot update schedule", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (!ex.ToString().Contains("read-only"))
+                {
+                    MessageBox.Show("Cannot update schedule", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    DialogResult response = MessageBox.Show(
+                                    "The current user does not have permission to edit the database. Click \"OK\" to get instructions on how to fix the problem.",
+                                    "Failed to add product",
+                                    MessageBoxButtons.YesNo,
+                                    MessageBoxIcon.Error);
+                    if (response == DialogResult.Yes)
+                    {
+                        Help.HelpDatabasePermissions();
+                    }
+                }
             }
         }
         //SCHEDULING END---------------------------------------------------------------------------------------------------------------------------------------------
@@ -1401,7 +1566,22 @@ namespace SP21_Final_Project
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error requesting change", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (!ex.ToString().Contains("read-only"))
+                {
+                    MessageBox.Show("Error requesting change", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    DialogResult response = MessageBox.Show(
+                                    "The current user does not have permission to edit the database. Click \"OK\" to get instructions on how to fix the problem.",
+                                    "Failed to add product",
+                                    MessageBoxButtons.YesNo,
+                                    MessageBoxIcon.Error);
+                    if (response == DialogResult.Yes)
+                    {
+                        Help.HelpDatabasePermissions();
+                    }
+                }
             }
         }
         //gets requests so managers can see them
@@ -1451,7 +1631,22 @@ namespace SP21_Final_Project
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error updating request", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (!ex.ToString().Contains("read-only"))
+                {
+                    MessageBox.Show("Error updating request", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    DialogResult response = MessageBox.Show(
+                                    "The current user does not have permission to edit the database. Click \"OK\" to get instructions on how to fix the problem.",
+                                    "Failed to add product",
+                                    MessageBoxButtons.YesNo,
+                                    MessageBoxIcon.Error);
+                    if (response == DialogResult.Yes)
+                    {
+                        Help.HelpDatabasePermissions();
+                    }
+                }
             }
         }
         //REQUESTS END----------------------------------------------------------------------------------------------------------------------------------------------
@@ -1472,7 +1667,22 @@ namespace SP21_Final_Project
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error updating and sending password", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (!ex.ToString().Contains("read-only"))
+                {
+                    MessageBox.Show("Error updating and sending password", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    DialogResult response = MessageBox.Show(
+                                    "The current user does not have permission to edit the database. Click \"OK\" to get instructions on how to fix the problem.",
+                                    "Failed to add product",
+                                    MessageBoxButtons.YesNo,
+                                    MessageBoxIcon.Error);
+                    if (response == DialogResult.Yes)
+                    {
+                        Help.HelpDatabasePermissions();
+                    }
+                }
             }
         }
         //Requces the quantity of a product when the customer makes a purchase
@@ -1515,7 +1725,22 @@ namespace SP21_Final_Project
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error purchasing", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (!ex.ToString().Contains("read-only"))
+                {
+                    MessageBox.Show("Error purchasing", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    DialogResult response = MessageBox.Show(
+                                    "The current user does not have permission to edit the database. Click \"OK\" to get instructions on how to fix the problem.",
+                                    "Failed to add product",
+                                    MessageBoxButtons.YesNo,
+                                    MessageBoxIcon.Error);
+                    if (response == DialogResult.Yes)
+                    {
+                        Help.HelpDatabasePermissions();
+                    }
+                }
                 return false;
             }
 

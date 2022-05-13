@@ -15,13 +15,19 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_02A329673E464608BE75CFACA2FFE443"
+        "MsmKey" = "8:_0825E311D98149A999FA96F0F328DE42"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_2310A47143914E15939F6C7F7B0E236A"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_BA9E75E81C3F46E6AEDE4822ABBD4D42"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -35,12 +41,6 @@
         {
         "MsmKey" = "8:_D88F8FB9F02006C2FB7C068CA0945F01"
         "OwnerKey" = "8:_C43DC66F66BE45AE9E8709C9CF1A2262"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_FCF45FDA094048DAB04CF59DF606A3E3"
-        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -80,6 +80,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    }
+                }
             }
         }
         "Release"
@@ -142,7 +150,7 @@
         }
         "File"
         {
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_02A329673E464608BE75CFACA2FFE443"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_0825E311D98149A999FA96F0F328DE42"
             {
             "SourcePath" = "8:..\\StoreDatabase.mdf"
             "TargetName" = "8:StoreDatabase.mdf"
@@ -168,6 +176,26 @@
             "TargetName" = "8:GroceryStoreLogo64x64.ico"
             "Tag" = "8:"
             "Folder" = "8:_7976B21D74B74D8F85906198E96E79F2"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_BA9E75E81C3F46E6AEDE4822ABBD4D42"
+            {
+            "SourcePath" = "8:..\\StoreDatabase_log.ldf"
+            "TargetName" = "8:StoreDatabase_log.ldf"
+            "Tag" = "8:"
+            "Folder" = "8:_559E21FD0EF44FEFADF9E21635BB218B"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -211,26 +239,6 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_FCF45FDA094048DAB04CF59DF606A3E3"
-            {
-            "SourcePath" = "8:..\\StoreDatabase_log.ldf"
-            "TargetName" = "8:StoreDatabase_log.ldf"
-            "Tag" = "8:"
-            "Folder" = "8:_559E21FD0EF44FEFADF9E21635BB218B"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
         }

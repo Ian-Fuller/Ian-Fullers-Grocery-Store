@@ -22,6 +22,12 @@ namespace SP21_Final_Project
             }
         }
 
+        //DATABASE PERMISSIONS
+        public static void HelpDatabasePermissions()
+        {
+            OpenHelp("DatabasePermissionsHelp");
+        }
+
         //CUSTOMERS START--------------------------------------------------------------------------------------------------------------------------------------------
         public static void HelpProducts()//
         {
