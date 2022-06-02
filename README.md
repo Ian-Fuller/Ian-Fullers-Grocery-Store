@@ -1,13 +1,13 @@
 ![alt text](https://github.com/Ian-Fuller/Ian-Fullers-Grocery-Store/blob/main/Images/GroceryStoreLogo64x64.png "My Logo")
 
 # **Ian's Grocery Store**
-This project serves as a demonstration of my software development skills so that it may be used in a portfolio. The project was originally developed during my 5th semester at TSTC in which the project was the primary focus of the class for the entire semester, and I ended up receiving a grade of 85 (This was considered an A for some reason). Since then, the databases for the project had been deleted since they were hosted by TSTC, so I decided to continue working on the project so I could re-create the databases, and make some minor improvements so that it better reflects my software development skills as of now.
+This project serves as a demonstration of my software development skills so that it may be used in a portfolio. The project was originally developed during my 5th semester at TSTC in which the project was the primary focus of the class for the entire semester, and I ended up receiving a grade of 85 (This was considered an A for some reason). The database was deleted after the semester since it was hosted by TSTC. This is a repaired version of the project which uses a local database. This project was designed only to meet all of the requirements for the assignment, so it is mising some features an actual program would be expected to have. Users cannot be added through the program, but there are some logins in the "LoginsAndProducts" folder. This folder also contains product information and images that can be used to populate the rest of the tables since most of thm are empty, but any information and images can be used, just as long as they are valid. 
 
-This is an pplication that a customer can use to order groceries, and the employees and managers can use to operate the store.
+This is an application that a customer can use to order groceries, and the employees and managers can use to operate the store.
 
 ## Detailed Description
 
-The application that the customer will use will display pages of products that they can cycle through. They can choose to get more information on the products, or add the product to their cart. There will also be a specials menu at the bottom of the screen what will take up less space, but work in a similar fashion. The employees and managers will each have their own applications as well that they must log into, but these applications will be used for them to perform their respective duties.
+The application that the customer will use will display pages of products that they can cycle through. They can choose to get more information on the products, or add the product to their cart. There will also be a specials menu at the side of the screen what will take up less space, but work in a similar fashion. The employees and managers will be capable of logging into the program so they can fulfill their respective duties.
 
 ### Project Introduction
 
