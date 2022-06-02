@@ -1,0 +1,3 @@
+JDoe     | 12345  | (Manager)
+NKurtz   | 123321 | (Employee)
+JosjFoch | 111223 | (Employee)

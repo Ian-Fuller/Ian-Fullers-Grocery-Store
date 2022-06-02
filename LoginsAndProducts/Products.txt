@@ -1,0 +1,11 @@
+Apples                 | 1.30 | 1.00 | 4 Apples    | 23
+Asparagus              | 4.10 | 3.20 | 10oz        | 20
+Baguette               | 2.99 | 1.52 | 1 Baguette  | 11
+Bananas                | 1.99 | 0.76 | 6 Bananas   | 20
+Blue Cheese            | 9.99 | 7.50 | 1lb         | 17
+Chocolate Chip Cookies | 4.99 | 3.99 | 2.25lb      | 15
+Eggs                   | 6.99 | 3.98 | 1 Dozen     | 22
+Milk                   | 3.49 | 1.25 | Half-Gallon | 30
+Pears                  | 1.52 | 0.67 | 2 Pears     | 18
+Spinach                | 1.39 | 0.50 | 10oz        | 14
+Water Bottle           | 0.55 | 0.20 | 16oz        | 57
