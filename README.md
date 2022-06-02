@@ -1,4 +1,4 @@
-![alt text](https://github.com/JamesFlippin/SP21-FullerI/blob/main/Images/GroceryStoreLogo64x64.png "My Logo")
+![alt text](https://github.com/Ian-Fuller/Ian-Fullers-Grocery-Store/blob/main/Images/GroceryStoreLogo64x64.png "My Logo")
 
 # **Ian's Grocery Store**
 This project serves as a demonstration of my software development skills so that it may be used in a portfolio. The project was originally developed during my 5th semester at TSTC in which the project was the primary focus of the class for the entire semester, and I ended up receiving a grade of 85 (This was considered an A for some reason). Since then, the databases for the project had been deleted since they were hosted by TSTC, so I decided to continue working on the project so I could re-create the databases, and make some minor improvements so that it better reflects my software development skills as of now.
@@ -20,7 +20,7 @@ The application that the customer will use will display pages of products that t
 Type | Description
 -----|-------------
 Language | C#
-Development Environment | Visual Studio 2019 Community Edition
+Development Environment | Visual Studio 2019 Community Edition, Visual Studio 2022 Community Edition
 SQL Server Type | Local Database (.mdf File) (MSSQL)
 Target Environment | Windows 10 Desktop
 Target Audience | Customers, employees, and managers of a grocery store. Could be used as a store for other types of products.
